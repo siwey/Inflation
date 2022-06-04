@@ -3,15 +3,15 @@ library(dplyr)
 library(ggplot2)
 
 
-ct <- c("AU","BE","BG","CH","CY","CZ","DE","DK","EE","EL","ES","FI","FR","HR","HU","IE","IS","IT","LI","LU","LT","LV","MT","NL","NO","PL","PT","RO","SE","SI","SK","UK")
+ct <- c("AU","AT","BE","BG","CH","CY","CZ","DE","DK","EE","EL","ES","FI","FR","HR","HU","IE","IS","IT","LI","LU","LT","LV","MT","NL","NO","PL","PT","RO","SE","SI","SK","UK")
 ct2 <- c("AU","BE","BG","CH","CY","CZ","DE","DK","EE","EL","ES","FI","FR","HR","HU","IE","IT","LI","LT","LV","NL","NO","PL","PT","RO","SE","SI","SK","UK")
 
-z <- c("CP00","TOT_X_NRG_FOOD")
+z <- c("NRG","CP011","ELC_GAS","CP0114","CP0451")
 
 
 dat <- get_eurostat(id="prc_hicp_manr")
 
-dat_2020 <- filter(dat,unit=="RCH_A", coicop %in% z, geo=="CH",time>="2010-03-01") #geo==ct)) & indic_is==ty))#time="2019-01-01")# & indic_is=ty)
+dat_2020 <- filter(dat,unit=="RCH_A", coicop %in% z, geo =="CH",time>="1970-03-01") #geo==ct)) & indic_is==ty))#time="2019-01-01")# & indic_is=ty)
 
 
 sel <- dat_2020 %>%
@@ -28,11 +28,16 @@ wide_out <- sel %>%
   pivot_wider(names_from = coicop,
               values_from = values)
 
+
+
 wide_out |>
   e_charts(time) |>
-  e_line(CP00, name = "Total",lineStyle=list(width=2.0),symbol='none') |>
-  e_line(TOT_X_NRG_FOOD, name = "Total, ohne Energy und Nahrungsmittel (Kerninflation)",lineStyle=list(width=2.0),symbol='none') |>
- # e_line(USA, name = "USA",lineStyle=list(width=2.0),symbol='none') |>
+  e_line(NRG, name = "Energie",lineStyle=list(width=2.0),symbol='none') |>
+  e_line(ELC_GAS, name = "Elektrizität und Gas",lineStyle=list(width=2.0),symbol='none') |>
+  e_line(CP0451, name = "Elektrizität",lineStyle=list(width=2.0),symbol='none') |>
+  e_line(CP011, name = "Essen",lineStyle=list(width=2.0),symbol='none') |>
+  e_line(CP0114, name = "Milch, Käse und Eier",lineStyle=list(width=2.0),symbol='none') |>
+  # e_line(USA, name = "USA",lineStyle=list(width=2.0),symbol='none') |>
 #  e_line(EU27_2020, name = "EU-27",lineStyle=list(width=2.0),symbol='none') |>
   e_text_style(fontSize=20) |>
   e_tooltip(formatter = htmlwidgets::JS("

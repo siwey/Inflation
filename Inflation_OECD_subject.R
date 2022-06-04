@@ -32,11 +32,11 @@ wide_out <- sel %>%
 
 wide_out |>
   e_charts(obsTime) |>
-  e_line(CPALTT01, name = "Total",lineStyle=list(width=1.5)) |>
-  e_line(CPGRLE01, name = "Total, ohne Energie und Essen",lineStyle=list(width=1.5)) |>
-  e_line(CPGREN01, name = "Energie",lineStyle=list(width=1.5)) |>
-  e_line(CP010000, name = "Essen",lineStyle=list(width=1.5)) |>
-  e_line(CP070200, name = "Treibstoff für personlichen Verkehr") |>
+  e_line(CPALTT01, name = "Total",lineStyle=list(width=1.5),symbol='none') |>
+  e_line(CPGRLE01, name = "Total, ohne Energie und Nahrungsmittel",lineStyle=list(width=1.5),symbol='none') |>
+  e_line(CPGREN01, name = "Energie",lineStyle=list(width=1.5),symbol='none') |>
+  e_line(CP010000, name = "Essen",lineStyle=list(width=1.5),symbol='none') |>
+  e_line(CP070200, name = "Treibstoff für personlichen Verkehr",lineStyle=list(width=1.5),symbol='none') |>
 #  e_line(FRA, name = "Frankreich") |>
   #e_tooltip(trigger="a
   #e_text_style(fontSize=30) |>

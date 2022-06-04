@@ -1,0 +1,237 @@
+---
+title: "INFLATION, QUO VADIS?"
+author: "Simon Wey"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+bibliography: reference.bib  
+csl: elsevier-harvard.csl
+output:
+  pdf_document:
+    template: null
+  html_document:
+    df_print: paged
+    
+abstract:
+- Die steigenden Inflationsraten beschäftigen nicht nur Konsumentinnen und Konsu-menten
+  immer stärker, sondern auch die Politik, die sich überlegen muss, ob und wie sie
+  gegen den Kaufkraftverlust vorgehen will.
+- Die preistreibenden Entwicklungen als Folge des Ukrainekriegs wie auch der Folgen
+  der Corona-Pandemie überlagern die zugrundeliegende Teuerung aufgrund der expansiven
+  Geldpolitik der Notenbanken in den letzten Jahren.
+- Eine vergleichbare Situation in Vergangenheit war die «Great depression»-Krise in
+  den 70er-Jahren. - Trotz einigen Parallelen gibt es auch gewichtige Unterschiede
+  bei den Ur-sachen, so etwa, dass die Inflation stärker anstieg und sie sich breiter
+  über die Bran-chen hinweg manifestierte als heute. Durch die starke Intervention
+  der Nationalbanken wurde zudem das Wirtschaftswachstum abgeschwächt, wodurch ein
+  «hard landing» eintrat und das Phänomen der Stagflation geboren wurde.
+- Eine Mehrheit der von NZZ und KOF befragten Ökonomen gehen von einem temporären
+  Anstieg der Inflation aus. Dafür sprechen gewichtige Gründe, etwa die sich abzeichnen-den
+  Interventionen der Notenbanken, das Auslaufen der fiskalischen Zahlungen zur Überwindung
+  der Corona-Pandemie oder auch die Überwindung der Auswirkungen der gestiegenen Rohstoffpreise
+  und der Lieferengpässe. Auch haben die strukturellen Rahmenbedingungen die Inflation
+  in Vergangenheit auf tieferem Niveau als heute stabi-lisiert. Haben diese weiterhin
+  Bestand, so dürften sich auch diese negativ auf die Höhe der Inflation auswirken.
+  Des Weiteren spielen auch die Inflationserwartungen eine zent-rale Rolle, die wiederum
+  stark von der Glaubwürdigkeit der Notenbanken abhängen.
+tags:
+- nothing
+- nothingness
+---
+\renewcommand{\figurename}{Abbildung}   
+
+
+```{r plot0, echo=FALSE,  include=FALSE, message=FALSE,warning=FALSE}
+library(OECD)
+library(tidyverse)
+library(ggplot2)
+library(echarts4r)
+library(zoo)
+
+dataset <- "PRICES_CPI"
+
+#dstruc <- get_data_structure(dataset)
+#df <- data.frame(dstruc$MEASURE$id,dstruc$MEASURE$label)
+
+filter_list <- list(c("CHE","DEU","EU27_2020","USA"),'CPALTT01','GY',c("A","M"))#, 'CP00', 'GP')#, 'M', 'AVGRW')#, 'P1M') #c("AUT","ITA","CHE","DEU","FRA")
+filter_list2 <- list(c("CHE","DEU","EU27_2020","USA"),'CPALTT01','GY','M')#, 'CP00', 'GP')#, 'M', 'AVGRW')#, 'P1M') #c("AUT","ITA","CHE","DEU","FRA")
+
+de <- get_dataset(dataset,filter=filter_list)
+
+
+de$LOCATION[de$LOCATION=="CHE"] <- "Schweiz"
+de$LOCATION[de$LOCATION=="DEU"] <- "Deutschland"
+de$LOCATION[de$LOCATION=="USA"] <- "USA"
+de$LOCATION[de$LOCATION=="EU27_2020"] <- "EU-27"
+
+sel_M <- de %>%
+  filter(obsTime >= 2000,
+         FREQUENCY == "M"
+  ) |>
+  select(obsTime, LOCATION, obsValue)
+
+sel_A <- de %>%
+  filter(obsTime >= 2010,
+         FREQUENCY == "A"
+  ) |>
+  select(obsTime, LOCATION, obsValue)
+
+
+
+sel_M$obsTime <- as.Date(paste(sel_M$obsTime,1,sep="-"),"%Y-%m-%d")
+sel_A$obsTime <- as.Date(paste(sel_A$obsTime,1,sep="-"),"%Y")
+
+p <- ggplot(sel_M, aes(x=obsTime, y=obsValue, color = LOCATION, label=LOCATION)) +
+  geom_line(data = sel_M, aes(x = obsTime, y = obsValue),size=.6)+
+  #  geom_text(data=dat %>% group_by(geo)%>% filter(time==max(time)),size=2.6) + 
+  # theme(legend.position="left")+
+  #  scale_color_manual(values = c("#8E44AD", "#F1C40F","#34495E","#138D75","#E74C3C","#F8C471"))+
+  labs(#title = "Erwerbslosenrate",
+    #subtitle = "Quelle: Eurostat",
+    y = "",
+    x = "") +
+  theme_minimal()+
+  theme(legend.position="top",legend.title=element_blank()) + 
+  coord_fixed(ratio=250) +  
+  #ggtitle("Inflationsraten - excluding energy")+
+  theme(text = element_text(size = 15))+
+  scale_y_continuous(labels = function(x) paste0(x*1, "%")) +
+  scale_x_date(date_breaks = "15 month", date_labels ="%m-%Y")+
+  theme(axis.text.x = element_text(angle = 40))
+pdf('~/Repos/Inflation/graphics/infl_country_M.pdf')
+print(p)
+dev.off()
+p <- ggplot(sel_A, aes(x=obsTime, y=obsValue, color = LOCATION, label=LOCATION)) +
+  geom_line(data = sel_A, aes(x = obsTime, y = obsValue),size=.6)+
+  #  geom_text(data=dat %>% group_by(geo)%>% filter(time==max(time)),size=2.6) + 
+  # theme(legend.position="left")+
+  #  scale_color_manual(values = c("#8E44AD", "#F1C40F","#34495E","#138D75","#E74C3C","#F8C471"))+
+  labs(#title = "Erwerbslosenrate",
+    #subtitle = "Quelle: Eurostat",
+    y = "",
+    x = "") +
+  theme_minimal()+
+  theme(legend.position="top",legend.title=element_blank()) + 
+  coord_fixed(ratio=250) +  
+  #ggtitle("Inflationsraten - excluding energy")+
+  theme(text = element_text(size = 15))+
+  scale_y_continuous(labels = function(x) paste0(x*1, "%")) +
+  scale_x_date(date_breaks = "15 month", date_labels =  "%Y")+#"%m-%Y")+
+  theme(axis.text.x = element_text(angle = 40))
+pdf('~/Repos/Inflation/graphics/infl_country_A.pdf')
+print(p)
+dev.off()
+```
+
+\begin{figure} \centering
+\includegraphics[trim={0 5.5cm 0 0cm },clip]{~/Repos/Inflation/graphics/infl_country_M.pdf}
+\caption{Erwerbslosenquoten von Personen unterschiedlichen Alters in der Schweiz}
+\label{Inf_M}
+\end{figure}
+
+\begin{figure} \centering
+\includegraphics[trim={0 5.5cm 0 0cm },clip]{~/Repos/Inflation/graphics/infl_country_A.pdf}
+\caption{Erwerbslosenquoten von Personen unterschiedlichen Alters in der Schweiz}
+\label{Inf_A}
+\end{figure}
+
+# Ausgangslage
+
+@kof Zu hohe Teuerungsraten sind ökonomisch schädlich und können zu sozialen und politischen Verwer-fungen führen. Im März 2022 lagen die Inflationsraten in den USA bei 8.5 Prozent, in Deutschland bei 7.3 Prozent und in der EU-27 bei 7.8 Prozent. Dagegen war die Inflationsrate in der Schweiz mit 2.4 Prozent (vgl. Abbildung \ref{Inf_M}) vergleichsweise moderat. Sie lag jedoch auch hierzulande über dem oberen Rand des Zielbandes der Schweizerischen Nationalbank (SNB). 
+In Europa hatten die baltischen Staaten Litauen (16.6 Prozent), Estland (14.8 Prozent) und Lettland (13.2 Prozent) sowie Tschechien (11.9 Prozent) und die Niederlande (11.7 Prozent) neben der Türkei (61.1 Prozent) die höchsten Inflationsraten (vgl. Abbildung 4). Stark getrieben ist der Anstieg von den Energie- und etwas weniger stark von den Nahrungsmittelpreisen. Werden diese aus der Inflationsrate hinaus gerechnet, so ist die Teuerung (Kerninflation) tiefer. In der Schweiz lag sie im März bei 1.3 Pro-zent (vgl. Abbildung 2). Der politische Druck steigt zunehmend, gegen den Kaufkraftverlust entschie-den vorzugehen. 
+
+Die Inflationsraten stiegen auch in Vergangenheit immer mal stark an, etwa während der «Great de-pression» in den 70er-Jahren,  wobei die Inflationsrate der Schweiz bis auf wenige Ausnahmen meist tiefer verlief als denjenige der USA und der EU (vgl. Abbildung 1). Auch war die Inflationsrate der Schweiz ab 2009 in mehreren Jahren negativ, was die Reallöhne positiv beeinflusste und somit die Kaufkraft stärkte. 
+
+Eine hohe Teuerung senkt die Kaufkraft und wirkt sich meist etwas verzögert auch auf die Konsumen-tenstimmung aus. Dies zeigt sich auch beim momentanen Anstieg, wobei sich zeigt, dass diese so-wohl in der EU-27, in Deutschland, aber auch in der Schweiz seit etwa Sommer 2021 rückläufig ist und inzwischen in Deutschland bereits unter das Niveau des Abfalls zu Beginn der Corona-Pandemie ge-fallen ist (vgl. Abbildung 5).  
+
+```{r eurostat, echo=FALSE,  include=FALSE, message=FALSE,warning=FALSE}
+
+
+library("eurostat")
+library(dplyr) 
+library(ggplot2)
+
+
+ct <- c("AU","BE","BG","CH","CY","CZ","DE","DK","EE","EL","ES","FI","FR","HR","HU","IE","IS","IT","LI","LU","LT","LV","MT","NL","NO","PL","PT","RO","SE","SI","SK","UK")
+ct2 <- c("AU","BE","BG","CH","CY","CZ","DE","DK","EE","EL","ES","FI","FR","HR","HU","IE","IT","LI","LT","LV","NL","NO","PL","PT","RO","SE","SI","SK","UK")
+
+z <- c("CP00","TOT_X_NRG_FOOD")
+
+
+dat <- get_eurostat(id="prc_hicp_manr")
+
+dat_2020 <- filter(dat,unit=="RCH_A", coicop %in% z, geo=="CH",time>="2010-03-01") #geo==ct)) & indic_is==ty))#time="2019-01-01")# & indic_is=ty)
+
+
+dat_2020$coicop[dat_2020$coicop=="CP00"] <- "Inflation"
+dat_2020$coicop[dat_2020$coicop=="TOT_X_NRG_FOOD"] <- "Inflation ohne Energie und Nahrungsmittel"
+
+
+sel_core <- dat_2020 %>%
+  filter(time >= 2020
+         #MEASURE == "STE"
+  ) |>
+  # let's focus on cols location, time value, because none
+  # of the other cols contain information, i.e., all their values
+  # are the same
+  
+  select(time, coicop, values)
+
+
+
+
+#sel_M$obsTime <- as.Date(paste(sel_M$obsTime,1,sep="-"),"%Y-%m-%d")
+#sel_A$obsTime <- as.Date(paste(sel_A$obsTime,1,sep="-"),"%Y")
+
+p <- ggplot(sel_core, aes(x=time, y=obsValue, color = coicop, label=coicop)) +
+  geom_line(data = sel_core, aes(x = time, y = values),size=.6)+
+  #  geom_text(data=dat %>% group_by(geo)%>% filter(time==max(time)),size=2.6) + 
+  # theme(legend.position="left")+
+  #  scale_color_manual(values = c("#8E44AD", "#F1C40F","#34495E","#138D75","#E74C3C","#F8C471"))+
+  labs(#title = "Erwerbslosenrate",
+    #subtitle = "Quelle: Eurostat",
+    y = "",
+    x = "") +
+  theme_minimal()+
+  theme(legend.position="top",legend.title=element_blank()) + 
+  coord_fixed(ratio=300) +  
+  #ggtitle("Inflationsraten - excluding energy")+
+  theme(text = element_text(size = 15))+
+  scale_y_continuous(labels = function(x) paste0(x*1, "%")) +
+  scale_x_date(date_breaks = "15 month", date_labels ="%m-%Y")+
+  theme(axis.text.x = element_text( 
+    angle = 45, 
+    #color="blue", 
+    vjust=0.6,
+    size=15)#, 
+  #  face=1)
+  )
+pdf('~/Repos/Inflation/graphics/infl_core_M.pdf')
+print(p)
+dev.off()
+
+```
+\begin{figure} \centering
+\includegraphics[trim={0 5.5cm 0 0cm },clip]{~/Repos/Inflation/graphics/infl_core_M.pdf}
+\caption{Erwerbslosenquoten von Personen unterschiedlichen Alters in der Schweiz}
+\label{Inf_A}
+\end{figure}
+
+
+<http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+# Literatur

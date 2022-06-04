@@ -3,15 +3,15 @@ library(dplyr)
 library(ggplot2)
 
 
-ct <- c("AU","BE","BG","CH","CY","CZ","DE","DK","EE","EL","ES","FI","FR","HR","HU","IE","IS","IT","LI","LU","LT","LV","MT","NL","NO","PL","PT","RO","SE","SI","SK","UK")
+ct <- c("AU","AT","BE","BG","CH","CY","CZ","DE","DK","EE","EL","ES","FI","FR","HR","HU","IE","IS","IT","LI","LU","LT","LV","MT","NL","NO","PL","PT","RO","SE","SI","SK","UK")
 ct2 <- c("AU","BE","BG","CH","CY","CZ","DE","DK","EE","EL","ES","FI","FR","HR","HU","IE","IT","LI","LT","LV","NL","NO","PL","PT","RO","SE","SI","SK","UK")
 
-z <- c("CP00","TOT_X_NRG_FOOD")
+z <- c("CP00","TOT_X_NRG_FOOD","CP011")
 
 
 dat <- get_eurostat(id="prc_hicp_manr")
 
-dat_2020 <- filter(dat,unit=="RCH_A", coicop %in% z, geo=="CH",time>="2010-03-01") #geo==ct)) & indic_is==ty))#time="2019-01-01")# & indic_is=ty)
+dat_2020 <- filter(dat,unit=="RCH_A", coicop =="CP011", geo %in% ct,time>="2010-03-01") #geo==ct)) & indic_is==ty))#time="2019-01-01")# & indic_is=ty)
 
 
 sel <- dat_2020 %>%
@@ -22,17 +22,20 @@ sel <- dat_2020 %>%
   # of the other cols contain information, i.e., all their values
   # are the same
   
-  select(time, coicop, values)
+  select(time, geo, values)
 
 wide_out <- sel %>%
-  pivot_wider(names_from = coicop,
+  pivot_wider(names_from = geo,
               values_from = values)
 
 wide_out |>
   e_charts(time) |>
-  e_line(CP00, name = "Total",lineStyle=list(width=2.0),symbol='none') |>
-  e_line(TOT_X_NRG_FOOD, name = "Total, ohne Energy und Nahrungsmittel (Kerninflation)",lineStyle=list(width=2.0),symbol='none') |>
- # e_line(USA, name = "USA",lineStyle=list(width=2.0),symbol='none') |>
+  #e_line(LT, name = "Litauen",lineStyle=list(width=2.0),symbol='none') |>
+  e_line(AT, name = "Österreich",lineStyle=list(width=2.0),symbol='none') |>
+  e_line(IT, name = "Italien",lineStyle=list(width=2.0),symbol='none') |>
+  e_line(DE, name = "Deutschland",lineStyle=list(width=2.0),symbol='none') |>
+  e_line(FR, name = "Frankreich",lineStyle=list(width=2.0),symbol='none') |>
+  # e_line(USA, name = "USA",lineStyle=list(width=2.0),symbol='none') |>
 #  e_line(EU27_2020, name = "EU-27",lineStyle=list(width=2.0),symbol='none') |>
   e_text_style(fontSize=20) |>
   e_tooltip(formatter = htmlwidgets::JS("

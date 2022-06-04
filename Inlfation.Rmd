@@ -1,0 +1,41 @@
+---
+title: "Inflation, Quo vadis?"
+author: "Simon Wey"
+date: "`r Sys.Date()`"
+output:
+  pdf_document: null
+  html_document:
+    df_print: paged
+lang: de
+classoption: onecolumn
+---
+
+Nur wenige Themen sind politisch so aufgeladen wie Fragestellungen zur Generation Silber. Dazu dürfte wesentlich beitragen, dass sich Personen dieser Altersgruppe zur Profilierung sehr gut eignen, insbesondere auch weil ihr Stellenwert schon hoch ist und er zukünftig weiter stark zunehmen wird. Doch wie ist die Situation von Personen ab 50 Jahren wirklich, was zeigt eine nüchterne Analyse? Ordnen wir das Thema basierend auf Zahlenmaterial ein und werfen einen Blick auf die Herausforderungen zur besseren Erschliessung des Potenzials dieser Altersgruppe. 
+
+Im Herbst 2021 hat das Bundesamt für Statistik eine fundierte Analyse^[[www.bfs.admin.ch/asset/de/2150-2000](https://www.bfs.admin.ch/asset/de/2150-2000)]  zu Personen ab 50 Jahren im Schweizer Arbeitsmarkt veröffentlicht. Die Erkenntnisse daraus zeigen, wie vorteilhaft die Situation dieser Personen insgesamt bereits ist und vor allem auch, welches Potenzial noch besteht. 
+So betrug der Anteil an Erwerbstätigen im Alter ab 55 Jahren 2020 knapp 23 Prozent, 10 Jahre zuvor lag er noch bei 19 Prozent. Etwa 2050 wird dieser Anteil einen Höchststand erreichen. Auch laufen Personen im Alter zwischen 55 und 64 Jahren eine tiefere Gefahr erwerbslos zu werden als die gesamte Erwerbsbevölkerung. Und dies war auch bereits in Vergangenheit so: So lag deren Erwerbslosenquote in den letzten Jahren durchschnittlich einen Prozentpunkt tiefer als diejenige der gesamten Erwerbsbevölkerung (vgl. Abbildung \ref{ELQ_Age_classes}). 
+
+Noch ist die Erwerbstätigenquote dieser Altersklasse im Vergleich zur gesamten Erwerbsbevölkerung tiefer, jedoch nahm sie in den letzten 15 Jahren um mehr als acht Prozentpunkte überdurchschnittlich stark zu. Beachtlich ist auch, dass 2020 noch fast jede vierte Person im Alter zwischen 65 und 69 Jahren und immerhin noch fast jede achte Person der 70- bis 74-Jährigen erwerbstätig war. Auch nahm der Anteil an Erwerbstätigen bei beiden Altersklassen in den letzten 15 Jahren um mehr als sieben respektive um mehr als vier Prozentpunkte zu.
+
+Auffällig ist, dass 2020 von den erwerbstätigen Personen ab 65 Jahren mehr als jede zweite selbstständigerwerbend oder in einem Familienunternehmen aktiv war. Zudem sind acht von zehn Teilzeit beschäftigt, sechs davon in einem Pensum unter 50 Prozent. 19 Prozent der Personen im Alter zwischen 50 und 64 Jahren gehörten 2020 nicht zur Erwerbsbevölkerung. Jede Fünfte von ihnen wäre jedoch bereit, innerhalb von kurzer Zeit wieder ins Erwerbsleben einzusteigen.
+Im Durchschnitt verlassen die Erwerbspersonen den Arbeitsmarkt mit 65,2 Jahren, wobei sich das Alter nicht nur bezüglich Erwerbsstatus, sondern auch mit Blick auf den Wirtschaftszweig stark unterscheidet. Interessant ist der Blick auf Personen, die den Arbeitsmarkt vor dem Erreichen des Pensionsalters frühzeitig verlassen. Diese sogenannte Frühpensionierungsquote betrug 2020 bei Personen, die sechs Jahre vor ihrer ordentlichen Pensionierung standen, 4,8 Prozent bei Männern und 4,2 Prozent bei Frauen. Sie steigt mit sich dem Pensionsalter annähernden Alter stark an und lag ein Jahr vor dem ordentlichen Pensionierungsalter bei Männern bereits bei 39 Prozent und bei Frauen bei 30 Prozent. 
+
+```{r echo=FALSE, results='asis'}
+library("eurostat")
+library(dplyr) 
+library(knitr)
+
+#query <- search_eurostat(pattern="digital skills", fixed=FALSE)
+#a <- get_eurostat("isoc_sk_dskl_i")
+
+cat <- c("AT","DE","CH","FR","IT","EU27_2020")
+
+dat <- get_eurostat(id="tps00199") #,filters==list(indic_is="I_DSK_AB"))#,ind_type="Y16-24"))#,,unit="PC_IND",geo=ct))#,age="Y15-19",sex="T"))
+d <- filter(dat,indic_de=="TOTFERRT", geo=="CH",time>="2009-01-01")#geo==ct)) &indic_is==ty))#time="2019-01-01")# & indic_is=ty)
+a <- subset(dat,geo == "DE")
+d$time <- format(as.POSIXct(d$time, format = "%Y-%m-%d"),"%Y")
+#h <- subset(d, geo=="CH" & sex=="T")
+kable(d[1:12,],caption="A knitr table")
+```
+
+Im Jahr ```r d$time[length(d$time)]``` betrug die Geburtenrate ```r d$values[length(d$values)]```%.
