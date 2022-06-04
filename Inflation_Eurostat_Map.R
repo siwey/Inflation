@@ -11,14 +11,13 @@ ct2 <- c("AU","BE","BG","CH","CY","CZ","DE","DK","EE","EL","ES","FI","FR","HR","
 
 dat <- get_eurostat(id="prc_hicp_manr")
 
-dat_2020 <- filter(dat,unit=="RCH_A", coicop=="CP00", geo %in% ct,time=="2022-03-01") #geo==ct)) & indic_is==ty))#time="2019-01-01")# & indic_is=ty)
-
-
+dat_2020 <- filter(dat,unit=="RCH_A", coicop=="CP00", geo %in% ct,time=="2022-04-01") #geo==ct)) & indic_is==ty))#time="2019-01-01")# & indic_is=ty)
 
 
 mapdata <- get_eurostat_geospatial(nuts_level=0) %>%
-  right_join(dat_2022) %>% 
+  right_join(dat_2020) %>% 
   mutate(cat = cut_to_classes(values, n=10, decimals=0))
+
 #head(select(mapdata,geo,values,cat),3)
 
 p <- ggplot(mapdata,aes(fill=cat)) +

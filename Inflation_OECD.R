@@ -12,13 +12,13 @@ dataset <- "PRICES_CPI"
 #dstruc <- get_data_structure(dataset)
 #df <- data.frame(dstruc$MEASURE$id,dstruc$MEASURE$label)
 
-filter_list <- list(c("CHE","DEU","EU27_2020","USA","GBR"),'CPALTT01','GY','A')#, 'CP00', 'GP')#, 'M', 'AVGRW')#, 'P1M') #c("AUT","ITA","CHE","DEU","FRA")
+filter_list <- list(c("CHE","DEU","EU27_2020","USA","GBR"),'CPALTT01','GY','a')#, 'CP00', 'GP')#, 'M', 'AVGRW')#, 'P1M') #c("AUT","ITA","CHE","DEU","FRA")
 filter_list2 <- list(c("CHE","DEU","EU27_2020","USA"),'CPALTT01','GY','A')#, 'CP00', 'GP')#, 'M', 'AVGRW')#, 'P1M') #c("AUT","ITA","CHE","DEU","FRA")
 
 de <- get_dataset(dataset,filter=filter_list)
 
 sel <- de %>%
-  filter(obsTime >= 2009
+  filter(obsTime >= 2000
          #MEASURE == "STE"
   ) |>
   # let's focus on cols location, time value, because none
@@ -53,7 +53,7 @@ wide_out |>
   e_legend(orient = 'horizontal', top = 30) |>
   #e_format_y_axis(suffix="%") |>
   e_axis_stagger() |>
-   e_x_axis(axisLabel = list(interval = 6, rotate = 45,fontSize=15)) |> #40
+   e_x_axis(axisLabel = list(interval = 2, rotate = 45,fontSize=15)) |> #40
   e_y_axis(axisLabel=list(fontSize=20)) |>
   e_format_y_axis(suffix="%") |>
   e_toolbox_feature("saveAsImage")

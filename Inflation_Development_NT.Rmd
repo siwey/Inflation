@@ -1,5 +1,6 @@
 ---
 title: "INFLATION, QUO VADIS?"
+header-includes: \usepackage{graphicx}
 author: "Simon Wey"
 date: "`r format(Sys.time(), '%d %B %Y')`"
 bibliography: reference.bib  
@@ -97,7 +98,13 @@ p <- ggplot(sel_M, aes(x=Time, y=ObsValue, color = LOCATION, label=LOCATION)) +
   theme(text = element_text(size = 15))+
   scale_y_continuous(labels = function(x) paste0(x*1, "%")) +
   scale_x_date(date_breaks = "15 month", date_labels ="%m-%Y")+
-  theme(axis.text.x = element_text(angle = 40))
+  theme(axis.text.x = element_text( 
+    angle = 45, 
+    #color="blue", 
+    vjust=0.6)#,
+    #size=15)#, 
+  #  face=1)
+  )
 pdf('~/Repos/Inflation/graphics/infl_country_M.pdf')
 print(p)
 dev.off()
@@ -117,20 +124,26 @@ p <- ggplot(sel_A, aes(x=Time, y=ObsValue, color = LOCATION, label=LOCATION)) +
   theme(text = element_text(size = 15))+
   scale_y_continuous(labels = function(x) paste0(x*1, "%")) +
   scale_x_date(date_breaks = "15 month", date_labels =  "%Y")+#"%m-%Y")+
-  theme(axis.text.x = element_text(angle = 40))
+  theme(axis.text.x = element_text( 
+    angle = 45, 
+    #color="blue", 
+    vjust=0.6)#,
+    #size=15)#, 
+  #  face=1)
+  )
 pdf('~/Repos/Inflation/graphics/infl_country_A.pdf')
 print(p)
 dev.off()
 ```
 
 \begin{figure} \centering
-\includegraphics[trim={0 5.5cm 0 0cm },clip]{~/Repos/Inflation/graphics/infl_country_M.pdf}
+\includegraphics[trim={0 5cm 0 0cm },clip,width=\textwidth]{~/Repos/Inflation/graphics/infl_country_M.pdf}
 \caption{Erwerbslosenquoten von Personen unterschiedlichen Alters in der Schweiz}
 \label{Inf_M}
 \end{figure}
 
 \begin{figure} \centering
-\includegraphics[trim={0 5.5cm 0 0cm },clip]{~/Repos/Inflation/graphics/infl_country_A.pdf}
+\includegraphics[trim={0 5cm 0 0cm },clip,width=\textwidth]{~/Repos/Inflation/graphics/infl_country_A.pdf}
 \caption{Erwerbslosenquoten von Personen unterschiedlichen Alters in der Schweiz}
 \label{Inf_A}
 \end{figure}
@@ -247,7 +260,7 @@ print(p)
 dev.off()
 ```
 \begin{figure} \centering
-\includegraphics[trim={0 5.5cm 0 0cm},clip]{~/Repos/Inflation/graphics/infl_core_M.pdf}
+\includegraphics[trim={0 5.5cm 0 0cm},clip,width=\textwidth]{~/Repos/Inflation/graphics/infl_core_M.pdf}
 \caption{Erwerbslosenquoten von Personen unterschiedlichen Alters in der Schweiz}
 \label{Inf_A}
 \end{figure}
@@ -292,7 +305,7 @@ dev.off()
 ```
 
 \begin{figure} \centering
-\includegraphics[trim={0 0cm 0 0cm},clip]{~/Repos/Inflation/graphics/MAP_Inflation_EU_202204.pdf}
+\includegraphics[trim={0 0cm 0 0cm},clip,width=\textwidth]{~/Repos/Inflation/graphics/MAP_Inflation_EU_202204.pdf}
 \caption{Inflationsraten in Europa}
 \label{Inf_A}
 \end{figure}
@@ -300,7 +313,7 @@ dev.off()
 
 
 \begin{figure} \centering
-\includegraphics[trim={0 5.5cm 0 0cm },clip]{~/Repos/Inflation/graphics/infl_nrg_M.pdf}
+\includegraphics[trim={0 5cm 0 0cm },clip,width=\textwidth]{~/Repos/Inflation/graphics/infl_nrg_M.pdf}
 \caption{Erwerbslosenquoten von Personen unterschiedlichen Alters in der Schweiz}
 \label{Inf_A}
 \end{figure}
@@ -372,7 +385,7 @@ dev.off()
 You can also embed plots, for example:
 
 \begin{figure} \centering
- \includegraphics[trim={0 50cm 0 0cm },clip]{~/Repos/Inflation/graphics/Cons_nood.pdf}
+ \includegraphics[trim={0 5cm 0 0cm },clip,width=\textwidth]{~/Repos/Inflation/graphics/Cons_mood.pdf}
 \caption{Erwerbslosenquoten von Personen unterschiedlichen Alters in der Schweiz}
 \label{Inf_A}
 \end{figure}

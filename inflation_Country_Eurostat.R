@@ -8,10 +8,9 @@ library(ggplot2)
 
 cat <- c("CH","EU27_2020")#AT","DE","CH","FR","IT","EA19")
 ty <- c("TOT_X_NRG","CP00")#c("AP","NRG","CP00","CP0113")  #  ,time_format="num"
-t <- c("BAD","VBAD")#"GOOD","VGOOD")
 
 dat <- get_eurostat(id="prc_hicp_manr") #,filters==list(indic_is="I_DSK_AB"))#,ind_type="Y16-24"))#,,unit="PC_IND",geo=ct))#,age="Y15-19",sex="T"))
-d <- filter(dat,unit=="RCH_A", coicop %in% ty, geo %in% cat) #geo==ct)) & indic_is==ty))#time="2019-01-01")# & indic_is=ty)
+d <- filter(dat,unit=="RCH_A", coicop %in% ty, geo== "CH") #geo==ct)) & indic_is==ty))#time="2019-01-01")# & indic_is=ty)
 #h <- subset(d, geo=="CH" & sex=="T")
 
 d$geo[d$geo=="AT"] <- "Österreich"

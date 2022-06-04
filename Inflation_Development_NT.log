@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.6.5)  5 JUN 2022 00:42
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.6.5)  5 JUN 2022 01:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**Inflation_Development.tex
-(./Inflation_Development.tex
+**Inflation_Development_NT.tex
+(./Inflation_Development_NT.tex
 LaTeX2e <2021-11-15> patch level 1
 L3 programming layer <2022-06-02> (/Users/simonwey/Library/TinyTeX/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2021/10/04 v1.4n Standard LaTeX document class
@@ -292,76 +292,161 @@ LaTeX Info: Redefining \setlength on input line 80.
 LaTeX Info: Redefining \addtolength on input line 81.
 \calc@Ccount=\count287
 \calc@Cskip=\skip59
+) (/Users/simonwey/Library/TinyTeX/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
+(/Users/simonwey/Library/TinyTeX/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2021/03/04 v1.4d Standard LaTeX Graphics (DPC,SPQR)
+(/Users/simonwey/Library/TinyTeX/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2021/08/11 v1.11 sin cos tan (DPC)
+) (/Users/simonwey/Library/TinyTeX/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 107.
+)
+\Gin@req@height=\dimen158
+\Gin@req@width=\dimen159
 ) (/Users/simonwey/Library/TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2022-04-20 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count288
 \l__pdf_internal_box=\box53
+) (./Inflation_Development_NT.aux
+
+LaTeX Warning: Label `Inf_A' multiply defined.
+
+
+LaTeX Warning: Label `Inf_A' multiply defined.
+
+
+LaTeX Warning: Label `Inf_A' multiply defined.
+
+
+LaTeX Warning: Label `Inf_A' multiply defined.
+
 )
-No file Inflation_Development.aux.
-\openout1 = `Inflation_Development.aux'.
+\openout1 = `Inflation_Development_NT.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 119.
-LaTeX Font Info:    ... okay on input line 119.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 119.
-LaTeX Font Info:    ... okay on input line 119.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 119.
-LaTeX Font Info:    ... okay on input line 119.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 119.
-LaTeX Font Info:    ... okay on input line 119.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 119.
-LaTeX Font Info:    ... okay on input line 119.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 119.
-LaTeX Font Info:    ... okay on input line 119.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 119.
-LaTeX Font Info:    ... okay on input line 119.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 119.
-LaTeX Font Info:    ... okay on input line 119.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 119.
-LaTeX Font Info:    ... okay on input line 119.
-Package hyperref Info: Link coloring OFF on input line 119.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 120.
+LaTeX Font Info:    ... okay on input line 120.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 120.
+LaTeX Font Info:    ... okay on input line 120.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 120.
+LaTeX Font Info:    ... okay on input line 120.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 120.
+LaTeX Font Info:    ... okay on input line 120.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 120.
+LaTeX Font Info:    ... okay on input line 120.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 120.
+LaTeX Font Info:    ... okay on input line 120.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 120.
+LaTeX Font Info:    ... okay on input line 120.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 120.
+LaTeX Font Info:    ... okay on input line 120.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 120.
+LaTeX Font Info:    ... okay on input line 120.
+(/Users/simonwey/Library/TinyTeX/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
+(/Users/simonwey/Library/TinyTeX/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
+))
+Package hyperref Info: Link coloring OFF on input line 120.
+(./Inflation_Development_NT.out) (./Inflation_Development_NT.out)
 \@outlinefile=\write4
-\openout4 = `Inflation_Development.out'.
+\openout4 = `Inflation_Development_NT.out'.
 
-LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 121.
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 122.
 (/Users/simonwey/Library/TinyTeX/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 121.
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 122.
 (/Users/simonwey/Library/TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 121.
+LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 122.
 (/Users/simonwey/Library/TinyTeX/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 121.
+LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 122.
 (/Users/simonwey/Library/TinyTeX/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 121.
+(Font)              <12> on input line 122.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 121.
+(Font)              <8> on input line 122.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 121.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 121.
+(Font)              <6> on input line 122.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 122.
 (/Users/simonwey/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 121.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 122.
 (/Users/simonwey/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-! Undefined control sequence.
-l.151 \includegraphics
-                      [trim={0 5.5cm 0 0cm },clip]{~/Repos/Inflation/graphic... 
-Here is how much of TeX's memory you used:
- 10115 strings out of 480223
- 157239 string characters out of 5891591
- 440143 words of memory out of 5000000
- 27924 multiletter control sequences out of 15000+600000
- 496516 words of font info for 49 fonts, out of 8000000 for 9000
- 14 hyphenation exceptions out of 8191
- 72i,6n,77p,255b,272s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<~/Repos/Inflation/graphics/infl_country_M.pdf, id=16, 505.89pt x 505.89pt>
+File: ~/Repos/Inflation/graphics/infl_country_M.pdf Graphic file (type pdf)
+<use ~/Repos/Inflation/graphics/infl_country_M.pdf>
+Package pdftex.def Info: ~/Repos/Inflation/graphics/infl_country_M.pdf  used on input line 152.
+(pdftex.def)             Requested size: 345.0pt x 247.98386pt.
+<~/Repos/Inflation/graphics/infl_country_A.pdf, id=18, 505.89pt x 505.89pt>
+File: ~/Repos/Inflation/graphics/infl_country_A.pdf Graphic file (type pdf)
+<use ~/Repos/Inflation/graphics/infl_country_A.pdf>
+Package pdftex.def Info: ~/Repos/Inflation/graphics/infl_country_A.pdf  used on input line 158.
+(pdftex.def)             Requested size: 345.0pt x 247.98386pt.
+[1
 
-!  ==> Fatal error occurred, no output PDF file produced!
+{/Users/simonwey/Library/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2 </Users/simonwey/Repos/Inflation/graphics/infl_country_M.pdf>] [3 </Users/simonwey/Repos/Inflation/graphics/infl_country_A.pdf>]
+<~/Repos/Inflation/graphics/infl_core_M.pdf, id=55, 505.89pt x 505.89pt>
+File: ~/Repos/Inflation/graphics/infl_core_M.pdf Graphic file (type pdf)
+<use ~/Repos/Inflation/graphics/infl_core_M.pdf>
+Package pdftex.def Info: ~/Repos/Inflation/graphics/infl_core_M.pdf  used on input line 200.
+(pdftex.def)             Requested size: 345.0pt x 238.28183pt.
+<~/Repos/Inflation/graphics/MAP_Inflation_EU_202204.pdf, id=57, 505.89pt x 505.89pt>
+File: ~/Repos/Inflation/graphics/MAP_Inflation_EU_202204.pdf Graphic file (type pdf)
+<use ~/Repos/Inflation/graphics/MAP_Inflation_EU_202204.pdf>
+Package pdftex.def Info: ~/Repos/Inflation/graphics/MAP_Inflation_EU_202204.pdf  used on input line 206.
+(pdftex.def)             Requested size: 345.0pt x 345.00414pt.
+<~/Repos/Inflation/graphics/infl_nrg_M.pdf, id=59, 505.89pt x 505.89pt>
+File: ~/Repos/Inflation/graphics/infl_nrg_M.pdf Graphic file (type pdf)
+<use ~/Repos/Inflation/graphics/infl_nrg_M.pdf>
+Package pdftex.def Info: ~/Repos/Inflation/graphics/infl_nrg_M.pdf  used on input line 212.
+(pdftex.def)             Requested size: 345.0pt x 247.98386pt.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10> on input line 217.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <7> on input line 217.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5> on input line 217.
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 224.
+(/Users/simonwey/Library/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
+File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+<~/Repos/Inflation/graphics/Cons_mood.pdf, id=62, 505.89pt x 505.89pt>
+File: ~/Repos/Inflation/graphics/Cons_mood.pdf Graphic file (type pdf)
+<use ~/Repos/Inflation/graphics/Cons_mood.pdf>
+Package pdftex.def Info: ~/Repos/Inflation/graphics/Cons_mood.pdf  used on input line 245.
+(pdftex.def)             Requested size: 345.0pt x 247.98386pt.
+[4] [5 </Users/simonwey/Repos/Inflation/graphics/infl_core_M.pdf>] [6 </Users/simonwey/Repos/Inflation/graphics/MAP_Inflation_EU_202204.pdf>] [7 </Users/simonwey/Repos/Inflation/graphics/infl_nrg_M.pdf>] [8 </Users/simonwey/Repos/Inflation/graphics/Cons_mood.pdf>] (./Inflation_Development_NT.aux)
+
+LaTeX Warning: There were multiply-defined labels.
+
+Package rerunfilecheck Info: File `Inflation_Development_NT.out' has not changed.
+(rerunfilecheck)             Checksum: 6245DBEAAE465F88C9E150E528CE24A6;325.
+ ) 
+Here is how much of TeX's memory you used:
+ 10627 strings out of 480223
+ 167389 string characters out of 5891591
+ 453876 words of memory out of 5000000
+ 28362 multiletter control sequences out of 15000+600000
+ 520856 words of font info for 69 fonts, out of 8000000 for 9000
+ 14 hyphenation exceptions out of 8191
+ 72i,7n,77p,258b,333s stack positions out of 10000i,1000n,20000p,200000b,200000s
+{/Users/simonwey/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}</Users/simonwey/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></Users/simonwey/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></Users/simonwey/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx9.pfb></Users/simonwey/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb></Users/simonwey/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb></Users/simonwey/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr17.pfb></Users/simonwey/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr9.pfb></Users/simonwey/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb>
+Output written on Inflation_Development_NT.pdf (8 pages, 494246 bytes).
+PDF statistics:
+ 167 PDF objects out of 1000 (max. 8388607)
+ 121 compressed objects within 2 object streams
+ 23 named destinations out of 1000 (max. 500000)
+ 91 words of extra memory for PDF output out of 10000 (max. 10000000)
+

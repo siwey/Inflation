@@ -32,7 +32,7 @@ sel$geo[sel$geo=="IT"] <- "Italien"
 
 
 
-ggplot(data=sel,aes(x=reorder(geo,values), y=values,fill=geo)) +
+p <- ggplot(data=sel,aes(x=reorder(geo,values), y=values,fill=geo)) +
   geom_col() +
   coord_flip() +
   scale_fill_manual(values = c("#8E44AD", "#F1C40F","#34495E","#138D75","#E74C3C","black","green"))+
@@ -46,4 +46,8 @@ ggplot(data=sel,aes(x=reorder(geo,values), y=values,fill=geo)) +
   #coord_fixed(ratio=60) +  
   theme(text = element_text(size = 15))+
   scale_y_continuous(labels = function(x) paste0(x*1, "%")) 
+png('~/Repos/Inflation/graphics/Food_bar.png')
+print(p)
+dev.off()
+
 
