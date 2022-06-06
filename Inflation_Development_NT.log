@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.6.5)  6 JUN 2022 00:04
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.6.5)  6 JUN 2022 22:39
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -296,13 +296,7 @@ File: l3backend-pdftex.def 2022-04-20 L3 backend support: PDF output (pdfTeX)
 \l__pdf_internal_box=\box52
 ) (./Inflation_Development_NT.aux
 
-LaTeX Warning: Label `Inf_A' multiply defined.
-
-
-LaTeX Warning: Label `Inf_A' multiply defined.
-
-
-LaTeX Warning: Label `Inf_A' multiply defined.
+LaTeX Warning: Label `Inf_M' multiply defined.
 
 )
 \openout1 = `Inflation_Development_NT.aux'.
@@ -366,74 +360,84 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 82.
 (/Users/simonwey/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-<~/Repos/Inflation/graphics/infl_country_M.pdf, id=33, 505.89pt x 505.89pt>
+<~/Repos/Inflation/graphics/infl_country_M.pdf, id=37, 505.89pt x 505.89pt>
 File: ~/Repos/Inflation/graphics/infl_country_M.pdf Graphic file (type pdf)
 <use ~/Repos/Inflation/graphics/infl_country_M.pdf>
 Package pdftex.def Info: ~/Repos/Inflation/graphics/infl_country_M.pdf  used on input line 123.
-(pdftex.def)             Requested size: 310.4979pt x 223.18213pt.
+(pdftex.def)             Requested size: 345.0pt x 247.98386pt.
+<~/Repos/Inflation/graphics/A.pdf, id=39, 505.89pt x 505.89pt>
+File: ~/Repos/Inflation/graphics/A.pdf Graphic file (type pdf)
+<use ~/Repos/Inflation/graphics/A.pdf>
+Package pdftex.def Info: ~/Repos/Inflation/graphics/A.pdf  used on input line 129.
+(pdftex.def)             Requested size: 345.0pt x 112.15547pt.
 [1
 
-{/Users/simonwey/Library/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+{/Users/simonwey/Library/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2 </Users/simonwey/Repos/Inflation/graphics/infl_country_M.pdf> </Users/simonwey/Repos/Inflation/graphics/A.pdf>]
+<~/Repos/Inflation/graphics/infl_country_A.pdf, id=72, 505.89pt x 505.89pt>
+File: ~/Repos/Inflation/graphics/infl_country_A.pdf Graphic file (type pdf)
+<use ~/Repos/Inflation/graphics/infl_country_A.pdf>
+Package pdftex.def Info: ~/Repos/Inflation/graphics/infl_country_A.pdf  used on input line 152.
+(pdftex.def)             Requested size: 345.0pt x 247.98386pt.
+[3 </Users/simonwey/Repos/Inflation/graphics/infl_country_A.pdf>]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 160.
+(Font)              <10> on input line 171.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 160.
+(Font)              <7> on input line 171.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 160.
+(Font)              <5> on input line 171.
 
-Underfull \hbox (badness 1057) in paragraph at lines 158--169
+Underfull \hbox (badness 1057) in paragraph at lines 169--180
 \T1/lmr/m/n/10 eine Mehrheit der akademisch forschen-den Ökonomin-nen und Ökonomen
  []
 
 
-Underfull \hbox (badness 1881) in paragraph at lines 158--169
+Underfull \hbox (badness 1881) in paragraph at lines 169--180
 \T1/lmr/m/n/10 die Preis-steigerun-gen als Folge der Lief-er-eng-pässe zurück-zuführen wäre.
  []
 
-[2 </Users/simonwey/Repos/Inflation/graphics/infl_country_M.pdf>]
-<~/Repos/Inflation/graphics/infl_core_M.pdf, id=61, 505.89pt x 505.89pt>
+<~/Repos/Inflation/graphics/infl_core_M.pdf, id=87, 505.89pt x 505.89pt>
 File: ~/Repos/Inflation/graphics/infl_core_M.pdf Graphic file (type pdf)
 <use ~/Repos/Inflation/graphics/infl_core_M.pdf>
-Package pdftex.def Info: ~/Repos/Inflation/graphics/infl_core_M.pdf  used on input line 171.
+Package pdftex.def Info: ~/Repos/Inflation/graphics/infl_core_M.pdf  used on input line 182.
 (pdftex.def)             Requested size: 345.0pt x 238.28183pt.
-[3 </Users/simonwey/Repos/Inflation/graphics/infl_core_M.pdf>]
-<~/Repos/Inflation/graphics/infl_nrg_M.pdf, id=78, 505.89pt x 505.89pt>
+[4 </Users/simonwey/Repos/Inflation/graphics/infl_core_M.pdf>]
+<~/Repos/Inflation/graphics/infl_nrg_M.pdf, id=105, 505.89pt x 505.89pt>
 File: ~/Repos/Inflation/graphics/infl_nrg_M.pdf Graphic file (type pdf)
 <use ~/Repos/Inflation/graphics/infl_nrg_M.pdf>
-Package pdftex.def Info: ~/Repos/Inflation/graphics/infl_nrg_M.pdf  used on input line 201.
+Package pdftex.def Info: ~/Repos/Inflation/graphics/infl_nrg_M.pdf  used on input line 212.
 (pdftex.def)             Requested size: 345.0pt x 247.98386pt.
-[4 </Users/simonwey/Repos/Inflation/graphics/infl_nrg_M.pdf>]
-<~/Repos/Inflation/graphics/MAP_Inflation_EU_202204.pdf, id=91, 505.89pt x 505.89pt>
+[5 </Users/simonwey/Repos/Inflation/graphics/infl_nrg_M.pdf>]
+<~/Repos/Inflation/graphics/MAP_Inflation_EU_202204.pdf, id=118, 505.89pt x 505.89pt>
 File: ~/Repos/Inflation/graphics/MAP_Inflation_EU_202204.pdf Graphic file (type pdf)
 <use ~/Repos/Inflation/graphics/MAP_Inflation_EU_202204.pdf>
-Package pdftex.def Info: ~/Repos/Inflation/graphics/MAP_Inflation_EU_202204.pdf  used on input line 244.
+Package pdftex.def Info: ~/Repos/Inflation/graphics/MAP_Inflation_EU_202204.pdf  used on input line 260.
 (pdftex.def)             Requested size: 345.0pt x 345.00414pt.
-[5] [6 </Users/simonwey/Repos/Inflation/graphics/MAP_Inflation_EU_202204.pdf>] [7]
-<~/Repos/Inflation/graphics/Cons_mood.pdf, id=119, 505.89pt x 505.89pt>
+[6] [7 </Users/simonwey/Repos/Inflation/graphics/MAP_Inflation_EU_202204.pdf>] [8]
+<~/Repos/Inflation/graphics/Cons_mood.pdf, id=148, 505.89pt x 505.89pt>
 File: ~/Repos/Inflation/graphics/Cons_mood.pdf Graphic file (type pdf)
 <use ~/Repos/Inflation/graphics/Cons_mood.pdf>
-Package pdftex.def Info: ~/Repos/Inflation/graphics/Cons_mood.pdf  used on input line 355.
+Package pdftex.def Info: ~/Repos/Inflation/graphics/Cons_mood.pdf  used on input line 371.
 (pdftex.def)             Requested size: 345.0pt x 247.98386pt.
-[8] [9 </Users/simonwey/Repos/Inflation/graphics/Cons_mood.pdf>] [10] [11] (./Inflation_Development_NT.aux)
+[9] [10 </Users/simonwey/Repos/Inflation/graphics/Cons_mood.pdf>] [11] [12] (./Inflation_Development_NT.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `Inflation_Development_NT.out' has not changed.
-(rerunfilecheck)             Checksum: 9630348DCEABDA8A283C02A79459EDB4;1297.
+(rerunfilecheck)             Checksum: 76DE27348607FE6B7BD205E2FCFA293C;1843.
  ) 
 Here is how much of TeX's memory you used:
- 10098 strings out of 480223
- 158708 string characters out of 5891591
- 443095 words of memory out of 5000000
- 27833 multiletter control sequences out of 15000+600000
+ 10123 strings out of 480223
+ 159568 string characters out of 5891591
+ 445148 words of memory out of 5000000
+ 27851 multiletter control sequences out of 15000+600000
  526514 words of font info for 70 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 72i,8n,77p,495b,329s stack positions out of 10000i,1000n,20000p,200000b,200000s
-{/Users/simonwey/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}</Users/simonwey/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></Users/simonwey/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx9.pfb></Users/simonwey/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb></Users/simonwey/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb></Users/simonwey/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr17.pfb></Users/simonwey/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr6.pfb></Users/simonwey/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr7.pfb></Users/simonwey/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb></Users/simonwey/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr9.pfb>
-Output written on Inflation_Development_NT.pdf (11 pages, 522099 bytes).
+ 72i,8n,77p,616b,329s stack positions out of 10000i,1000n,20000p,200000b,200000s
+{/Users/simonwey/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/Users/simonwey/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/Users/simonwey/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}</Users/simonwey/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></Users/simonwey/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx9.pfb></Users/simonwey/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></Users/simonwey/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb></Users/simonwey/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb></Users/simonwey/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr17.pfb></Users/simonwey/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr6.pfb></Users/simonwey/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr7.pfb></Users/simonwey/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb></Users/simonwey/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr9.pfb>
+Output written on Inflation_Development_NT.pdf (12 pages, 541239 bytes).
 PDF statistics:
- 199 PDF objects out of 1000 (max. 8388607)
- 151 compressed objects within 2 object streams
- 34 named destinations out of 1000 (max. 500000)
- 112 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 240 PDF objects out of 1000 (max. 8388607)
+ 182 compressed objects within 2 object streams
+ 39 named destinations out of 1000 (max. 500000)
+ 142 words of extra memory for PDF output out of 10000 (max. 10000000)
 
