@@ -153,9 +153,13 @@ library(tidyverse)
 library(ggplot2)
 library(dplyr)
 library(cowplot)
+library(ggrepel)
 
 
 sel_M$Time <- as.Date(paste(sel_M$Time,1,sep="-"),"%Y-%m-%d")
+
+data_ends <- sel_M %>% filter(Time == sel_M$Time[length(sel_M$Time)])
+data_ends$ObsValue <- round(data_ends$ObsValue,1)
 
 p1 <- ggplot(data = sel_M) + 
     geom_line(mapping = aes(x = Time, y = ObsValue, color=LOCATION),size=1.1) + 
@@ -182,7 +186,11 @@ p1 <- ggplot(data = sel_M) +
       #  face=1)
     )+ 
     #facet_wrap(~ LOCATION, nrow = 2) 
-    facet_wrap(factor(LOCATION,levels=c("Schweiz","Deutschland","EU-27","USA")) ~ .,nrow=2)
+    facet_wrap(factor(LOCATION,levels=c("Schweiz","Deutschland","EU-27","USA")) ~ .,nrow=2) +
+    geom_text_repel(
+    aes(x=Time,y = ObsValue,label=ObsValue), data = data_ends,
+    fontface ="plain", color = "black", size = 5
+  ) 
 pdf('~/Repos/Inflation/graphics/infl_country_M_wrap.pdf')
 print(p1)
 dev.off()
