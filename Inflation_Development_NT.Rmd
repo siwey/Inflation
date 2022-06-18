@@ -101,7 +101,7 @@ p1 <- ggplot(sel_M, aes(x=Time, y=ObsValue, color = LOCATION, label=LOCATION)) +
   theme(legend.position="top",legend.title=element_blank()) + 
   coord_fixed(ratio=150) +  
   #ggtitle("Inflationsraten - excluding energy")+
-  theme(text = element_text(size = 8))+
+  theme(text = element_text(size = 15))+
   scale_y_continuous(labels = function(x) paste0(x*1, "%")) +
   scale_x_date(date_breaks = "15 month", date_labels ="%m-%Y")+
   theme(axis.text.x = element_text( 
@@ -128,7 +128,7 @@ p2 <- ggplot(sel_A, aes(x=Time, y=ObsValue, color = LOCATION, label=LOCATION)) +
   theme(legend.position="top",legend.title=element_blank()) + 
   coord_fixed(ratio=590) +  
   #ggtitle("Inflationsraten - excluding energy")+
-  theme(text = element_text(size = 8))+
+  theme(text = element_text(size = 15))+
   scale_y_continuous(labels = function(x) paste0(x*1, "%")) +
   scale_x_date(date_breaks = "36 month", date_labels =  "%Y")+#"%m-%Y")+
   theme(axis.text.x = element_text( 
@@ -147,17 +147,59 @@ print(a)
 dev.off()
 ```
 
+```{r plot9, echo=FALSE,  include=FALSE, message=FALSE,warning=FALSE}
+library(OECD)
+library(tidyverse)
+library(ggplot2)
+library(dplyr)
+library(cowplot)
+
+
+sel_M$Time <- as.Date(paste(sel_M$Time,1,sep="-"),"%Y-%m-%d")
+
+p1 <- ggplot(data = sel_M) + 
+    geom_line(mapping = aes(x = Time, y = ObsValue, color=LOCATION),size=1.1) + 
+    scale_color_manual(values = c("#eb4255","#8E44AD","#ffa500","#659065")) +
+    #  geom_text(data=dat %>% group_by(geo)%>% filter(time==max(time)),size=2.6) + 
+    # theme(legend.position="left")+
+    #  scale_color_manual(values = c("#8E44AD", "#F1C40F","#34495E","#138D75","#E74C3C","#F8C471"))+
+    labs(#title = "Erwerbslosenrate",
+      #subtitle = "Quelle: Eurostat",
+      y = "",
+      x = "") +
+    theme_minimal()+
+    theme(legend.position="",legend.title=element_blank()) + 
+    coord_fixed(ratio=270) +  
+    #ggtitle("Inflationsraten - excluding energy")+
+    theme(text = element_text(size = 15))+
+    scale_y_continuous(labels = function(x) paste0(x*1, "%")) +
+    scale_x_date(date_breaks = "20 month", date_labels ="%m-%Y")+
+    theme(axis.text.x = element_text( 
+      angle = 90, 
+      #color="blue", 
+      vjust=0.6)#,
+      #size=15)#, 
+      #  face=1)
+    )+ 
+    #facet_wrap(~ LOCATION, nrow = 2) 
+    facet_wrap(factor(LOCATION,levels=c("Schweiz","Deutschland","EU-27","USA")) ~ .,nrow=2)
+pdf('~/Repos/Inflation/graphics/infl_country_M_wrap.pdf')
+print(p1)
+dev.off()
+
+```
+
 # Ausgangslage
 
 Zu hohe Teuerungsraten sind ökonomisch schädlich und können zu sozialen und politischen Verwerfungen führen. Im März 2022 lagen raten in den USA bei 8.5 Prozent, in Deutschland bei 7.3 Prozent und in der EU-27 bei 7.8 Prozent. Dagegen war rate in der Schweiz mit 2.4 Prozent (vgl. Abbildung \ref{Inf_M}) vergleichsweise moderat. Sie lag jedoch auch hierzulande über dem oberen Rand des Zielbandes der Schweizerischen Nationalbank (SNB). 
 
-\begin{figure} \centering
+\begin{figure}[ht] \centering
 \includegraphics[trim={0 5cm 0 0cm },clip,width=\textwidth]{~/Repos/Inflation/graphics/infl_country_M.pdf}
-\caption{Entwicklung der Inflationsraten in der Schweiz, in Deutschland, in der EU und in den USA auf monatlicher Basis von 2010 bis 2022. *Quelle*: OECD }
+\caption{Entwicklung der Inflationsraten in der Schweiz, in Deutschland, in der EU und in den USA auf monatlicher Basis von 2010 bis 2022. Quelle: OECD }
 \label{Inf_M}
 \end{figure}
 
-\begin{figure} \centering
+\begin{figure}[ht] \centering
 \includegraphics[trim={0 6cm 0 6cm },clip,width=\textwidth]{~/Repos/Inflation/graphics/A.pdf}
 \caption{Entwicklung der Inflationsraten in der Schweiz, in Deutschland, in der EU und in den USA auf monatlicher Basis von 2010 bis 2022. *Quelle*: OECD }
 \label{Inf_M}
@@ -165,10 +207,15 @@ Zu hohe Teuerungsraten sind ökonomisch schädlich und können zu sozialen und p
 
 In Europa hatten die baltischen Staaten Litauen (16.6 Prozent), Estland (14.8 Prozent) und Lettland (13.2 Prozent) sowie Tschechien (11.9 Prozent) und die Niederlande (11.7 Prozent) neben der Türkei (61.1 Prozent) die höchsten Inflationsraten (vgl. Abbildung 4). Stark getrieben ist der Anstieg von den Energie- und etwas weniger stark von den Nahrungsmittelpreisen. Werden diese aus der Inflationsrate hinaus gerechnet, so ist die Teuerung (Kerninflation) tiefer. In der Schweiz lag sie im März bei 1.3 Prozent (vgl. Abbildung 2). Der politische Druck steigt zunehmend, gegen den Kaufkraftverlust entschieden vorzugehen. 
 
+\begin{figure}[ht] \centering
+\includegraphics[trim={0 5cm 0 0cm },clip,width=\textwidth]{~/Repos/Inflation/graphics/infl_country_M_wrap.pdf}
+\caption{En. Quelle: OECD }
+\label{Inf_M_W}
+\end{figure}
 
 raten stiegen auch in Vergangenheit immer mal stark an, etwa während der «Great depression» in den 70er-Jahren,  wobei rate der Schweiz bis auf wenige Ausnahmen meist tiefer verlief als denjenige der USA und der EU (vgl. Abbildung 1). Auch war rate der Schweiz ab 2009 in mehreren Jahren negativ, was die Reallöhne positiv beeinflusste und somit die Kaufkraft stärkte. 
 
-\begin{figure} \centering
+\begin{figure}[ht] \centering
 \includegraphics[trim={0 5cm 0 0cm },clip,width=\textwidth]{~/Repos/Inflation/graphics/infl_country_A.pdf}
 \caption{Entwicklung der Inflationsraten in der Schweiz, in Deutschland, in der EU und in den USA auf jährlicher 1990 bis 2022. Auslöser des hohen Ausschlags nach oben in den 70er-Jahren war die «Great depression». *Quelle*: OECD}
 \label{Inf_A}
@@ -396,7 +443,7 @@ p <- ggplot(mapdata,aes(fill=cat)) +
   labs(title = "",
        subtitle="",
        fill = "%") 
-pdf('~/Repos/Inflation/graphics/MAP_Inflation_EU_202204.pdf')
+png('~/Repos/Inflation/graphics/MAP_Inflation_EU_202204.png')
 print(p)
 dev.off()
 
