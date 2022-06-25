@@ -34,12 +34,12 @@ abstract:
   Bestand, so dürften sich auch diese negativ auf die Höhe der Inflation auswirken.
   Des Weiteren spielen auch erwartungen eine zentrale Rolle, die wiederum
   stark von der Glaubwürdigkeit der Notenbanken abhängen.
-
 tags:
 - nothing
 - nothingness
 ---
 \renewcommand{\figurename}{Abbildung} 
+
 
 ```{r plot0, echo=FALSE,  include=FALSE, message=FALSE,warning=FALSE}
 library(OECD)
@@ -213,7 +213,7 @@ Zu hohe Teuerungsraten sind ökonomisch schädlich und können zu sozialen und p
 \label{Inf_M}
 \end{figure}
 
-In Europa hatten die baltischen Staaten Litauen (18.5 Prozent), Estland (20.1 Prozent) und Lettland (16.8 Prozent) sowie Tschechien (15.2 Prozent) neben der Türkei (61.1 Prozent) die höchsten Inflationsraten (vgl. Abbildung \ref{Inf_MAP}). Stark getrieben ist der Anstieg von den Energie- und etwas weniger stark von den Nahrungsmittelpreisen. Werden diese aus der Inflationsrate hinaus gerechnet, so ist die Teuerung (Kerninflation) tiefer. In der Schweiz lag sie im Mai bei 1.5 Prozent (vgl. Abbildung \ref{Inf_core}). Der politische Druck auf die SNB stieg in den letzten Monaten stark an, so dass sie im Juni den Leitzins um 0.5 Punkte anhob.
+In Europa hatten die baltischen Staaten Litauen (18.5 Prozent), Estland (20.1 Prozent) und Lettland (16.8 Prozent) sowie Tschechien (15.2 Prozent) neben der Türkei (61.1 Prozent) die höchsten Inflationsraten (vgl. Abbildung \ref{Inf_MAP}). Stark getrieben ist der Anstieg von den Energie- und etwas weniger stark von den Nahrungsmittelpreisen (vgl. Abbildung \ref{Inf_NRG}). Werden diese aus der Inflationsrate hinaus gerechnet, so ist die Teuerung (Kerninflation) tiefer. In der Schweiz lag sie im Mai bei 1.5 Prozent (vgl. Abbildung \ref{Inf_core}). Der politische Druck auf die SNB stieg in den letzten Monaten stark an, so dass sie im Juni den Leitzins um 0.5 Punkte anhob.
 
 \begin{figure}[ht] \centering
 \includegraphics[trim={0 3.5cm 0 0cm },clip,width=\textwidth]{~/Repos/Inflation/graphics/infl_country_M_wrap.pdf}
@@ -350,17 +350,17 @@ Die Frage stellt sich, ob die hohen Teuerungsraten temporärer Natur sind oder o
 
 Die Gründe für die hohe Inflation können mit zwei unterschiedlichen Ansätzen erklärt werden. Der angebotsseitige Ansatz geht von Kostensteigerungen der Unternehmen etwa in Form von steigenden Rohstoffpreisen, Lieferproblemen oder einer knappen Zahl an Arbeitskräften aus. Der zweite Ansatz erklärt die steigende Inflation aufgrund von Nachfrageeffekten. Nach diesem Ansatz ist die hohe Inflation auf den starken Nachholkonsum, der nach dem Abflachen der Corona-Pandemie in fast allen Wirtschaftssektoren einsetzte, zurückzuführen. 
 
-Die beiden Ansätze erklären jedoch nur die eher kurzfristigen Entwicklungen aufgrund der Corona-Pandemie und der Invasion Russlands in die Ukraine. Zugrunde liegt den beiden Preistreibern eine hohe zirkulierende Geldmenge. Als ausschlaggebend sehen die befragten Ökonominnen und Ökonomen jedoch den Kostenanstieg für die Inflation. 44 Prozent von Ihnen würden eine restriktivere Geldpolitik, etwa über eine Erhöhung des Leitzinses, für angemessen halten. Seit über sieben Jahren liegt der Leitzins in der Schweiz bei rekordtiefen -0.75 Prozent und bisher bleiben Signale der SNB aus, dass sie daran rasch was ändern möchte. Den Leitzins bereits angehoben hat die US-Notenbank Fed. Sie reagiert auf die hohe Inflation und hob den Leitzins anfangs Mai um 0.5 Prozentpunkte an. Künftig liegt er zwischen 0.75 bis 1 Prozent. Es ist dies die stärkste Anhebung seit 22 Jahren.
+Die beiden Ansätze erklären jedoch nur die eher kurzfristigen Entwicklungen aufgrund der Corona-Pandemie und der Invasion Russlands in die Ukraine. Zugrunde liegt den beiden Preistreibern eine hohe zirkulierende Geldmenge. Als ausschlaggebend sehen die befragten Ökonominnen und Ökonomen jedoch den Kostenanstieg für die Inflation. 44 Prozent von Ihnen würden eine restriktivere Geldpolitik, etwa über eine Erhöhung des Leitzinses, für angemessen halten. Seit über sieben Jahren lag der Leitzins in der Schweiz bei rekordtiefen -0.75 Prozent, bevor ihn die SNB im Juni um 0.5 Prozentpunkte anhob. Den Leitzins bereits angehoben hat die US-Notenbank Fed. Sie hat den größten Zinsschritt seit 22 Jahren unternommen und den Leitzins um einen halben Punkt auf die neue Spanne von 0,75 bis 1,0 Prozent gehievt. Es war dies die stärkste Anhebung seit 22 Jahren und es werden im Juni und Juli ähnlich hohe Schritte erwartet.
 
 \begin{figure} \centering
 \includegraphics[trim={0 5cm 0 0cm },clip,width=\textwidth]{~/Repos/Inflation/graphics/infl_nrg_M.pdf}
-\caption{Schwankungen der Energiepreise sowie spezifischer der Kraft- und Schmierstoffe für den Personenverkehr für die Schweiz. *Quelle*: Eurostat}
+\caption{Schwankungen der Energiepreise sowie spezifischer der Kraft- und Schmierstoffe für den Personenverkehr für die Schweiz. Quelle: Eurostat}
 \label{Inf_NRG}
 \end{figure}
 
-Eine Mehrheit der befragten Ökonominnen und Ökonomen geht davon aus, dass der Leitzins in den nächsten fünf Jahren wieder in den positiven Bereich zu liegen kommen wird. Mittel- bis längerfristig geht somit eine Mehrheit der Befragten von einer Normalisierung der Zinspolitik aus. Die Wahrscheinlichkeit, dass die SNB diesen Schritt vor der EZB in die Wege leiten wird, ist jedoch tief. Denn ein solches Vorpreschen würde die Zinsdifferenz zwischen Schweizer Franken und Euro vergrössern und somit den Aufwertungsdruck des Schweizer Frankens erhöhen. Am Trend eines erstarkenden Frankens dürfte sich kurzfristig wenig ändern. Dabei ist der Inflationsunterschied zwischen der Schweiz und der EU nicht berücksichtigt, denn dieser hat auf das nominale Erstarken des Frankens einen willkommenen Nebeneffekt: Indem die SNB diese Aufwertung zulässt verringern sich die Importpreise und sinkt der Inflationsdruck. Diese schweizerische Besonderheit und die Überzeugung vieler Ökonomen, dass der gegenwärtige Inflationsdruck kurzfristiger Natur sein wird, tragen wohl auch dazu bei, dass die Befragten in fünf Jahren nur noch mit einer moderaten Teuerung rechnen.
+Eine Mehrheit der befragten Ökonominnen und Ökonomen geht davon aus, dass der Leitzins in den nächsten fünf Jahren wieder in den positiven Bereich zu liegen kommen wird. Mittel- bis längerfristig geht somit eine Mehrheit der Befragten von einer Normalisierung der Zinspolitik aus. Eher überraschend war, dass die SNB mit ihrer Erhöhung des Leitzinses der EZB voranging. Durch dieses Vorpreschen hat sich die Zinsdifferenz zwischen Schweizer Franken und Euro sowie der Aufwertungsdruck des Schweizer Frankens vergrössert. Am Trend eines erstarkenden Frankens dürfte sich somit kurzfristig wenig ändern. Dabei ist der Inflationsunterschied zwischen der Schweiz und der EU nicht berücksichtigt, denn dieser hat auf das nominale Erstarken des Frankens einen willkommenen Nebeneffekt: Indem die SNB die Aufwertung zulässt, verringern sich die Importpreise und sinkt der Inflationsdruck. Diese schweizerische Besonderheit und die Überzeugung vieler Ökonomen, dass der gegenwärtige Inflationsdruck kurzfristiger Natur sein wird, tragen wohl auch dazu bei, dass die Befragten in fünf Jahren nur noch mit einer moderaten Teuerung rechnen.
 
-Geldpolitik zu betreiben ist zurzeit äusserst anspruchsvoll: Würde die Geldmenge reduziert, so bremste dies die wirtschaftliche Entwicklung zusätzlich, denn bereits schon ist sie durch die Folgen des Ukrainekriegs ins Stottern geraten. 
+Geldpolitik zu betreiben ist zurzeit äusserst anspruchsvoll, den die Reduktion der Geldmenge bremst die wirtschaftliche Entwicklung zusätzlich, denn bereits schon ist sie durch die Folgen des Ukrainekriegs ins Stottern geraten. 
 
 # Vergleichbarkeit der heutigen Situation mit derjenigen in den 70er-Jahren («Great depression»)
 
@@ -370,16 +370,15 @@ Ein Blick zurück auf den Verlauf der Inflation zeigt unter anderem ein hohes Pr
 
 \begin{figure} \centering
 \includegraphics[trim={0 0cm 0 0cm},clip,width=\textwidth]{~/Repos/Inflation/graphics/MAP_Inflation_EU_202204.pdf}
-\caption{Die Inflationsraten in den europäischen Ländern. Mitten drin die Inflationsinsel Schweiz mit einer Inflationsrate von 2.5 Prozent im April. In der Abbildung fehlt die Türkei, die im April eine Inflationsrate von $61.1$ Prozent hatte. Quelle: Eurostat}
+\caption{Die Inflationsraten in den europäischen Ländern. Mitten drin die Inflationsinsel Schweiz mit einer Inflationsrate von $2.9$ Prozent im Mai. In der Abbildung fehlt die Türkei, die im Mai eine Inflationsrate von $73.5$ Prozent hatte. Quelle: Eurostat}
 \label{Inf_MAP}
 \end{figure}
 
-Der Anstieg der Rohstoffpreise als Folge der Invasion Russlands in die Ukraine hat den Anstieg der Inflation zusätzlich beschleunigt. Nicht wenige gehen jedoch davon aus, dass mittelfristig, nach Abklingen der erhöhten Rohstoffpreise als Folge des Ukrainekriegs und der Angebotsengpässe bedingt durch die Corona-Pandemie die Inflation wieder zurück auf das Vor-Krisenniveau sinken wird. Ein Blick auf die hohe Inflation in den 1970er-Jahren zeigt jedoch, dass es begründete Zweifel an dieser Einschätzung gibt. Die steigende Inflation erhöht nämlich den Druck auf die Notenbanken, dass sie vor dem Hintergrund ihrer Inflationsziele viel stärker reagieren müssen als zurzeit angenommen.
+Der Anstieg der Rohstoffpreise als Folge der Invasion Russlands in die Ukraine hat den Anstieg der Inflation zusätzlich beschleunigt. Nicht wenige gehen jedoch davon aus, dass mittelfristig, nach Abklingen der erhöhten Rohstoffpreise als Folge des Ukrainekriegs und der Angebotsengpässe bedingt durch die Corona-Pandemie die Inflation wieder zurück auf das Vor-Krisenniveau sinken wird. Ein Blick auf die hohe Inflation in den 1970er-Jahren zeigt jedoch, dass es begründete Zweifel an dieser Einschätzung gibt. Die steigende Inflation erhöht nämlich den Druck auf die Notenbanken, dass sie vor dem Hintergrund ihrer Inflationsziele viel stärker reagieren müssen als sie es bisher taten.
 
-Die Inflation liegt inzwischen in fast allen entwickelten Volkswirtschaften über dem angestrebten Zielwert und die höheren Rohstoffpreise bedingt durch die russische Invasion in die Ukraine treiben sie weiter nach oben. 
-Mittelfristig gehen die Erwartungen von einer Senkung der Inflation und deren Rückgang ins definierte Zielband aus. Jedoch gibt es ein begründetes Risiko für weitere Inflationsschocks und eine anhaltende Periode von hoher Inflation, wodurch die Inflationserwartungen entgleiten könnten. Dies würde ein Wendepunkt nach einer zwei Jahrzehnte lange anhaltenden tiefen und stabilen Inflation bedeuten. Die hohen und volatilen Inflationsraten der 1970er-Jahre zeigen einige Parallelen zur heutigen Situation, wodurch sich daraus einige Lehren ziehen lassen.
+Die Inflation liegt inzwischen in fast allen entwickelten Volkswirtschaften über dem angestrebten Zielwert und die höheren Rohstoffpreise bedingt durch die russische Invasion in die Ukraine treiben sie weiter nach oben (vgl. Abbildung \ref{Inf_NRG}). Mittelfristig gehen die Erwartungen von einer Senkung der Inflation und deren Rückgang ins definierte Zielband aus. Jedoch gibt es ein begründetes Risiko für weitere Inflationsschocks und eine anhaltende Periode von hoher Inflation, wodurch die Inflationserwartungen entgleiten könnten. Dies würde ein Wendepunkt nach einer zwei Jahrzehnte lange anhaltenden tiefen und stabilen Inflation bedeuten. Die hohen und volatilen Inflationsraten der 1970er-Jahre zeigen einige Parallelen zur heutigen Situation, wodurch sich daraus einige Lehren ziehen lassen.
 
-Verwerfungen der Angebotsseite als Folge der Corona-Pandemie und der darauffolgende Angebotsschock als Folge des Russlandkrieges ähneln den Entwicklungen des Ölschocks 1973 und von 1979 bis 1980. Auch war die Geldpolitik damals wie heute sehr expansiv. Bewegungen der Inflation ausserhalb der Zielbänder dürften in den meisten entwickelten Volkswirtschaften restriktivere Schritte zur Erreichung einer Normalisierung der Zinspolitik zur Folge haben, ein sogenanntes «hard landing» wie es in den 1980s genannt wurde.
+Verwerfungen der Angebotsseite als Folge der Corona-Pandemie und der darauffolgende Angebotsschock als Folge des Russlandkrieges ähneln den Entwicklungen des Ölschocks 1973 und von 1979 bis 1980. Auch war die Geldpolitik damals wie heute sehr expansiv. Bewegungen der Inflation ausserhalb der Zielbänder dürften in den meisten entwickelten Volkswirtschaften restriktivere Schritte zur Erreichung einer Normalisierung der Zinspolitik zur Folge haben. In den 1980s führte diese Politik zu einer Rezession und damit zu ein sogenannten «hard landing».
 
 Wichtig ist jedoch auch zu erwähnen, dass es auch gewichtige Unterschiede der Situation heute und in den 1970er Jahren gibt. So ist der Anstieg der Rohstoffpreise bisher moderater als er in den 1970er-Jahren war. Mit dem Ölschock haben sich die Ölpreise von 1973 bis 1974 vervierfacht und zwischen 1979 und 1980 nochmals verdoppelt. Die schwache wirtschaftliche Situation zusammen mit sich wiederholenden Angebotsschocks endeten im Phänomen der Stagflation. Heute ist der Ölpreis real nur gerade zwei Drittel so hoch wie derjenige von 1980 oder 2008. 
 
@@ -407,8 +406,64 @@ Es bleibt jedoch ein beträchtliches Risiko, dass die obigen Faktoren nicht die 
 
 Der unsichere Ausblick auferlegt den Notenbanken einige politische Knacknüssen. Unabhängig davon macht es für sie keinen Sinn von der bisherigen Praxis abzuweichen, denn damit konnten sie in den letzten Jahrzehnten eine grosse Glaubwürdigkeit aufbauen und festigen. Die Notenbanken sind gut beraten, ihre Geldpolitik auch zukünftig so umzusetzen, dass die makroökonomische Stabilität möglichst aufrechterhalten können. Zudem müssen sie ihre Pläne klar und transparent kommunizieren und so ihre Glaubwürdigkeit stärken.
 
-## Und die Löhne?
-Auch war die Inflationsrate der Schweiz ab 2009 in mehreren Jahren negativ (vgl. Abbilundg \ref{Inf_A}), was die Reallöhne positiv beeinflusste und somit die Kaufkraft stärkte. 
+## Gibt es Spielraum der Unternehmen für Lohnerhöhungen?
+
+Ein Blick zurück zeigt, dassdie Inflationsraten der Schweiz ab 2009 mehrere Jahren negativ waren(vgl. Abbildung \ref{Inf_A}), was sich positiv auf die Entwickung der Reallöhne auswirkte und somit die Reallöhne stärkte. So stiegen die Reallöhne in den letzten zehn Jahren um gegen 8 Prozent resp. um durchschnittlich 0.8 Prozentpunkte pro Jahr.
+
+Der von den Gewerkschaften in die Lohnverhandlungen einbrachte Nachholbedarf der Reallöhne mit Blick auf die Produktivität gibt es so nicht (vgl. Abbildung \ref{Wage_prod}). Vielmehr sind diese beiden Grössen in den letzten Jahren praktisch parallel angestiegen. 
+
+Auch sind die Unternehmen von der Inflation ebenfalls betroffen, denn diese ist importiert und die Margen aufgrund der höheren Preise bleiben nicht bei den inländischen Unternehmen. 
+
+```{r plot_prod, include=FALSE}
+
+library(readxl)
+library(tidyr)
+library(ggplot2)
+#library(dplyr)
+#library(cowplot)
+
+xlsx <- read_excel("20220419_Löhne_Inflation.xlsx",sheet=3,range ="A23:D36")
+xlsx <- xlsx[,-2]
+a <- pivot_longer(xlsx,cols=2:3,names_to="Var",values_to="obsValue")
+
+
+a$Time <- as.Date(as.character(a$Time), format = "%Y")
+
+p <- ggplot(a, aes(x=Time, y=obsValue, color = Var, label=Var)) +
+  geom_line(data = a, aes(x = Time, y = obsValue),size=.6)+
+  geom_smooth(method = lm,se=FALSE,linetype="dashed",size=.4)+
+  scale_color_manual(values = c("#eb4255","#659065","#ffa500")) + #,"#34495E","#138D75","#E74C3C","#F8C471"))+
+  labs(#title = "Erwerbslosenrate",
+    #subtitle = "Quelle: Eurostat",
+    y = "",
+    x = "") +
+  theme_minimal()+
+  theme(legend.position="top",legend.title=element_blank()) + 
+  coord_fixed(ratio=12000) +  
+  #ggtitle("Inflationsraten - excluding energy")+
+  theme(text = element_text(size = 15))+
+  #scale_y_continuous(labels = function(x) paste0(x*1, "%")) +
+  scale_x_date(date_breaks = "1 year", date_labels ="%Y")+
+  theme(axis.text.x = element_text( 
+    angle = 45, 
+    #color="blue", 
+    vjust=0.6)#,
+    #size=15)#, 
+  #  face=1)
+  )
+
+pdf('~/Repos/Inflation/graphics/real_wage_prod.pdf')
+print(p)
+dev.off()
+```
+
+
+\begin{figure} \centering
+ \includegraphics[trim={0 5cm 1cm 0cm },clip,width=\textwidth]{~/Repos/Inflation/graphics/real_wage_prod.pdf}
+\caption{Entwicklung der Reallöhne sowie der Produktivität sowie deren lineare Trendlinien. Quelle: BFS}
+\label{Wage_prod}
+\end{figure}
+
 # Erkenntnisse
 
 Die steigende Inflation ist nicht nur medial, sondern auch bei Konsumentinnen und Konsumenten ein brennendes Thema. Auch im April 2022 stiegen die Inflationsraten von Ländern der EU aber auch der USA im Vergleich zum Monat März weiter an. Einigkeit besteht bei Ökonominnen und Ökonomen darüber, dass die Inflationsrate von unterschiedlichen Treibern getrieben wird. Dabei überlagern die preistreibenden Entwicklungen als Folge des Ukrainekriegs wie auch der Folgen der Corona-Pandemie die zugrundeliegende Teuerung aufgrund der expansiven Geldpolitik der Notenbanken in den letzten Jahren.
