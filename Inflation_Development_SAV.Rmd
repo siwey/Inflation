@@ -1,45 +1,35 @@
 ---
-title: "INFLATION, QUO VADIS?"
-header-includes: \usepackage{graphicx}
+title: "INFLATION und LÖHNE, QUO VADIS?"
 author: "Simon Wey"
 date: "`r format(Sys.time(), '%d %B %Y')`"
-bibliography: reference.bib  
-csl: elsevier-harvard.csl
 output:
   pdf_document:
-    template: null
+    pandoc_args: --listings
+    includes: 
+      in_header: preamble.tex
   html_document:
-    
     df_print: paged
+  word_document: default
+bibliography: reference.bib
+csl: elsevier-harvard.csl
+header-includes: \usepackage{graphicx}
+
 abstract: 
-- Die steigenden Inflationsraten beschäftigen nicht nur Konsumentinnen und Konsumenten
-  immer stärker, sondern auch die Politik, die sich überlegen muss, ob und wie sie
-  gegen den Kaufkraftverlust vorgehen will.
-- Die preistreibenden Entwicklungen als Folge des Ukrainekriegs wie auch der Folgen
-  der Corona-Pandemie überlagern die zugrundeliegende Teuerung aufgrund der expansiven
-  Geldpolitik der Notenbanken in den letzten Jahren.
-- Eine vergleichbare Situation in Vergangenheit war die «Great depression»-Krise in
-  den 70er-Jahren. 
-- Trotz einigen Parallelen gibt es auch gewichtige Unterschiede
-  bei den Ursachen, so etwa, dass die Inflation stärker anstieg und sie sich breiter
-  über die Branchen hinweg manifestierte als heute. Durch die starke Intervention
-  der Nationalbanken wurde zudem das Wirtschaftswachstum abgeschwächt, wodurch ein
-  «hard landing» eintrat und das Phänomen der Stagflation geboren wurde.
-- Eine Mehrheit der von NZZ und KOF befragten Ökonomen gehen von einem temporären
-  Anstieg der Inflation aus. Dafür sprechen gewichtige Gründe, etwa die sich abzeichnenden
-  Interventionen der Notenbanken, das Auslaufen der fiskalischen Zahlungen zur Überwindung
-  der Corona-Pandemie oder auch die Überwindung der Auswirkungen der gestiegenen Rohstoffpreise
-  und der Lieferengpässe. Auch haben die strukturellen Rahmenbedingungen die Inflation
-  in Vergangenheit auf tieferem Niveau als heute stabilisiert. Haben diese weiterhin
-  Bestand, so dürften sich auch diese negativ auf die Höhe der Inflation auswirken.
-  Des Weiteren spielen auch erwartungen eine zentrale Rolle, die wiederum
-  stark von der Glaubwürdigkeit der Notenbanken abhängen.
+- Die steigenden Inflationsraten beschäftigen nicht nur Konsumentinnen und Konsumenten, sondern auch die Politik, die   sich überlegen muss, ob und wie sie gegen den Kaufkraftverlust vorgehen will. Mit ihrer überraschend starken         Erhöhung des Leitzinses hat die Schweizerische Nationalbank viele überrascht.
+
+- Es bleiben die preistreibenden Entwicklungen als Folge des Ukrainekriegs und der Corona-Pandemie, wobei diese die    zugrundeliegende Teuerung aufgrund der expansiven Geldpolitik der Notenbanken überlagern. Eine vergleichbare         Situation in Vergangenheit war die «Great depression» in den 70er-Jahren.
+
+- Eine Mehrheit der von NZZ und KOF befragten Ökonomen gehen von einem temporären Anstieg der Inflation aus.
+
+- Der Spielraum für Lohnerhöhungen bleibt überschaubar, denn auch die Unternehmen kämpfen mit beim Bezug von           Vorprodukten mit den höheren Preisen. Dies nagt an der Marge und somit am Spielraum für Lohnerhöhungen. Daneben      kühlt sich auch die wirtschaftliche Entwicklung eher ab, etwa aufgrund der zunehmend restriktiveren Geldpolitik,     des Ukrainie-Kriegs oder der nach wie vor schwierigen Covid-Situation in China.
 tags:
 - nothing
 - nothingness
 ---
 \renewcommand{\figurename}{Abbildung} 
+\fontsize{13}{22}
 
+\selectfont
 
 ```{r plot0, echo=FALSE,  include=FALSE, message=FALSE,warning=FALSE}
 library(OECD)
@@ -168,7 +158,7 @@ data_ends <- sel_M %>% filter(Time == sel_M$Time[length(sel_M$Time)])
 data_ends$ObsValue <- round(data_ends$ObsValue,1)
 
 p1 <- ggplot(data = sel_M) + 
-    geom_line(mapping = aes(x = Time, y = ObsValue, color=LOCATION),size=1.1) + 
+    geom_line(mapping = aes(x = Time, y = ObsValue, color=LOCATION),size=.6) + 
     scale_color_manual(values = c("#eb4255","#8E44AD","#ffa500","#659065")) +
     #  geom_text(data=dat %>% group_by(geo)%>% filter(time==max(time)),size=2.6) + 
     # theme(legend.position="left")+
@@ -187,7 +177,7 @@ p1 <- ggplot(data = sel_M) +
     theme(axis.text.x = element_text( 
       angle = 90, 
       #color="blue", 
-      vjust=0.6)#,
+      vjust=0.6),strip.text.x = element_text(face = "bold")#,
       #size=15)#, 
       #  face=1)
     )+ 
@@ -208,23 +198,30 @@ dev.off()
 Zu hohe Teuerungsraten sind ökonomisch schädlich und können zu sozialen und politischen Verwerfungen führen. Im Mai 2022 lagen raten in den USA bei 8.6 Prozent, in Deutschland bei 7.9 Prozent und in der EU-27 bei 8.8 Prozent. Dagegen war rate in der Schweiz mit 2.9 Prozent (vgl. Abbildung \ref{Inf_M}) vergleichsweise moderat. Sie lag jedoch auch hierzulande über dem oberen Rand des Zielbandes der Schweizerischen Nationalbank (SNB). Am 16. Juni intervenierte die SNB mit einem überraschend hohen Zinsschritt von 0.5 Punkten zur Bekämpfung der Teuerung.    
 
 \begin{figure}[ht] \centering
-\includegraphics[trim={0 5cm 0 0cm },clip,width=\textwidth]{~/Repos/Inflation/graphics/infl_country_M.pdf}
+\includegraphics[trim={0 2.5cm 0 2cm },clip,width=\textwidth]{~/Repos/Inflation/graphics/infl_country_M_wrap.pdf}
+\caption{Die letzten Datenpunkte sind aus dem Monat `r format(sel_M$Time[length(sel_M$Time)],"%b")`. Quelle: OECD }
+\label{Inf_M_W}
+\end{figure}
+In Europa hatten die baltischen Staaten Litauen (18.5 Prozent), Estland (20.1 Prozent) und Lettland (16.8 Prozent) sowie Tschechien (15.2 Prozent) neben der Türkei (61.1 Prozent) die höchsten Inflationsraten (vgl. Abbildung \ref{Inf_MAP}). Stark getrieben ist der Anstieg von den Energie- und etwas weniger stark von den Nahrungsmittelpreisen (vgl. Abbildung \ref{Inf_NRG}). Werden diese aus der Inflationsrate hinaus gerechnet, so ist die Teuerung (Kerninflation) tiefer. In der Schweiz lag sie im Mai bei 1.5 Prozent (vgl. Abbildung \ref{Inf_core}). Der politische Druck auf die SNB stieg in den letzten Monaten stark an, so dass sie im Juni den Leitzins um 0.5 Punkte anhob.
+
+**Land** | **Inflationsrate** **`r format(sel_M$Time[length(sel_M$Time)-1],"%b")`** | **Inflationsrate** **`r format(sel_M$Time[length(sel_M$Time)],"%b")`**
+------------- | -------------|-------------
+**Schweiz** | `r round(sel_M$ObsValue[sel_M$LOCATION=="Schweiz"][length(sel_M$ObsValue[sel_M$LOCATION=="Schweiz"])-1],1)` | `r round(sel_M$ObsValue[sel_M$LOCATION=="Schweiz"][length(sel_M$ObsValue[sel_M$LOCATION=="Schweiz"])],1)`
+**Deutschland** | `r round(sel_M$ObsValue[sel_M$LOCATION=="Deutschland"][length(sel_M$ObsValue[sel_M$LOCATION=="Deutschland"])-1],1)` | `r round(sel_M$ObsValue[sel_M$LOCATION=="Deutschland"][length(sel_M$ObsValue[sel_M$LOCATION=="Deutschland"])],1)`
+**EU-27** | `r round(sel_M$ObsValue[sel_M$LOCATION=="EU-27"][length(sel_M$ObsValue[sel_M$LOCATION=="EU-27"])-1],1)` | `r round(sel_M$ObsValue[sel_M$LOCATION=="EU-27"][length(sel_M$ObsValue[sel_M$LOCATION=="EU-27"])],1)`
+**USA** | `r round(sel_M$ObsValue[sel_M$LOCATION=="USA"][length(sel_M$ObsValue[sel_M$LOCATION=="USA"])-1],1)` | `r round(sel_M$ObsValue[sel_M$LOCATION=="USA"][length(sel_M$ObsValue[sel_M$LOCATION=="USA"])],1)`
+
+\begin{figure}[ht] \centering
+\includegraphics[trim={0 5cm 0 3cm },clip,width=\textwidth]{~/Repos/Inflation/graphics/infl_country_M.pdf}
 \caption{Verlauf der Inflationsraten in der Schweiz, in Deutschland, im Durchschnitt der EU-27-Länder und in den USA auf monatlicher Basis von 2010 bis 2022. Quelle: OECD }
 \label{Inf_M}
 \end{figure}
 
-In Europa hatten die baltischen Staaten Litauen (18.5 Prozent), Estland (20.1 Prozent) und Lettland (16.8 Prozent) sowie Tschechien (15.2 Prozent) neben der Türkei (61.1 Prozent) die höchsten Inflationsraten (vgl. Abbildung \ref{Inf_MAP}). Stark getrieben ist der Anstieg von den Energie- und etwas weniger stark von den Nahrungsmittelpreisen (vgl. Abbildung \ref{Inf_NRG}). Werden diese aus der Inflationsrate hinaus gerechnet, so ist die Teuerung (Kerninflation) tiefer. In der Schweiz lag sie im Mai bei 1.5 Prozent (vgl. Abbildung \ref{Inf_core}). Der politische Druck auf die SNB stieg in den letzten Monaten stark an, so dass sie im Juni den Leitzins um 0.5 Punkte anhob.
-
-\begin{figure}[ht] \centering
-\includegraphics[trim={0 3.5cm 0 0cm },clip,width=\textwidth]{~/Repos/Inflation/graphics/infl_country_M_wrap.pdf}
-\caption{Die letzten Datenpunkte sind aus dem Monat `r format(sel_M$Time[length(sel_M$Time)],"%b")`. Quelle: OECD }
-\label{Inf_M_W}
-\end{figure}
 
 Die Inflatitonsraten stiegen auch in Vergangenheit immer mal stark an, etwa während der «Great depression» in den 70er-Jahren,  wobei die Inflationsrate der Schweiz bis auf wenige Ausnahmen meist tiefer verlief als denjenigen Deutschlands, der USA und der EU-27 (vgl. Abbildung \ref{Inf_A}). Auch war die Inflationsrate der Schweiz ab 2009 in mehreren Jahren negativ, was die Reallöhne positiv beeinflusste und somit die Kaufkraft stärkte. 
 
 \begin{figure}[ht] \centering
-\includegraphics[trim={0 5cm 0 0cm },clip,width=\textwidth]{~/Repos/Inflation/graphics/infl_country_A.pdf}
+\includegraphics[trim={0 5cm 0 3cm },clip,width=\textwidth]{~/Repos/Inflation/graphics/infl_country_A.pdf}
 \caption{Entwicklung der Inflationsraten in der Schweiz, in Deutschland, in der EU und in den USA auf jährlicher 1960 bis 2022. Auslöser des hohen Ausschlags nach oben in den 70er-Jahren war die «Great depression». Quelle: OECD}
 \label{Inf_A}
 \end{figure}
@@ -343,7 +340,7 @@ dev.off()
 Die Frage stellt sich, ob die hohen Teuerungsraten temporärer Natur sind oder ob sie sich zu einem anhaltenden Problem entwickeln. In einer Umfrage der NZZ^[[www.nzz.ch/wirtschaft/geldpolitik-der-snb-spaltet-die-oekonomen-ld.1678374](www.nzz.ch/wirtschaft/geldpolitik-der-snb-spaltet-die-oekonomen-ld.1678374)] zusammen mit der Konjunktur-forschungsstelle der ETH sieht eine Mehrheit der akademisch forschenden Ökonominnen und Ökonomen den starken Preisanstieg als temporäres Problem. Dies würde heissen, dass der momentane Anstieg der Inflation auf die höheren Rohstoffpreise und die Preissteigerungen als Folge der Lieferengpässe zurückzuführen wäre. Dauerhaft würde die Inflation steigen, wenn sie über Zweitrundeneffekte wie Lohnsteigerungen oben bliebe resp. sogar noch zusätzlich ansteigen würde.
 
 \begin{figure} \centering
-\includegraphics[trim={0 5.5cm 0 0cm},clip,width=\textwidth]{~/Repos/Inflation/graphics/infl_core_M.pdf}
+\includegraphics[trim={0 5.5cm 0 3cm},clip,width=\textwidth]{~/Repos/Inflation/graphics/infl_core_M.pdf}
 \caption{Die gesamte Inflations- und die Kerninflationsrate. Letztere wird ohne Energie- und Nahrungsmittelprodukte berechnet. Quelle: Eurostat}
 \label{Inf_core}
 \end{figure}
@@ -353,7 +350,7 @@ Die Gründe für die hohe Inflation können mit zwei unterschiedlichen Ansätzen
 Die beiden Ansätze erklären jedoch nur die eher kurzfristigen Entwicklungen aufgrund der Corona-Pandemie und der Invasion Russlands in die Ukraine. Zugrunde liegt den beiden Preistreibern eine hohe zirkulierende Geldmenge. Als ausschlaggebend sehen die befragten Ökonominnen und Ökonomen jedoch den Kostenanstieg für die Inflation. 44 Prozent von Ihnen würden eine restriktivere Geldpolitik, etwa über eine Erhöhung des Leitzinses, für angemessen halten. Seit über sieben Jahren lag der Leitzins in der Schweiz bei rekordtiefen -0.75 Prozent, bevor ihn die SNB im Juni um 0.5 Prozentpunkte anhob. Den Leitzins bereits angehoben hat die US-Notenbank Fed. Sie hat den größten Zinsschritt seit 22 Jahren unternommen und den Leitzins um einen halben Punkt auf die neue Spanne von 0,75 bis 1,0 Prozent gehievt. Es war dies die stärkste Anhebung seit 22 Jahren und es werden im Juni und Juli ähnlich hohe Schritte erwartet.
 
 \begin{figure} \centering
-\includegraphics[trim={0 5cm 0 0cm },clip,width=\textwidth]{~/Repos/Inflation/graphics/infl_nrg_M.pdf}
+\includegraphics[trim={0 5cm 0 3cm },clip,width=\textwidth]{~/Repos/Inflation/graphics/infl_nrg_M.pdf}
 \caption{Schwankungen der Energiepreise sowie spezifischer der Kraft- und Schmierstoffe für den Personenverkehr für die Schweiz. Quelle: Eurostat}
 \label{Inf_NRG}
 \end{figure}
@@ -369,7 +366,7 @@ Geldpolitik zu betreiben ist zurzeit äusserst anspruchsvoll, den die Reduktion 
 Ein Blick zurück auf den Verlauf der Inflation zeigt unter anderem ein hohes Preiswachstum während der grossen Depression («Great depression») in den 70er-Jahren. Diese war geprägt von zweistelligen Inflationsraten und einer stagnierenden Wirtschaft («Stagflation»). Befürchtungen werden lauter, dass sich die Situation in den 70er-Jahren heutzutage wiederholen könnte. Grundlage für diese Befürchtungen ist die steigende Inflation und die als Folge des Ukrainekriegs gebremste wirtschaftliche Entwicklung. Sind diese Befürchtungen gerechtfertigt? @vox von der Weltbank gehen in ihrem Beitrag  «1970s: Similarities and differences» dieser Frage nach.
 
 \begin{figure} \centering
-\includegraphics[trim={0 0cm 0 0cm},clip,width=\textwidth]{~/Repos/Inflation/graphics/MAP_Inflation_EU_202204.pdf}
+\includegraphics[trim={0 0cm 0 3cm},clip,width=\textwidth]{~/Repos/Inflation/graphics/MAP_Inflation_EU_202204.pdf}
 \caption{Die Inflationsraten in den europäischen Ländern. Mitten drin die Inflationsinsel Schweiz mit einer Inflationsrate von $2.9$ Prozent im Mai. In der Abbildung fehlt die Türkei, die im Mai eine Inflationsrate von $73.5$ Prozent hatte. Quelle: Eurostat}
 \label{Inf_MAP}
 \end{figure}
@@ -395,8 +392,8 @@ Aktuell ist davon auszugehen, dass die Inflation aufgrund von Nachfrage- und Ang
 Folgende Faktoren sprechen dafür, dass die globale Inflation mittelfristig zurück zum Zielwert finden wird. Die Straffung der Geldpolitik durch die Notenbanken, die Beendigung des fiskalischen Stimulus zur Überbrückung der Corona-Pandemie und die Auswirkungen auf das Wachstum sind gebremst, da die Verwerfungen des Angebots als Folge des Ukrainekriegs eingepreist sind und sich die Rohstoffpreise nach und nach stabilisieren. Auch werden sich die globalen Produktionsketten und die Logistik anpassen, so dass sich die die Situation mit den Engpässen normalisieren wird.
 
 \begin{figure} \centering
- \includegraphics[trim={0 5cm 0 0cm },clip,width=\textwidth]{~/Repos/Inflation/graphics/Cons_mood.pdf}
-\caption{Konsumentenstimmung in der EU-27, Deutschland und der Schweiz. *Quelle*: Eurostat und Seco}
+ \includegraphics[trim={0 5cm 0 3cm },clip,width=\textwidth]{~/Repos/Inflation/graphics/Cons_mood.pdf}
+\caption{Konsumentenstimmung in der EU-27 und in Deutschland. Quelle: Eurostat}
 \label{Inf_Mood}
 \end{figure}
 
@@ -408,11 +405,69 @@ Der unsichere Ausblick auferlegt den Notenbanken einige politische Knacknüssen.
 
 ## Gibt es Spielraum der Unternehmen für Lohnerhöhungen?
 
-Ein Blick zurück zeigt, dassdie Inflationsraten der Schweiz ab 2009 mehrere Jahren negativ waren(vgl. Abbildung \ref{Inf_A}), was sich positiv auf die Entwickung der Reallöhne auswirkte und somit die Reallöhne stärkte. So stiegen die Reallöhne in den letzten zehn Jahren um gegen 8 Prozent resp. um durchschnittlich 0.8 Prozentpunkte pro Jahr.
+Als Vorbemerkung vor der Diskussion des Spielraums für Lohnerhöhungen muss angemerkt
+werden, dass die Lohnverhandlungen dezentral in den Branchen zwischen den Sozialpartnern
+stattfinden. Die Betriebe orientieren sich bei der Festlegung von Lohnerhöhungen in erster
+Linie an der finanziellen Machbarkeit, ohne damit die nachhaltige Finanzierung des Betriebs
+und den Erhalt von Stellen zu gefährden. Die nachfolgende Diskussion ist eine
+branchenübergreifende, jedoch muss im Endeffekt den wirtschaftlichen Gegebenheiten in den
+Branchen Rechnung getragen werden.
 
-Der von den Gewerkschaften in die Lohnverhandlungen einbrachte Nachholbedarf der Reallöhne mit Blick auf die Produktivität gibt es so nicht (vgl. Abbildung \ref{Wage_prod}). Vielmehr sind diese beiden Grössen in den letzten Jahren praktisch parallel angestiegen. 
+Die KOF^[[https://ethz.ch/content/dam/ethz/special-interest/dual/kof-
+dam/documents/Publications/2022_2_Sommer_gesamtbericht.pdf](https://ethz.ch/content/da
+m/ethz/special-interest/dual/kof-
+dam/documents/Publications/2022_2_Sommer_gesamtbericht.pdf)] geht für 2022 von einem
+nominalen Lohnwachstum von 2.6 Prozent aus, wobei dies im laufenden Jahr wegen der
+zunehmenden Teuerung nicht zu einer Reallohnerhöhung führen wird. Im kommenden Jahr
+sagen die KOF-Prognosen eine durchschnittliche Erhöhung der Nominallöhne um 1.6 und
+eine Teuerung von 2.6 Prozent (SNB 2.8 Prozent) voraus, womit die Reallöhne auch 2023
+stagnieren dürften.
 
-Auch sind die Unternehmen von der Inflation ebenfalls betroffen, denn diese ist importiert und die Margen aufgrund der höheren Preise bleiben nicht bei den inländischen Unternehmen. 
+Ein Blick zurück zeigt, dass die Inflationsraten der Schweiz ab 2009 während mehreren
+Jahren negativ waren (vgl. Abbildung \ref{Inf_A}), was sich positiv auf die Entwickung der
+Reallöhne auswirkte. So stiegen die Reallöhne in den letzten zehn Jahren um gegen 7 Prozent
+resp. um durchschnittlich 0.7 Prozentpunkte pro Jahr. Längerfristig ist die
+Arbeitsproduktivität der mit Abstand wichtigste Treiber der Reallöhne. Ein Vergleich des
+Verlaufs der beiden Grössen in den letzten zehn Jahren zeigt, dass sich diese nahezu parallel
+nach oben bewegt haben (vgl. Abbildung \ref{Wage_prod}). Es zeigt sich daran, dass
+grundsätzlich kein Nachholbedarf mit Blick auf die Reallöhne auszumachen ist.
+
+Betrachtet man die Situation der Unternehmen, so zeigt sich, dass ihnen ebenfalls die hohe
+Inflation zu schaffen macht. Sie haben dadurch höhere Kosten beim Einkauf ihrer
+Vorprodukte. Da die Inflation importiert ist, fliesst der Ertrag aus den gestiegenen Preisen
+auch nicht in ihre Kassen. Im Gegenteil steigen dadurch die Kosten und die Margen sinken.
+Nur die wenigsten Unternehmen können die höheren Einkaufspreise durch höhere Preise an
+die Konsumenten kompensieren.
+
+In vielen Fällen können die Konsumentinnen und Konsumenten die höheren Preise auch
+einfacher umgehen als Unternehmen. So können sie durch kleine Änderungen ihres
+Konsumverhalten Produkte mit gestiegenen Preisen substituieren. So können Sommerferien
+etwa auch in der Schweiz verbracht werden, statt eine teure Flugreise anzutreten.
+
+Grundsätzlich ist es so, dass es beim Teuerungsausgleich weder einen Automatismus für
+Lohnanpassungen nach oben noch nach unten gibt. Die Lohnpolitik in den Unternehmen
+orientiert sich nicht an der Teuerung, viel mehr stellt sich in den Betrieben die Frage, ob nach
+Abzug aller Kosten noch Spielraum für Lohnerhöhungen bleibt. Sofern es einen solchen gibt,
+so haben auch die Unternehmen einen Anreiz, die Teuerung so gut als möglich auszugleichen,
+denn dadurch können sich die Konsumenten mehr leisten.Auch vergeben die Unternehmen die Lohnerhöhungen zunehmend individuell statt generell, um den überdurchschnittlichen Leistungen der Mitarbeitenden Rechnung zu tragen. Ebenso machen sie zunehmend auch vom Mittel der Einmalzahlungen Gebrauch. 
+
+Obwohl die Auftragslage in vielen Betrieben noch gut ist, können sie teilweise wegen der
+Lieferkettenprobleme Produkte nicht fertigstellen respektive bleibt ihnen auch beim Verkauf der fertigen Produkte eine tiefere Marge. Eine tiefere Marge senkt in den Betrieben auch den
+Spielraum für Lohnerhöhungen.
+
+Die Treiber von Lohnforderungen resultieren oft aus für die Betriebe exogenen Faktoren.
+Faktoren also, die den Geschäftsgang der Betriebe kaum bis nicht beeinflussen, so etwa die
+steigenden Krankenkassenprämien oder die hohe Teuerung. Von Letzterer werden die
+Betriebe zudem auch selbst negativ tangiert. Die mit Abstand wichtigste Grösse zur
+Bestimmung des Spielraums von Lohnerhöhungen ist die aktuelle wirtschaftliche Lage und
+die zukünftigen Aussichten, in der sich eine Branche oder ein Betrieb befindet.
+
+Lösungen, um den Anstieg der Krankenkassenprämien zu stoppen, müssen aus der Politik
+kommen. Es wäre geradezu problematisch, wenn die Arbeitgeber die stetig steigenden Kosten
+mit höheren Löhnen kompensieren würden, denn dadurch würde das Signal gesendet, dass es
+keinen Handlungsbedarf für nachhaltige Lösungen gebe. Und selbst wenn die Unternehmen
+für einen Teil dieser Kosten aufkommen wollten, so fehlen in den meisten Betrieben schlicht
+die Mittel dazu.
 
 ```{r plot_prod, include=FALSE}
 
@@ -459,18 +514,19 @@ dev.off()
 
 
 \begin{figure} \centering
- \includegraphics[trim={0 5cm 1cm 0cm },clip,width=\textwidth]{~/Repos/Inflation/graphics/real_wage_prod.pdf}
-\caption{Entwicklung der Reallöhne sowie der Produktivität sowie deren lineare Trendlinien. Quelle: BFS}
+ \includegraphics[trim={0 5cm 1cm 3cm},clip,width=\textwidth]{~/Repos/Inflation/graphics/real_wage_prod.pdf}
+\caption{Entwicklung des Reallohn- sowie des Produktivitätsindex und deren zugehörige lineare Trendlinien. Quelle: BFS}
 \label{Wage_prod}
 \end{figure}
 
 # Erkenntnisse
 
-Die steigende Inflation ist nicht nur medial, sondern auch bei Konsumentinnen und Konsumenten ein brennendes Thema. Auch im April 2022 stiegen die Inflationsraten von Ländern der EU aber auch der USA im Vergleich zum Monat März weiter an. Einigkeit besteht bei Ökonominnen und Ökonomen darüber, dass die Inflationsrate von unterschiedlichen Treibern getrieben wird. Dabei überlagern die preistreibenden Entwicklungen als Folge des Ukrainekriegs wie auch der Folgen der Corona-Pandemie die zugrundeliegende Teuerung aufgrund der expansiven Geldpolitik der Notenbanken in den letzten Jahren.
+Die steigende Inflation ist nicht nur medial, sondern auch bei Konsumentinnen und Konsumenten ein brennendes Thema. Zudem gründen auch die unrealistischen Lohnforderungen der Gewerkschaften auf den steigenden Preisen. Auch im Mai 2022 stiegen die Inflationsraten von Ländern der EU aber auch der USA im Vergleich zum Monat April weiter an. Inzwischen hat die SNB den Leitzins überraschend stark um 0.5 Prozentpunkte angehoben, wodurch ein erster Schritt in Richtung geldpolitischer Normalität in die Wege geleitet ist. 
+Einigkeit besteht bei Ökonominnen und Ökonomen darüber, dass die Inflationsrate von unterschiedlichen Treibern abhängig ist. Dabei überlagern die preistreibenden Entwicklungen als Folge des Ukrainekriegs und der Corona-Pandemie die zugrundeliegende Teuerung aufgrund der expansiven Geldpolitik der Notenbanken.
+Der Ukrainekrieg erhöhte in den zurückliegenden Monaten die Energiepreise empfindlich, während die Corona-Pandemie zu Lockdowns in China führt, was die globalen Lieferketten wie auch die Logistik stark beeinträchtigt. Diese Engpässe erhöhen die Preise als Folge der Knappheit von Gütern. Gemäss einer Umfrage der NZZ und der KOF sieht eine Mehrheit von Ökonominnen und Ökonomen die hohen Inflationsraten als temporäres Problem. Für diese Einschätzung gibt es gewichtige Gründe, so etwa die Tatsache, dass das US-Fed die Geldpolitik bereits gestrafft hat und wohl auch EZB und anschliessend die SNB nachziehen dürften. Auch ist der fiskalische Stimulus zur Überwindung der Corona-Pandemie beendet. Ebenso gewöhnen sich die Marktakteure kontinuierlich an die höheren Rohstoffpreise, so dass diese bald in die Kaufüberlegungen der Konsumenten eingepreist sein dürften. Auch passt sich die Logistik an die neuen Gegebenheiten an und die Lieferengpässe dürften über die Zeit abnehmen. Zudem weisen die Notenbanken in den meisten entwickelten Volkswirtschaften eine hohe Glaubwürdigkeit auf, so dass die Erwartungen hin zu einer rückläufigen Inflation gehen. Auch dürften die strukturellen Rahmenbedingungen der Vergangenheit, die vor den momentanen Krisen eine tiefe Inflationsrate sichergestellt haben, auch weiterhin Bestand haben. Gegeben dem ist so, so dürfte sich die Inflation zukünftig auf ein tieferes Niveau zurück entwickeln. 
 
-Der Ukrainekrieg erhöhte in den zurückliegenden Monaten die Energiepreise empfindlich, während die Corona-Pandemie zurzeit zu Lockdowns in China führt, was die globalen Lieferketten stark stört. Diese Engpässe erhöhen die Preise als Folge der Knappheit von Gütern. Gemäss einer Umfrage der NZZ und der KOF sieht eine Mehrheit von Ökonominnen und Ökonomen die hohen Inflationsraten als temporäres Problem. Für diese Einschätzung gibt es gewichtige Gründe, so etwa die Tatsache, dass das US-Fed die Geldpolitik bereits gestrafft hat und wohl auch EZB und anschliessend die SNB nachziehen dürften. Auch ist der fiskalische Stimulus zur Überwindung der Corona-Pandemie beendet. Ebenso gewöhnen sich die Marktakteure kontinuierlich an die höheren Rohstoffpreise, so dass diese bald in die Kaufüberlegungen der Konsumenten eingepreist sein dürften. Auch passt sich die Logistik an die neuen Gegebenheiten an und die Lieferengpässe dürften über die Zeit abnehmen. Zudem weisen die Notenbanken in den meisten entwickelten Volkswirtschaften eine hohe Glaubwürdigkeit auf, so dass die Erwartungen hin zu einer rückläufigen Inflation gehen. Auch dürften die strukturellen Rahmenbedingungen der Vergangenheit, die vor den momentanen Krisen eine tiefe Inflationsrate sichergestellt haben, auch weiterhin Bestand haben. Gegeben dem ist so, so dürfte sich die Inflation zukünftig auf ein tieferes Niveau zurück entwickeln. 
-
-Nach wie vor bestehen jedoch beträchtliche Risiken, dass die obigen Faktoren die Inflation mittelfristig nicht wieder zurück ins Zielband führen. So könnten etwa stagflationäre Schocks häufiger werden und so die Inflationserwartungen destabilisieren. Ebenso besteht die Gefahr, dass die Notenbanken zu zögerlich reagieren und so die Inflation hoch bleibt resp. weiter ansteigt. Dies würde über die Zeit der Glaubwürdigkeit der Notenbanken schaden und die zukünftige Geldpolitik erschweren. Und nicht zuletzt kann es sein, dass die in Vergangenheit stabilisierend wirkenden strukturellen Rahmenbedingungen soweit verändert haben, dass sie ihre bisherige inflationshemmende Wirkung nicht mehr ausüben. 
+Nach wie vor bestehen jedoch beträchtliche Risiken, dass die obigen Faktoren die Inflation mittelfristig nicht wieder zurück ins Zielband führen. So könnten etwa stagflationäre Schocks häufiger werden und so die Inflationserwartungen destabilisieren. Ebenso besteht die Gefahr, dass die Notenbanken zu zögerlich reagieren und so die Inflation hoch bleibt resp. weiter ansteigt. Dies würde über die Zeit der Glaubwürdigkeit der Notenbanken schaden und die zukünftige Geldpolitik erschweren. Und nicht zuletzt kann es sein, dass die in Vergangenheit stabilisierend wirkenden strukturellen Rahmenbedingungen soweit verändert haben, dass sie ihre bisherige inflationshemmende Wirkung nicht mehr ausüben.
+Die hohen Inflationsraten sowie die steigenden Krankenkassenprämien treiben auch die Lohnforderungen der Gewerkschaften in unrealistische Höhen. Denn auch die Margen der Unternehmen schrumpfen als Folge der hohen Inflation, denn auch die Unternehmen müssen für den Kauf ihrer Vorprodukte tiefer in die Tasche greifen. Zudem werden die steigenden Krankenkassenprämien als Begründung für höhere Löhne herangezogen. Diese Logik geht jedoch nicht auf, denn der Bekämpfung der Ursachen der Kostenexplosion im Gesundheitswesen muss sich die Politik annehmen. Eine Kompensation der Kosten durch höhere Löhne würde einer Symptombekämpfung gleichkommen und falsche Signale senden. 
 
 
 ```{r eurostat_Map, echo=FALSE,  include=FALSE, message=FALSE,warning=FALSE}
