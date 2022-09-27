@@ -15,23 +15,20 @@ csl: elsevier-harvard.csl
 header-includes: \usepackage{graphicx}
 
 abstract: 
-- Die steigenden Inflationsraten beschäftigen nicht nur Konsumentinnen und Konsumenten, sondern auch die Politik, die   sich überlegen muss, ob und wie sie gegen den Kaufkraftverlust vorgehen will. Mit ihrer überraschend starken         Erhöhung des Leitzinses hat die Schweizerische Nationalbank viele überrascht.
-
-- Es bleiben die preistreibenden Entwicklungen als Folge des Ukrainekriegs und der Corona-Pandemie, wobei diese die    zugrundeliegende Teuerung aufgrund der expansiven Geldpolitik der Notenbanken überlagern. Eine vergleichbare         Situation in Vergangenheit war die «Great depression» in den 70er-Jahren.
-
-- Eine Mehrheit der von NZZ und KOF befragten Ökonomen gehen von einem temporären Anstieg der Inflation aus.
-
-- Der Spielraum für Lohnerhöhungen bleibt überschaubar, denn auch die Unternehmen kämpfen mit beim Bezug von           Vorprodukten mit den höheren Preisen. Dies nagt an der Marge und somit am Spielraum für Lohnerhöhungen. Daneben      kühlt sich auch die wirtschaftliche Entwicklung eher ab, etwa aufgrund der zunehmend restriktiveren Geldpolitik,     des Ukrainie-Kriegs oder der nach wie vor schwierigen Covid-Situation in China.
+- Die steigenden Inflationsraten beschäftigen nicht nur Konsumentinnen und Konsumenten, sondern auch die Politik, die   sich überlegen muss, ob und wie sie gegen den Kaufkraftverlust vorgehen will. Mit ihrer überraschend starken         Erhöhung des Leitzinses hat die Schweizerische Nationalbank viele überrascht. Es bleiben die preistreibenden Entwicklungen als Folge des Ukrainekriegs und der Corona-Pandemie, wobei diese die zugrundeliegende Teuerung aufgrund der expansiven Geldpolitik der Notenbanken überlagern. Eine vergleichbare Situation war die «Great depression» in den 70er-Jahren. Eine Mehrheit der von NZZ und KOF befragten Ökonomen geht von einem temporären Anstieg der Inflation aus. Der Spielraum für Lohnerhöhungen bleibt überschaubar, denn auch die Unternehmen kämpfen beim Bezug von Vorprodukten mit den höheren Preisen. Dies nagt an der Marge und somit am Spielraum für Lohnerhöhungen. Daneben kühlt sich auch die wirtschaftliche Entwicklung ab, etwa aufgrund der zunehmend restriktiveren Geldpolitik, des Ukrainie-Kriegs oder der nach wie vor schwierigen Covid-Situation in China.
 tags:
 - nothing
 - nothingness
 ---
 \renewcommand{\figurename}{Abbildung} 
-\fontsize{13}{22}
+\fontsize{13}{16}
 
 \selectfont
 
 ```{r plot0, echo=FALSE,  include=FALSE, message=FALSE,warning=FALSE}
+
+rm(list=ls())
+
 library(OECD)
 library(tidyverse)
 library(ggplot2)
@@ -80,6 +77,9 @@ sel_A$Time <- as.Date(paste(sel_A$Time,1,sep="-"),"%Y")
 sel_M$LOCATION <- factor(sel_M$LOCATION, levels=c("Schweiz","Deutschland","EU-27","USA"))
 sel_A$LOCATION <- factor(sel_A$LOCATION, levels=c("Schweiz","Deutschland","EU-27","USA"))
 
+break.vec <- c(seq(from = min(sel_M$Time), to = max(sel_M$Time),
+                   by = "12 month"),max(sel_M$Time))
+
 
 p1 <- ggplot(sel_M, aes(x=Time, y=ObsValue, color = LOCATION, label=LOCATION)) +
   geom_line(data = sel_M, aes(x = Time, y = ObsValue),size=.6)+
@@ -93,11 +93,12 @@ p1 <- ggplot(sel_M, aes(x=Time, y=ObsValue, color = LOCATION, label=LOCATION)) +
     x = "") +
   theme_minimal()+
   theme(legend.position="top",legend.title=element_blank()) + 
-  coord_fixed(ratio=150) +  
+  coord_fixed(ratio=140) +  
   #ggtitle("Inflationsraten - excluding energy")+
   theme(text = element_text(size = 15))+
   scale_y_continuous(labels = function(x) paste0(x*1, "%")) +
-  scale_x_date(date_breaks = "15 month", date_labels ="%m-%Y")+
+  #scale_x_date(date_breaks = "12 month", date_labels ="%m-%Y")+
+  scale_x_date(date_labels = "%b %y",breaks=break.vec) +
   theme(axis.text.x = element_text( 
     angle = 45, 
     #color="blue", 
@@ -108,6 +109,10 @@ p1 <- ggplot(sel_M, aes(x=Time, y=ObsValue, color = LOCATION, label=LOCATION)) +
 pdf('~/Repos/Inflation/graphics/infl_country_M.pdf')
 print(p1)
 dev.off()
+
+break.vec <- c(seq(from = min(sel_A$Time), to = max(sel_A$Time),
+                   by = "8 year"),max(sel_A$Time))
+
 
 p2 <- ggplot(sel_A, aes(x=Time, y=ObsValue, color = LOCATION, label=LOCATION)) +
   geom_line(data = sel_A, aes(x = Time, y = ObsValue),size=.6)+
@@ -125,7 +130,8 @@ p2 <- ggplot(sel_A, aes(x=Time, y=ObsValue, color = LOCATION, label=LOCATION)) +
   #ggtitle("Inflationsraten - excluding energy")+
   theme(text = element_text(size = 15))+
   scale_y_continuous(labels = function(x) paste0(x*1, "%")) +
-  scale_x_date(date_breaks = "36 month", date_labels =  "%Y")+#"%m-%Y")+
+  #scale_x_date(date_breaks = "36 month", date_labels =  "%Y")+#"%m-%Y")+
+  scale_x_date(date_labels = "%Y",breaks=break.vec) +
   theme(axis.text.x = element_text( 
     angle = 45, 
     #color="blue", 
@@ -197,20 +203,20 @@ dev.off()
 
 Zu hohe Teuerungsraten sind ökonomisch schädlich und können zu sozialen und politischen Verwerfungen führen. Im Mai 2022 lagen raten in den USA bei 8.6 Prozent, in Deutschland bei 7.9 Prozent und in der EU-27 bei 8.8 Prozent. Dagegen war rate in der Schweiz mit 2.9 Prozent (vgl. Abbildung \ref{Inf_M}) vergleichsweise moderat. Sie lag jedoch auch hierzulande über dem oberen Rand des Zielbandes der Schweizerischen Nationalbank (SNB). Am 16. Juni intervenierte die SNB mit einem überraschend hohen Zinsschritt von 0.5 Punkten zur Bekämpfung der Teuerung.    
 
-\begin{figure}[ht] \centering
+\begin{figure}[] \centering
 \includegraphics[trim={0 2.5cm 0 2cm },clip,width=\textwidth]{~/Repos/Inflation/graphics/infl_country_M_wrap.pdf}
-\caption{Die letzten Datenpunkte sind aus dem Monat `r format(sel_M$Time[length(sel_M$Time)],"%b")`. Quelle: OECD }
+\caption{Die letzten Datenpunkte sind aus dem Monat `r format(sel_M$Time[length(sel_M$Time)],"%B")`. Quelle: OECD }
 \label{Inf_M_W}
 \end{figure}
 In Europa hatten die baltischen Staaten Litauen (18.5 Prozent), Estland (20.1 Prozent) und Lettland (16.8 Prozent) sowie Tschechien (15.2 Prozent) neben der Türkei (61.1 Prozent) die höchsten Inflationsraten (vgl. Abbildung \ref{Inf_MAP}). Stark getrieben ist der Anstieg von den Energie- und etwas weniger stark von den Nahrungsmittelpreisen (vgl. Abbildung \ref{Inf_NRG}). Werden diese aus der Inflationsrate hinaus gerechnet, so ist die Teuerung (Kerninflation) tiefer. In der Schweiz lag sie im Mai bei 1.5 Prozent (vgl. Abbildung \ref{Inf_core}). Der politische Druck auf die SNB stieg in den letzten Monaten stark an, so dass sie im Juni den Leitzins um 0.5 Punkte anhob.
 
-**Land** | **Inflationsrate** **`r format(sel_M$Time[length(sel_M$Time)-1],"%b")`** | **Inflationsrate** **`r format(sel_M$Time[length(sel_M$Time)],"%b")`**
+**Land** | **Infl.rate** **`r format(sel_M$Time[length(sel_M$Time)-1],"%B")`** | **Infl.rate** **`r format(sel_M$Time[length(sel_M$Time)],"%B")`**
 ------------- | -------------|-------------
 **Schweiz** | `r round(sel_M$ObsValue[sel_M$LOCATION=="Schweiz"][length(sel_M$ObsValue[sel_M$LOCATION=="Schweiz"])-1],1)` | `r round(sel_M$ObsValue[sel_M$LOCATION=="Schweiz"][length(sel_M$ObsValue[sel_M$LOCATION=="Schweiz"])],1)`
 **Deutschland** | `r round(sel_M$ObsValue[sel_M$LOCATION=="Deutschland"][length(sel_M$ObsValue[sel_M$LOCATION=="Deutschland"])-1],1)` | `r round(sel_M$ObsValue[sel_M$LOCATION=="Deutschland"][length(sel_M$ObsValue[sel_M$LOCATION=="Deutschland"])],1)`
 **EU-27** | `r round(sel_M$ObsValue[sel_M$LOCATION=="EU-27"][length(sel_M$ObsValue[sel_M$LOCATION=="EU-27"])-1],1)` | `r round(sel_M$ObsValue[sel_M$LOCATION=="EU-27"][length(sel_M$ObsValue[sel_M$LOCATION=="EU-27"])],1)`
 **USA** | `r round(sel_M$ObsValue[sel_M$LOCATION=="USA"][length(sel_M$ObsValue[sel_M$LOCATION=="USA"])-1],1)` | `r round(sel_M$ObsValue[sel_M$LOCATION=="USA"][length(sel_M$ObsValue[sel_M$LOCATION=="USA"])],1)`
-
+Table: Inflationsraten der in Abbildung \ref{Inf_M_W} gezeigten Länder und Wirtschaftsräumen. Quelle: OECD
 \begin{figure}[ht] \centering
 \includegraphics[trim={0 5cm 0 3cm },clip,width=\textwidth]{~/Repos/Inflation/graphics/infl_country_M.pdf}
 \caption{Verlauf der Inflationsraten in der Schweiz, in Deutschland, im Durchschnitt der EU-27-Länder und in den USA auf monatlicher Basis von 2010 bis 2022. Quelle: OECD }
@@ -222,14 +228,13 @@ Die Inflatitonsraten stiegen auch in Vergangenheit immer mal stark an, etwa wäh
 
 \begin{figure}[ht] \centering
 \includegraphics[trim={0 5cm 0 3cm },clip,width=\textwidth]{~/Repos/Inflation/graphics/infl_country_A.pdf}
-\caption{Entwicklung der Inflationsraten in der Schweiz, in Deutschland, in der EU und in den USA auf jährlicher 1960 bis 2022. Auslöser des hohen Ausschlags nach oben in den 70er-Jahren war die «Great depression». Quelle: OECD}
+\caption{Entwicklung der Inflationsraten in der Schweiz, in Deutschland, in der EU und in den USA auf jährlicher Basis 1960 bis 2022. Auslöser des hohen Ausschlags nach oben in den 70er-Jahren war die «Great depression». Quelle: OECD}
 \label{Inf_A}
 \end{figure}
 
 Eine hohe Teuerung senkt die Kaufkraft und wirkt sich meist etwas verzögert auch auf die Konsumentenstimmung aus. Dies zeigt sich auch beim momentanen Anstieg, wobei sich zeigt, dass diese sowohl in der EU-27, in Deutschland, aber auch in der Schweiz seit etwa Sommer 2021 rückläufig ist und inzwischen in Deutschland bereits unter das Niveau des Abfalls zu Beginn der Corona-Pandemie gefallen ist (vgl. Abbildung \ref{Inf_Mood}).  
 
 ```{r eurostat, echo=FALSE,  include=FALSE, message=FALSE,warning=FALSE}
-
 
 library("eurostat")
 library(dplyr) 
@@ -283,6 +288,10 @@ sel_nrg <- dat_2020_nrg %>%
 #sel_M$obsTime <- as.Date(paste(sel_M$obsTime,1,sep="-"),"%Y-%m-%d")
 #sel_A$obsTime <- as.Date(paste(sel_A$obsTime,1,sep="-"),"%Y")
 
+break.vec <- c(seq(from = min(sel_nrg$time), to = max(sel_nrg$time),
+                   by = "15 month"),max(sel_nrg$time))
+
+
 p <- ggplot(sel_core, aes(x=time, y=obsValue, color = coicop, label=coicop)) +
   geom_line(data = sel_core, aes(x = time, y = values),size=.6)+
  scale_color_manual(values = c("#eb4255","#659065")) + #,"#34495E","#138D75","#E74C3C","#F8C471"))+
@@ -296,7 +305,8 @@ p <- ggplot(sel_core, aes(x=time, y=obsValue, color = coicop, label=coicop)) +
   #ggtitle("Inflationsraten - excluding energy")+
   theme(text = element_text(size = 15))+
   scale_y_continuous(labels = function(x) paste0(x*1, "%")) +
-  scale_x_date(date_breaks = "15 month", date_labels ="%m-%Y")+
+ # scale_x_date(date_breaks = "15 month", date_labels ="%m-%Y")+
+  scale_x_date(date_labels = "%b %y",breaks=break.vec) +
   theme(axis.text.x = element_text( 
     angle = 45, 
     #color="blue", 
@@ -322,7 +332,8 @@ p <- ggplot(sel_nrg, aes(x=time, y=obsValue, color = coicop, label=coicop)) +
   #ggtitle("Inflationsraten - excluding energy")+
   theme(text = element_text(size = 15))+
   scale_y_continuous(labels = function(x) paste0(x*1, "%")) +
-  scale_x_date(date_breaks = "15 month", date_labels ="%m-%Y")+
+  #scale_x_date(date_breaks = "15 month", date_labels ="%m-%Y")+
+  scale_x_date(date_labels = "%b %y",breaks=break.vec) +
   theme(axis.text.x = element_text( 
     angle = 45, 
     #color="blue", 
@@ -403,70 +414,68 @@ Es bleibt jedoch ein beträchtliches Risiko, dass die obigen Faktoren nicht die 
 
 Der unsichere Ausblick auferlegt den Notenbanken einige politische Knacknüssen. Unabhängig davon macht es für sie keinen Sinn von der bisherigen Praxis abzuweichen, denn damit konnten sie in den letzten Jahrzehnten eine grosse Glaubwürdigkeit aufbauen und festigen. Die Notenbanken sind gut beraten, ihre Geldpolitik auch zukünftig so umzusetzen, dass die makroökonomische Stabilität möglichst aufrechterhalten können. Zudem müssen sie ihre Pläne klar und transparent kommunizieren und so ihre Glaubwürdigkeit stärken.
 
-## Gibt es Spielraum der Unternehmen für Lohnerhöhungen?
+## Spielraum für Lohnerhöhungen?
 
-Als Vorbemerkung vor der Diskussion des Spielraums für Lohnerhöhungen muss angemerkt
+Als Vorbemerkung zur Diskussion des Spielraums für Lohnerhöhungen muss angemerkt
 werden, dass die Lohnverhandlungen dezentral in den Branchen zwischen den Sozialpartnern
 stattfinden. Die Betriebe orientieren sich bei der Festlegung von Lohnerhöhungen in erster
 Linie an der finanziellen Machbarkeit, ohne damit die nachhaltige Finanzierung des Betriebs
 und den Erhalt von Stellen zu gefährden. Die nachfolgende Diskussion ist eine
 branchenübergreifende, jedoch muss im Endeffekt den wirtschaftlichen Gegebenheiten in den
-Branchen Rechnung getragen werden.
+Branchen und insbesondere den Betrieben Rechnung getragen werden.
 
 Die KOF^[[https://ethz.ch/content/dam/ethz/special-interest/dual/kof-
 dam/documents/Publications/2022_2_Sommer_gesamtbericht.pdf](https://ethz.ch/content/da
 m/ethz/special-interest/dual/kof-
 dam/documents/Publications/2022_2_Sommer_gesamtbericht.pdf)] geht für 2022 von einem
-nominalen Lohnwachstum von 2.6 Prozent aus, wobei dies im laufenden Jahr wegen der
-zunehmenden Teuerung nicht zu einer Reallohnerhöhung führen wird. Im kommenden Jahr
+nominalen Lohnwachstum von 2.6 Prozent aus, wobei dies im laufenden Jahr wegen der geschätzten Teuerung von 
+(SNB 2.8 Prozent) nicht zu einer Reallohnerhöhung führen wird. Im kommenden Jahr
 sagen die KOF-Prognosen eine durchschnittliche Erhöhung der Nominallöhne um 1.6 und
-eine Teuerung von 2.6 Prozent (SNB 2.8 Prozent) voraus, womit die Reallöhne auch 2023
+eine Teuerung von 1.5 Prozent (SNB 1.9 Prozent) voraus, womit die Reallöhne auch 2023
 stagnieren dürften.
 
 Ein Blick zurück zeigt, dass die Inflationsraten der Schweiz ab 2009 während mehreren
-Jahren negativ waren (vgl. Abbildung \ref{Inf_A}), was sich positiv auf die Entwickung der
-Reallöhne auswirkte. So stiegen die Reallöhne in den letzten zehn Jahren um gegen 7 Prozent
+Jahren negativ waren (vgl. Abbildung \ref{Inf_A}), was sich positiv auf die Entwicklung der
+Reallöhne auswirkte. So stiegen die Reallöhne in den letzten zehn Jahren um gegen 7 Prozentpunkte
 resp. um durchschnittlich 0.7 Prozentpunkte pro Jahr. Längerfristig ist die
 Arbeitsproduktivität der mit Abstand wichtigste Treiber der Reallöhne. Ein Vergleich des
 Verlaufs der beiden Grössen in den letzten zehn Jahren zeigt, dass sich diese nahezu parallel
 nach oben bewegt haben (vgl. Abbildung \ref{Wage_prod}). Es zeigt sich daran, dass
-grundsätzlich kein Nachholbedarf mit Blick auf die Reallöhne auszumachen ist.
+grundsätzlich kein Nachholbedarf mit Blick auf die Reallöhne auszumachen ist. 
 
-Betrachtet man die Situation der Unternehmen, so zeigt sich, dass ihnen ebenfalls die hohe
+Betrachtet man die Situation in den Unternehmen, so zeigt sich, dass ihnen ebenfalls die hohe
 Inflation zu schaffen macht. Sie haben dadurch höhere Kosten beim Einkauf ihrer
 Vorprodukte. Da die Inflation importiert ist, fliesst der Ertrag aus den gestiegenen Preisen
-auch nicht in ihre Kassen. Im Gegenteil steigen dadurch die Kosten und die Margen sinken.
-Nur die wenigsten Unternehmen können die höheren Einkaufspreise durch höhere Preise an
-die Konsumenten kompensieren.
+auch nicht in ihre Kassen. Im Gegenteil steigen dadurch ihre Kosten und die Margen sinken.
+Nur die wenigsten Unternehmen können die höheren Einkaufspreise in Form von höheren Preisen an
+die Konsumenten weitergeben.
 
 In vielen Fällen können die Konsumentinnen und Konsumenten die höheren Preise auch
 einfacher umgehen als Unternehmen. So können sie durch kleine Änderungen ihres
-Konsumverhalten Produkte mit gestiegenen Preisen substituieren. So können Sommerferien
-etwa auch in der Schweiz verbracht werden, statt eine teure Flugreise anzutreten.
+Konsumverhaltens Produkte mit gestiegenen Preisen substituieren, etwa in dem sie die Sommerferien 
+in der Schweiz verbringen, statt eine teure Flugreise anzutreten.
 
 Grundsätzlich ist es so, dass es beim Teuerungsausgleich weder einen Automatismus für
 Lohnanpassungen nach oben noch nach unten gibt. Die Lohnpolitik in den Unternehmen
-orientiert sich nicht an der Teuerung, viel mehr stellt sich in den Betrieben die Frage, ob nach
-Abzug aller Kosten noch Spielraum für Lohnerhöhungen bleibt. Sofern es einen solchen gibt,
+orientiert sich auch nicht an der Teuerung, viel mehr stellt sich in den Betrieben die Frage, ob nach
+Abzug aller betriebswirtschaftlichen Kosten noch Spielraum für Lohnerhöhungen bleibt. Sofern es einen solchen gibt,
 so haben auch die Unternehmen einen Anreiz, die Teuerung so gut als möglich auszugleichen,
-denn dadurch können sich die Konsumenten mehr leisten.Auch vergeben die Unternehmen die Lohnerhöhungen zunehmend individuell statt generell, um den überdurchschnittlichen Leistungen der Mitarbeitenden Rechnung zu tragen. Ebenso machen sie zunehmend auch vom Mittel der Einmalzahlungen Gebrauch. 
+denn dadurch steigt die Kaufkraft der Konsumenten. Auch vergeben die Unternehmen die Lohnerhöhungen zunehmend individuell statt generell, um überdurchschnittlichen Leistungen von Mitarbeitenden Rechnung zu tragen. Um den Arbeitnehmenden entgegenzukommen, greifen Unternehmen auch hin und wieder auf das Mittel der Einmalzahlungen zurück. 
 
 Obwohl die Auftragslage in vielen Betrieben noch gut ist, können sie teilweise wegen der
-Lieferkettenprobleme Produkte nicht fertigstellen respektive bleibt ihnen auch beim Verkauf der fertigen Produkte eine tiefere Marge. Eine tiefere Marge senkt in den Betrieben auch den
-Spielraum für Lohnerhöhungen.
+Lieferkettenprobleme und wegen des Fachkräftemangels Produkte nicht fertigstellen respektive bleibt ihnen auch beim Verkauf der fertigen Produkte eine tiefere Marge.
 
 Die Treiber von Lohnforderungen resultieren oft aus für die Betriebe exogenen Faktoren.
 Faktoren also, die den Geschäftsgang der Betriebe kaum bis nicht beeinflussen, so etwa die
-steigenden Krankenkassenprämien oder die hohe Teuerung. Von Letzterer werden die
-Betriebe zudem auch selbst negativ tangiert. Die mit Abstand wichtigste Grösse zur
-Bestimmung des Spielraums von Lohnerhöhungen ist die aktuelle wirtschaftliche Lage und
-die zukünftigen Aussichten, in der sich eine Branche oder ein Betrieb befindet.
+steigenden Krankenkassenprämien oder die hohe Teuerung. Von Letzterer sind die
+Betriebe zudem auch selbst negativ betroffen. Die mit Abstand wichtigste Grösse zur
+Bestimmung des Spielraums von Lohnerhöhungen ist die aktuelle und zukünftige wirtschaftliche Lage.
 
 Lösungen, um den Anstieg der Krankenkassenprämien zu stoppen, müssen aus der Politik
 kommen. Es wäre geradezu problematisch, wenn die Arbeitgeber die stetig steigenden Kosten
-mit höheren Löhnen kompensieren würden, denn dadurch würde das Signal gesendet, dass es
-keinen Handlungsbedarf für nachhaltige Lösungen gebe. Und selbst wenn die Unternehmen
-für einen Teil dieser Kosten aufkommen wollten, so fehlen in den meisten Betrieben schlicht
+mit höheren Löhnen kompensieren würden, denn dadurch würde das Signal gesandt, dass es
+keinen Handlungsbedarf für nachhaltige Lösungen geben würde. Und selbst wenn die Unternehmen
+für einen Teil dieser Kosten aufkommen wollten, so fehlen in den vielen Betrieben schlicht
 die Mittel dazu.
 
 ```{r plot_prod, include=FALSE}
@@ -507,7 +516,7 @@ p <- ggplot(a, aes(x=Time, y=obsValue, color = Var, label=Var)) +
   #  face=1)
   )
 
-pdf('~/Repos/Inflation/graphics/real_wage_prod.pdf')
+('~/Repos/Inflation/graphics/real_wage_prod.pdf')
 print(p)
 dev.off()
 ```
@@ -522,10 +531,14 @@ dev.off()
 # Erkenntnisse
 
 Die steigende Inflation ist nicht nur medial, sondern auch bei Konsumentinnen und Konsumenten ein brennendes Thema. Zudem gründen auch die unrealistischen Lohnforderungen der Gewerkschaften auf den steigenden Preisen. Auch im Mai 2022 stiegen die Inflationsraten von Ländern der EU aber auch der USA im Vergleich zum Monat April weiter an. Inzwischen hat die SNB den Leitzins überraschend stark um 0.5 Prozentpunkte angehoben, wodurch ein erster Schritt in Richtung geldpolitischer Normalität in die Wege geleitet ist. 
+
 Einigkeit besteht bei Ökonominnen und Ökonomen darüber, dass die Inflationsrate von unterschiedlichen Treibern abhängig ist. Dabei überlagern die preistreibenden Entwicklungen als Folge des Ukrainekriegs und der Corona-Pandemie die zugrundeliegende Teuerung aufgrund der expansiven Geldpolitik der Notenbanken.
-Der Ukrainekrieg erhöhte in den zurückliegenden Monaten die Energiepreise empfindlich, während die Corona-Pandemie zu Lockdowns in China führt, was die globalen Lieferketten wie auch die Logistik stark beeinträchtigt. Diese Engpässe erhöhen die Preise als Folge der Knappheit von Gütern. Gemäss einer Umfrage der NZZ und der KOF sieht eine Mehrheit von Ökonominnen und Ökonomen die hohen Inflationsraten als temporäres Problem. Für diese Einschätzung gibt es gewichtige Gründe, so etwa die Tatsache, dass das US-Fed die Geldpolitik bereits gestrafft hat und wohl auch EZB und anschliessend die SNB nachziehen dürften. Auch ist der fiskalische Stimulus zur Überwindung der Corona-Pandemie beendet. Ebenso gewöhnen sich die Marktakteure kontinuierlich an die höheren Rohstoffpreise, so dass diese bald in die Kaufüberlegungen der Konsumenten eingepreist sein dürften. Auch passt sich die Logistik an die neuen Gegebenheiten an und die Lieferengpässe dürften über die Zeit abnehmen. Zudem weisen die Notenbanken in den meisten entwickelten Volkswirtschaften eine hohe Glaubwürdigkeit auf, so dass die Erwartungen hin zu einer rückläufigen Inflation gehen. Auch dürften die strukturellen Rahmenbedingungen der Vergangenheit, die vor den momentanen Krisen eine tiefe Inflationsrate sichergestellt haben, auch weiterhin Bestand haben. Gegeben dem ist so, so dürfte sich die Inflation zukünftig auf ein tieferes Niveau zurück entwickeln. 
+Der Ukrainekrieg erhöhte in den zurückliegenden Monaten die Energiepreise empfindlich, während die Corona-Pandemie zu Lockdowns in China führt, was die globalen Lieferketten wie auch die Logistik stark beeinträchtigt. Diese Engpässe erhöhen die Preise als Folge der Knappheit von Gütern. 
+
+Gemäss einer Umfrage der NZZ und der KOF sieht eine Mehrheit von Ökonominnen und Ökonomen die hohen Inflationsraten als temporäres Problem. Für diese Einschätzung gibt es gewichtige Gründe, so etwa die Tatsache, dass das US-Fed die Geldpolitik bereits gestrafft hat und wohl auch EZB und anschliessend die SNB nachziehen dürften. Auch ist der fiskalische Stimulus zur Überwindung der Corona-Pandemie beendet. Ebenso gewöhnen sich die Marktakteure kontinuierlich an die höheren Rohstoffpreise, so dass diese bald in die Kaufüberlegungen der Konsumenten eingepreist sein dürften. Ebenso passt sich die Logistik an die neuen Gegebenheiten an und die Lieferengpässe dürften über die Zeit abnehmen. Zudem weisen die Notenbanken in den meisten entwickelten Volkswirtschaften eine hohe Glaubwürdigkeit auf, so dass die Erwartungen hin zu einer rückläufigen Inflation gehen. Auch dürften die strukturellen Rahmenbedingungen der Vergangenheit, die vor den momentanen Krisen eine tiefe Inflationsrate sichergestellt haben, auch weiterhin Bestand haben. Gegeben dem ist so, so dürfte sich die Inflation zukünftig auf ein tieferes Niveau zurück entwickeln. 
 
 Nach wie vor bestehen jedoch beträchtliche Risiken, dass die obigen Faktoren die Inflation mittelfristig nicht wieder zurück ins Zielband führen. So könnten etwa stagflationäre Schocks häufiger werden und so die Inflationserwartungen destabilisieren. Ebenso besteht die Gefahr, dass die Notenbanken zu zögerlich reagieren und so die Inflation hoch bleibt resp. weiter ansteigt. Dies würde über die Zeit der Glaubwürdigkeit der Notenbanken schaden und die zukünftige Geldpolitik erschweren. Und nicht zuletzt kann es sein, dass die in Vergangenheit stabilisierend wirkenden strukturellen Rahmenbedingungen soweit verändert haben, dass sie ihre bisherige inflationshemmende Wirkung nicht mehr ausüben.
+
 Die hohen Inflationsraten sowie die steigenden Krankenkassenprämien treiben auch die Lohnforderungen der Gewerkschaften in unrealistische Höhen. Denn auch die Margen der Unternehmen schrumpfen als Folge der hohen Inflation, denn auch die Unternehmen müssen für den Kauf ihrer Vorprodukte tiefer in die Tasche greifen. Zudem werden die steigenden Krankenkassenprämien als Begründung für höhere Löhne herangezogen. Diese Logik geht jedoch nicht auf, denn der Bekämpfung der Ursachen der Kostenexplosion im Gesundheitswesen muss sich die Politik annehmen. Eine Kompensation der Kosten durch höhere Löhne würde einer Symptombekämpfung gleichkommen und falsche Signale senden. 
 
 
@@ -542,7 +555,7 @@ ct2 <- c("AU","BE","BG","CH","CY","CZ","DE","DK","EE","EL","ES","FI","FR","HR","
 
 #dat <- get_eurostat(id="prc_hicp_manr")
 
-dat_2020 <- filter(dat,unit=="RCH_A", coicop=="CP00", geo %in% ct,time==dat$time[1]) #geo==ct)) & indic_is==ty))#time="2019-01-01")# & indic_is=ty)
+dat_2020 <- filter(dat,unit=="RCH_A", coicop=="CP00", geo %in% ct,time=="2022-08-01") #dat$time[1]) #geo==ct)) & indic_is==ty))#time="2019-01-01")# & indic_is=ty)
 
 
 mapdata <- get_eurostat_geospatial(nuts_level=0) %>%
@@ -601,6 +614,9 @@ sel_mood <- dat_restr %>%
   ) |>
   select(time, geo, values)
 
+break.vec <- c(seq(from = min(sel_mood$time), to = max(sel_mood$time),
+                   by = "12 month"),max(sel_mood$time))
+
 p <- ggplot(sel_mood, aes(x=time, y=obsValue, color = geo, label=geo)) +
   geom_line(data = sel_mood, aes(x = time, y = values),size=.6)+
   scale_color_manual(values = c("#eb4255","#659065")) +
@@ -614,7 +630,8 @@ p <- ggplot(sel_mood, aes(x=time, y=obsValue, color = geo, label=geo)) +
   #ggtitle("Inflationsraten - excluding energy")+
   theme(text = element_text(size = 15))+
   scale_y_continuous(labels = function(x) paste0(x*1, "%")) +
-  scale_x_date(date_breaks = "15 month", date_labels ="%m-%Y")+
+  #scale_x_date(date_breaks = "15 month", date_labels ="%m-%Y")+
+  scale_x_date(date_labels = "%b %y",breaks=break.vec) +
   theme(axis.text.x = element_text( 
     angle = 45, 
     #color="blue", 
