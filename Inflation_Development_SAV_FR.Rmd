@@ -15,7 +15,7 @@ csl: elsevier-harvard.csl
 header-includes: \usepackage{graphicx}
 
 abstract: 
-- Die steigenden Inflationsraten beschäftigen nicht nur Konsumentinnen und Konsumenten, sondern auch die Politik, die   sich überlegen muss, ob und wie sie gegen den Kaufkraftverlust vorgehen will. Mit ihrer überraschend starken         Erhöhung des Leitzinses hat die Schweizerische Nationalbank viele überrascht. Es bleiben die preistreibenden Entwicklungen als Folge des Ukrainekriegs und der Corona-Pandemie, wobei diese die zugrundeliegende Teuerung aufgrund der expansiven Geldpolitik der Notenbanken überlagern. Eine vergleichbare Situation war die «Great depression» in den 70er-Jahren. Eine Mehrheit der von NZZ und KOF befragten Ökonomen geht von einem temporären Anstieg der Inflation aus. Der Spielraum für Lohnerhöhungen bleibt überschaubar, denn auch die Unternehmen kämpfen beim Bezug von Vorprodukten mit den höheren Preisen. Dies nagt an der Marge und somit am Spielraum für Lohnerhöhungen. Daneben kühlt sich auch die wirtschaftliche Entwicklung ab, etwa aufgrund der zunehmend restriktiveren Geldpolitik, des Ukrainie-Kriegs oder der nach wie vor schwierigen Covid-Situation in China.
+- Die steigenden Inflationsraten beschäftigen nicht nur Konsumentinnen und Konsumenten, sondern auch die Politik, die   sich überlegen muss, ob und wie sie gegen den Kaufkraftverlust vorgehen will. Mit ihrer überraschend starken Erhöhung des Leitzinses hat die Schweizerische Nationalbank viele überrascht. Es bleiben die preistreibenden Entwicklungen als Folge des Ukrainekriegs und der Corona-Pandemie, wobei diese die zugrundeliegende Teuerung aufgrund der expansiven Geldpolitik der Notenbanken überlagern. Eine vergleichbare Situation war die «Great depression» in den 70er-Jahren. Eine Mehrheit der von NZZ und KOF befragten Ökonomen geht von einem temporären Anstieg der Inflation aus. Der Spielraum für Lohnerhöhungen bleibt überschaubar, denn auch die Unternehmen kämpfen beim Bezug von Vorprodukten mit den höheren Preisen. Dies nagt an der Marge und somit am Spielraum für Lohnerhöhungen. Daneben kühlt sich auch die wirtschaftliche Entwicklung ab, etwa aufgrund der zunehmend restriktiveren Geldpolitik, des Ukrainie-Kriegs oder der nach wie vor schwierigen Covid-Situation in China.
 tags:
 - nothing
 - nothingness
@@ -74,11 +74,8 @@ sel_M$Time <- as.Date(paste(sel_M$Time,1,sep="-"),"%Y-%m-%d")
 
 sel_A$Time <- as.Date(paste(sel_A$Time,1,sep="-"),"%Y")
 
-sel_M$LOCATION <- factor(sel_M$LOCATION, levels=c("Schweiz","Deutschland","EU-27","USA"))
-sel_A$LOCATION <- factor(sel_A$LOCATION, levels=c("Schweiz","Deutschland","EU-27","USA"))
-
-break.vec <- c(seq(from = min(sel_M$Time), to = max(sel_M$Time),
-                   by = "12 month"),max(sel_M$Time))
+sel_M$LOCATION <- factor(sel_M$LOCATION, levels=c("Suisse","Allemagne","UE-27","États-Unis"))
+sel_A$LOCATION <- factor(sel_A$LOCATION, levels=c("Suisse","Allemagne","UE-27","États-Unis"))
 
 
 p1 <- ggplot(sel_M, aes(x=Time, y=ObsValue, color = LOCATION, label=LOCATION)) +
@@ -97,8 +94,7 @@ p1 <- ggplot(sel_M, aes(x=Time, y=ObsValue, color = LOCATION, label=LOCATION)) +
   #ggtitle("Inflationsraten - excluding energy")+
   theme(text = element_text(size = 15))+
   scale_y_continuous(labels = function(x) paste0(x*1, "%")) +
-  #scale_x_date(date_breaks = "12 month", date_labels ="%m-%Y")+
-  scale_x_date(date_labels = "%b %y",breaks=break.vec) +
+  scale_x_date(date_breaks = "12 month", date_labels ="%m-%Y")+
   theme(axis.text.x = element_text( 
     angle = 45, 
     #color="blue", 
@@ -106,13 +102,9 @@ p1 <- ggplot(sel_M, aes(x=Time, y=ObsValue, color = LOCATION, label=LOCATION)) +
     #size=15)#, 
   #  face=1)
   )
-pdf('~/Repos/Inflation/graphics/infl_country_M.pdf')
+png('~/Repos/Inflation/graphics/infl_country_M_FR.png')
 print(p1)
 dev.off()
-
-break.vec <- c(seq(from = min(sel_A$Time), to = max(sel_A$Time),
-                   by = "8 year"),max(sel_A$Time))
-
 
 p2 <- ggplot(sel_A, aes(x=Time, y=ObsValue, color = LOCATION, label=LOCATION)) +
   geom_line(data = sel_A, aes(x = Time, y = ObsValue),size=.6)+
@@ -130,8 +122,7 @@ p2 <- ggplot(sel_A, aes(x=Time, y=ObsValue, color = LOCATION, label=LOCATION)) +
   #ggtitle("Inflationsraten - excluding energy")+
   theme(text = element_text(size = 15))+
   scale_y_continuous(labels = function(x) paste0(x*1, "%")) +
-  #scale_x_date(date_breaks = "36 month", date_labels =  "%Y")+#"%m-%Y")+
-  scale_x_date(date_labels = "%Y",breaks=break.vec) +
+  scale_x_date(date_breaks = "36 month", date_labels =  "%Y")+#"%m-%Y")+
   theme(axis.text.x = element_text( 
     angle = 45, 
     #color="blue", 
@@ -139,7 +130,7 @@ p2 <- ggplot(sel_A, aes(x=Time, y=ObsValue, color = LOCATION, label=LOCATION)) +
     #size=15)#, 
   #  face=1)
   )
-pdf('~/Repos/Inflation/graphics/infl_country_A.pdf')
+png('~/Repos/Inflation/graphics/infl_country_A.png')
 print(p2)
 dev.off()
 a <- plot_grid(p2, p1, labels = "AUTO")
@@ -155,29 +146,13 @@ library(ggplot2)
 library(dplyr)
 library(cowplot)
 library(ggrepel)
-library(lubridate)
+
 
 sel_M$Time <- as.Date(paste(sel_M$Time,1,sep="-"),"%Y-%m-%d")
+#sel_M$Time <- as.Date(format(sel_M$Time,"%m/%y"))
 
-
-
-data_ends <- sel_M %>% 
-  group_by(LOCATION) %>%
-  slice(which.max(Time)) %>% 
-  mutate(text=paste(paste(paste0(month(Time,label=TRUE),":"), round(ObsValue,1))," "))
-
-
-#sel_M$Time <- as.Date(sel_M$Time)
-#typeof(sel_M$Time)
-break.vec <- c(seq(from = min(sel_M$Time), to = max(sel_M$Time),
-                   by = "22 month"),max(sel_M$Time))
-
-
-#data_ends <- sel_M %>% 
-#  filter(Time == sel_M$Time[length(sel_M$Time)])
-
-#sapply(sel_M$Time, nrow)
-#data_ends$ObsValue <- round(data_ends$ObsValue,1)
+data_ends <- sel_M %>% filter(Time == sel_M$Time[length(sel_M$Time)])
+data_ends$ObsValue <- round(data_ends$ObsValue,1)
 
 p1 <- ggplot(data = sel_M) + 
     geom_line(mapping = aes(x = Time, y = ObsValue, color=LOCATION),size=.6) + 
@@ -195,21 +170,21 @@ p1 <- ggplot(data = sel_M) +
     #ggtitle("Inflationsraten - excluding energy")+
     theme(text = element_text(size = 15))+
     scale_y_continuous(labels = function(x) paste0(x*1, "%")) +
-      scale_x_date(date_labels = "%b %y",breaks=break.vec) +
-  theme(axis.text.x = element_text( 
-    angle = 45, 
-    #color="blue", 
-    vjust=0.6)#,
-    #size=15)#, 
-  #  face=1)
-  )+ 
+    scale_x_date(date_breaks = "20 month", date_labels ="%m-%Y")+
+    theme(axis.text.x = element_text( 
+      angle = 90, 
+      #color="blue", 
+      vjust=0.6),strip.text.x = element_text(face = "bold")#,
+      #size=15)#, 
+      #  face=1)
+    )+ 
     #facet_wrap(~ LOCATION, nrow = 2) 
     facet_wrap(factor(LOCATION,levels=c("Schweiz","Deutschland","EU-27","USA")) ~ .,nrow=2) +
     geom_text_repel(
-    aes(x=Time,y = ObsValue,label=text), data = data_ends,
-    fontface ="plain", color = "black", size = 3
+    aes(x=Time,y = ObsValue,label=ObsValue), data = data_ends,
+    fontface ="plain", color = "black", size = 5
   ) 
-pdf('~/Repos/Inflation/graphics/infl_country_M_wrap.pdf')
+png('~/Repos/Inflation/graphics/infl_country_M_wrap.png')
 print(p1)
 dev.off()
 
@@ -251,6 +226,7 @@ Die Inflatitonsraten stiegen auch in Vergangenheit immer mal stark an, etwa wäh
 Eine hohe Teuerung senkt die Kaufkraft und wirkt sich meist etwas verzögert auch auf die Konsumentenstimmung aus. Dies zeigt sich auch beim momentanen Anstieg, wobei sich zeigt, dass diese sowohl in der EU-27, in Deutschland, aber auch in der Schweiz seit etwa Sommer 2021 rückläufig ist und inzwischen in Deutschland bereits unter das Niveau des Abfalls zu Beginn der Corona-Pandemie gefallen ist (vgl. Abbildung \ref{Inf_Mood}).  
 
 ```{r eurostat, echo=FALSE,  include=FALSE, message=FALSE,warning=FALSE}
+
 
 library("eurostat")
 library(dplyr) 
@@ -304,10 +280,6 @@ sel_nrg <- dat_2020_nrg %>%
 #sel_M$obsTime <- as.Date(paste(sel_M$obsTime,1,sep="-"),"%Y-%m-%d")
 #sel_A$obsTime <- as.Date(paste(sel_A$obsTime,1,sep="-"),"%Y")
 
-break.vec <- c(seq(from = min(sel_nrg$time), to = max(sel_nrg$time),
-                   by = "15 month"),max(sel_nrg$time))
-
-
 p <- ggplot(sel_core, aes(x=time, y=obsValue, color = coicop, label=coicop)) +
   geom_line(data = sel_core, aes(x = time, y = values),size=.6)+
  scale_color_manual(values = c("#eb4255","#659065")) + #,"#34495E","#138D75","#E74C3C","#F8C471"))+
@@ -321,8 +293,7 @@ p <- ggplot(sel_core, aes(x=time, y=obsValue, color = coicop, label=coicop)) +
   #ggtitle("Inflationsraten - excluding energy")+
   theme(text = element_text(size = 15))+
   scale_y_continuous(labels = function(x) paste0(x*1, "%")) +
- # scale_x_date(date_breaks = "15 month", date_labels ="%m-%Y")+
-  scale_x_date(date_labels = "%b %y",breaks=break.vec) +
+  scale_x_date(date_breaks = "15 month", date_labels ="%m-%Y")+
   theme(axis.text.x = element_text( 
     angle = 45, 
     #color="blue", 
@@ -330,7 +301,7 @@ p <- ggplot(sel_core, aes(x=time, y=obsValue, color = coicop, label=coicop)) +
     #size=15)#, 
   #  face=1)
   )
-pdf('~/Repos/Inflation/graphics/infl_core_M.pdf')
+png('~/Repos/Inflation/graphics/infl_core_M.png')
 print(p)
 dev.off()
 
@@ -348,8 +319,7 @@ p <- ggplot(sel_nrg, aes(x=time, y=obsValue, color = coicop, label=coicop)) +
   #ggtitle("Inflationsraten - excluding energy")+
   theme(text = element_text(size = 15))+
   scale_y_continuous(labels = function(x) paste0(x*1, "%")) +
-  #scale_x_date(date_breaks = "15 month", date_labels ="%m-%Y")+
-  scale_x_date(date_labels = "%b %y",breaks=break.vec) +
+  scale_x_date(date_breaks = "15 month", date_labels ="%m-%Y")+
   theme(axis.text.x = element_text( 
     angle = 45, 
     #color="blue", 
@@ -357,7 +327,7 @@ p <- ggplot(sel_nrg, aes(x=time, y=obsValue, color = coicop, label=coicop)) +
     #size=15)#, 
   #  face=1)
   )
-pdf('~/Repos/Inflation/graphics/infl_nrg_M.pdf')
+png('~/Repos/Inflation/graphics/infl_nrg_M.png')
 print(p)
 dev.off()
 ```
@@ -502,7 +472,7 @@ library(ggplot2)
 #library(dplyr)
 #library(cowplot)
 
-xlsx <- read_excel("20220419_Löhne_Inflation.xlsx",sheet=3,range ="A23:D36")
+xlsx <- read_excel("20220419_Löhne_Inflation_FR.xlsx",sheet=3,range ="A23:D36")
 xlsx <- xlsx[,-2]
 a <- pivot_longer(xlsx,cols=2:3,names_to="Var",values_to="obsValue")
 
@@ -532,7 +502,7 @@ p <- ggplot(a, aes(x=Time, y=obsValue, color = Var, label=Var)) +
   #  face=1)
   )
 
-('~/Repos/Inflation/graphics/real_wage_prod.pdf')
+png('~/Repos/Inflation/graphics/real_wage_prod_FR.png')
 print(p)
 dev.off()
 ```
@@ -571,7 +541,7 @@ ct2 <- c("AU","BE","BG","CH","CY","CZ","DE","DK","EE","EL","ES","FI","FR","HR","
 
 #dat <- get_eurostat(id="prc_hicp_manr")
 
-dat_2020 <- filter(dat,unit=="RCH_A", coicop=="CP00", geo %in% ct,time=="2022-08-01") #dat$time[1]) #geo==ct)) & indic_is==ty))#time="2019-01-01")# & indic_is=ty)
+dat_2020 <- filter(dat,unit=="RCH_A", coicop=="CP00", geo %in% ct,time=="2022-06-01") #dat$time[1]) #geo==ct)) & indic_is==ty))#time="2019-01-01")# & indic_is=ty)
 
 
 mapdata <- get_eurostat_geospatial(nuts_level=0) %>%
@@ -591,7 +561,7 @@ p <- ggplot(mapdata,aes(fill=cat)) +
   labs(title = "",
        subtitle="",
        fill = "%") 
-pdf('~/Repos/Inflation/graphics/MAP_Inflation_EU_202204.pdf')
+png('~/Repos/Inflation/graphics/MAP_Inflation_EU_202204.png')
 print(p)
 dev.off()
 
@@ -630,9 +600,6 @@ sel_mood <- dat_restr %>%
   ) |>
   select(time, geo, values)
 
-break.vec <- c(seq(from = min(sel_mood$time), to = max(sel_mood$time),
-                   by = "12 month"),max(sel_mood$time))
-
 p <- ggplot(sel_mood, aes(x=time, y=obsValue, color = geo, label=geo)) +
   geom_line(data = sel_mood, aes(x = time, y = values),size=.6)+
   scale_color_manual(values = c("#eb4255","#659065")) +
@@ -646,8 +613,7 @@ p <- ggplot(sel_mood, aes(x=time, y=obsValue, color = geo, label=geo)) +
   #ggtitle("Inflationsraten - excluding energy")+
   theme(text = element_text(size = 15))+
   scale_y_continuous(labels = function(x) paste0(x*1, "%")) +
-  #scale_x_date(date_breaks = "15 month", date_labels ="%m-%Y")+
-  scale_x_date(date_labels = "%b %y",breaks=break.vec) +
+  scale_x_date(date_breaks = "15 month", date_labels ="%m-%Y")+
   theme(axis.text.x = element_text( 
     angle = 45, 
     #color="blue", 
@@ -655,7 +621,7 @@ p <- ggplot(sel_mood, aes(x=time, y=obsValue, color = geo, label=geo)) +
     #size=15)#, 
   #  face=1)
   )
-pdf('~/Repos/Inflation/graphics/Cons_mood.pdf')
+png('~/Repos/Inflation/graphics/Cons_mood.png')
 print(p)
 dev.off()
 

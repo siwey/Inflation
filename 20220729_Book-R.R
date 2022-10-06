@@ -272,5 +272,12 @@ flights %>%
   group_by(year,month) %>%
   ggplot(mapping=aes(x=air_time, y=arr_delay)) +
   geom_point()
+
+flights_small %>%
+  group_by(year,month, day) %>%
+  filter(rank(desc(arr_delay))<10)
   
+popular_dests <- flights %>%
+  group_by(dest)%>%
+  filter(n()>365)
 

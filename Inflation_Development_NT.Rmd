@@ -11,7 +11,7 @@ output:
   html_document:
     
     df_print: paged
-abstract:
+abstract: 
 - Die steigenden Inflationsraten beschäftigen nicht nur Konsumentinnen und Konsumenten
   immer stärker, sondern auch die Politik, die sich überlegen muss, ob und wie sie
   gegen den Kaufkraftverlust vorgehen will.
@@ -34,11 +34,12 @@ abstract:
   Bestand, so dürften sich auch diese negativ auf die Höhe der Inflation auswirken.
   Des Weiteren spielen auch erwartungen eine zentrale Rolle, die wiederum
   stark von der Glaubwürdigkeit der Notenbanken abhängen.
+
 tags:
 - nothing
 - nothingness
 ---
-\renewcommand{\figurename}{Abbildung}   
+\renewcommand{\figurename}{Abbildung} 
 
 ```{r plot0, echo=FALSE,  include=FALSE, message=FALSE,warning=FALSE}
 library(OECD)
@@ -81,6 +82,9 @@ sel_A <- de %>%
 
 
 sel_M$Time <- as.Date(paste(sel_M$Time,1,sep="-"),"%Y-%m-%d")
+#sel_M$Time <- format(sel_M$Time,"%y-%m-%d")
+#sel_M$Time <- format(sel_M$Time,"%d/%m/%y")
+
 sel_A$Time <- as.Date(paste(sel_A$Time,1,sep="-"),"%Y")
 
 sel_M$LOCATION <- factor(sel_M$LOCATION, levels=c("Schweiz","Deutschland","EU-27","USA"))
@@ -157,6 +161,7 @@ library(ggrepel)
 
 
 sel_M$Time <- as.Date(paste(sel_M$Time,1,sep="-"),"%Y-%m-%d")
+#sel_M$Time <- as.Date(format(sel_M$Time,"%m/%y"))
 
 data_ends <- sel_M %>% filter(Time == sel_M$Time[length(sel_M$Time)])
 data_ends$ObsValue <- round(data_ends$ObsValue,1)
@@ -216,8 +221,8 @@ Zu hohe Teuerungsraten sind ökonomisch schädlich und können zu sozialen und p
 In Europa hatten die baltischen Staaten Litauen (16.6 Prozent), Estland (14.8 Prozent) und Lettland (13.2 Prozent) sowie Tschechien (11.9 Prozent) und die Niederlande (11.7 Prozent) neben der Türkei (61.1 Prozent) die höchsten Inflationsraten (vgl. Abbildung 4). Stark getrieben ist der Anstieg von den Energie- und etwas weniger stark von den Nahrungsmittelpreisen. Werden diese aus der Inflationsrate hinaus gerechnet, so ist die Teuerung (Kerninflation) tiefer. In der Schweiz lag sie im März bei 1.3 Prozent (vgl. Abbildung 2). Der politische Druck steigt zunehmend, gegen den Kaufkraftverlust entschieden vorzugehen. 
 
 \begin{figure}[ht] \centering
-\includegraphics[trim={0 5cm 0 0cm },clip,width=\textwidth]{~/Repos/Inflation/graphics/infl_country_M_wrap.pdf}
-\caption{En. Quelle: OECD }
+\includegraphics[trim={0 3.5cm 0 0cm },clip,width=\textwidth]{~/Repos/Inflation/graphics/infl_country_M_wrap.pdf}
+\caption{Die letzten Datenpunkte sind aus dem Monat `r format(sel_M$Time[length(sel_M$Time)],"%b")`. Quelle: OECD }
 \label{Inf_M_W}
 \end{figure}
 
