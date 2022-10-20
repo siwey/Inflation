@@ -1,15 +1,23 @@
-% xtable manual: https://cran.r-project.org/web/packages/xtable/vignettes/xtableGallery.pdf
-\usepackage{array}
-\usepackage{tabularx}  
-\newcolumntype{L}[1]{>{\raggedright\let\newline\\
-\arraybackslash\hspace{0pt}}m{#1}}
-\newcolumntype{C}[1]{>{\centering\let\newline\\
-\arraybackslash\hspace{0pt}}m{#1}}
-\newcolumntype{R}[1]{>{\raggedleft\let\newline\\
-\arraybackslash\hspace{0pt}}m{#1}}
-\newcolumntype{P}[1]{>{\raggedright\tabularxbackslash}p{#1}}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{xcolor}
+\pagestyle{fancy}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+% center of header
+\fancyhf{}
+\fancyhead[LE,RO]{Inflation: aktuelle Entwicklungen}
+%\fancyhead[RO,LE]{}
 
-% Caption on top
-% http://tex.stackexchange.com/a/14862/4762
-\usepackage{floatrow}
-\floatsetup[figure]{capposition=top}
+% center of footer
+
+\fancyfoot[LO,RE]{\includegraphics[width=4cm]{SAV.png}{}}
+% page number on the left of even pages and right of odd pages
+
+\fancyfoot[R]{\thepage}
+%\fancypagestyle{plain}{\pagestyle{fancy}}
+%\fancyhead[C]{\ifnum\value{page}>1 center text \else \fi}
