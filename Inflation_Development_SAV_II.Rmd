@@ -1,20 +1,32 @@
 ---
-title: "INFLATION und LÖHNE, QUO VADIS?"
-author: "Simon Wey"
-institution: "Schweizerischer Arbeitgeberverband"
+title: "Inflation, kehrt sie auf ein erträgliches Niveau zurück?"
+author:
+  - Dr. Simon Wey^[Schweizerischer Arbeitgeberverband, Hegibachstrasse 47, 8032 Zürich; [wey@arbeitgeber.ch](mailto:wey@arbeitgeber.ch)]
 date: "`r format(Sys.time(), '%d %B %Y')`"
 output: 
-  pdf_document:
+  pdf_document: 
     includes:
       in_header: header.tex
-    keep_tex: true
-bibliography: reference.bib
-csl: elsevier-harvard.csl
-abstract:
-tags:
-- nothing
-- nothingness
+    pandoc_args:
+      - '--lua-filter=scholarly-metadata.lua'
+      - '--lua-filter=author-info-blocks.lua'
+    
 ---
+
+# In Kürze ...
+
+* Im September wurde die Trendwende der Inflation in der Schweiz fürs Erste erreicht. Sie ging im Vergleich zum Vorjahr um 0.2 Prozentpunkte zurück und lag im September bei 3.3 Prozent. Dies im Unterschied zu vielen anderen europäischen Ländern. 
+
+* Deutschland und Österreich hatten im September zweistellige Inflationsraten. In Deutschland mit 10 Prozent erreichte sie einen Wert, der so hoch seit den 70iger-Jahren nicht mehr war. 
+
+* Der Vergleich mit den Nachbarländern der Schweiz zeigt, dass die Inflationsrate im September einzig noch in Frankreich um knapp einen halben Prozentpunkt zurückging. In Österreich und Italien stieg sei weiter an, in Österreich mit 
+
+* Die Inflation von 5.6 Prozent war in Frankreich im September im EU-Vergleich noch verhältnismässig moderat. Sie entwickelte sich seit August bereits zum zweiten Mal rückläufig. 
+
+* Die Inflation des Durchschnitts der EU-27-Länder stieg im September erneut um 0.8 Prozentpunkte an. Sie liegt zwischenzeitlich bei fast 11 Prozent. Anders in den USA, wo die Inflation im September erneut auf 8.2 Prozent sank, ein um 0.1 Prozentpunkte tieferer Wert als im Vormonat.  
+
+\thispagestyle{empty}
+
 
 
 ```{r setup, include=FALSE}
@@ -55,7 +67,7 @@ dataset <- "PRICES_CPI"
 #dstruc <- get_data_structure(dataset)
 #df <- data.frame(dstruc$MEASURE$id,dstruc$MEASURE$label)
 
-filter_list <- list(c("CHE","DEU","EU27_2020","USA","ITA","FRA","AUT"),'CPALTT01','GY',c("A","M"))#, 'CP00', 'GP')#, 'M', 'AVGRW')#, 'P1M') #c("AUT","ITA","CHE","DEU","FRA")
+filter_list <- list(c("CHE","DEU","EU27_2020","USA","ITA","FRA","AUT","GBR"),'CPALTT01','GY',c("A","M"))#, 'CP00', 'GP')#, 'M', 'AVGRW')#, 'P1M') #c("AUT","ITA","CHE","DEU","FRA")
 filter_list2 <- list(c("CHE","DEU","EU27_2020","USA"),'CPALTT01','GY','M')#, 'CP00', 'GP')#, 'M', 'AVGRW')#, 'P1M') #c("AUT","ITA","CHE","DEU","FRA")
 
 de <- get_dataset(dataset,filter=filter_list)
@@ -68,11 +80,13 @@ de$LOCATION[de$LOCATION=="EU27_2020"] <- "EU-27"
 de$LOCATION[de$LOCATION=="ITA"] <- "Italien"
 de$LOCATION[de$LOCATION=="AUT"] <- "Österreich"
 de$LOCATION[de$LOCATION=="FRA"] <- "Frankreich"
+de$LOCATION[de$LOCATION=="GBR"] <- "Grossbritannien"
+
 
 de$ObsValue <- as.numeric(de$ObsValue)
 
 sel_M <- de %>%
-  filter(Time >= 2015,
+  filter(Time >= 2019,
          FREQUENCY == "M"
   ) |>
   select(Time, LOCATION, ObsValue)
@@ -91,7 +105,7 @@ sel_M$Time <- as.Date(paste(sel_M$Time,1,sep="-"),"%Y-%m-%d")
 
 sel_A$Time <- as.Date(paste(sel_A$Time,1,sep="-"),"%Y")
 
-sel_M$LOCATION <- factor(sel_M$LOCATION, levels=c("Schweiz","Deutschland","EU-27","USA","Italien","Österreich","Frankreich"))
+sel_M$LOCATION <- factor(sel_M$LOCATION, levels=c("Schweiz","Deutschland","EU-27","USA","Italien","Österreich","Frankreich","Grossbritannien"))
 sel_A$LOCATION <- factor(sel_A$LOCATION, levels=c("Schweiz","Deutschland","EU-27","USA"))
 
 break.vec <- c(seq(from = min(sel_M$Time), to = max(sel_M$Time),
@@ -100,7 +114,7 @@ break.vec <- c(seq(from = min(sel_M$Time), to = max(sel_M$Time),
 
 p1 <- ggplot(sel_M, aes(x=Time, y=ObsValue, color = LOCATION, label=LOCATION)) +
   geom_line(data = sel_M, aes(x = Time, y = ObsValue),size=.6)+
-scale_color_manual(values = c("#eb4255","#8E44AD","#ffa500","#659065","#0171BB","#CCA01D","#A67B5B")) +  #  geom_text(data=dat %>% group_by(geo)%>% filter(time==max(time)),size=2.6) + 
+scale_color_manual(values = c("#eb4255","#8E44AD","#ffa500","#659065","#0171BB","#CCA01D","#A67B5B","blue")) +  #  geom_text(data=dat %>% group_by(geo)%>% filter(time==max(time)),size=2.6) + 
   # theme(legend.position="left")+
   #  scale_color_manual(values = c("#8E44AD", "#F1C40F","#34495E","#138D75","#E74C3C","#F8C471"))+
   labs(caption="Quelle: OECD",
@@ -110,7 +124,7 @@ scale_color_manual(values = c("#eb4255","#8E44AD","#ffa500","#659065","#0171BB",
     x = "") +
   theme_minimal()+
   theme(legend.position="top",legend.title=element_blank()) + 
-  coord_fixed(ratio=140) +  
+  coord_fixed(ratio=40) +  
   #ggtitle("Inflationsraten - excluding energy")+
   theme(text = element_text(size = 15))+
   scale_y_continuous(labels = function(x) paste0(x*1, "%")) +
@@ -172,7 +186,7 @@ ct2 <- c("AU","BE","BG","CH","CY","CZ","DE","DK","EE","EL","ES","FI","FR","HR","
 
 dat <- get_eurostat(id="prc_hicp_manr")
 
-dat_2020 <- filter(dat,unit=="RCH_A", coicop=="CP00", geo %in% ct,time=="2022-08-01") #dat$time[1]) #geo==ct)) & indic_is==ty))#time="2019-01-01")# & indic_is=ty)
+dat_2020 <- filter(dat,unit=="RCH_A", coicop=="CP00", geo %in% ct,time=="2022-09-01") #dat$time[1]) #geo==ct)) & indic_is==ty))#time="2019-01-01")# & indic_is=ty)
 
 
 mapdata <- get_eurostat_geospatial(nuts_level=0) %>%
@@ -226,7 +240,7 @@ data_ends <- sel_M %>%
 #sel_M$Time <- as.Date(sel_M$Time)
 #typeof(sel_M$Time)
 break.vec <- c(seq(from = min(sel_M$Time), to = max(sel_M$Time),
-                   by = "32 month"),max(sel_M$Time))
+                   by = "26 month"),max(sel_M$Time))
 
 
 #data_ends <- sel_M %>% 
@@ -237,7 +251,7 @@ break.vec <- c(seq(from = min(sel_M$Time), to = max(sel_M$Time),
 
 p1 <- ggplot(data = sel_M) + 
     geom_line(mapping = aes(x = Time, y = ObsValue, color=LOCATION),size=.6) + 
-scale_color_manual(values = c("#eb4255","#8E44AD","#ffa500","#659065","#0171BB","#CCA01D","#A67B5B")) + #,"#34495E","#138D75","#E74C3C","#F8C471"))+ group_by(geo)%>% filter(time==max(time)),size=2.6) + 
+scale_color_manual(values = c("#eb4255","#8E44AD","#ffa500","#659065","#0171BB","#490909","#CCA01D","#A67B5B","#1f3641")) + #,"#34495E","#138D75","#E74C3C","#F8C471"))+ group_by(geo)%>% filter(time==max(time)),size=2.6) + 
     # theme(legend.position="left")+
     #  scale_color_manual(values = c("#8E44AD", "#F1C40F","#34495E","#138D75","#E74C3C","#FD6B6B"))+
     labs(caption="Quelle: OECD",
@@ -247,7 +261,7 @@ scale_color_manual(values = c("#eb4255","#8E44AD","#ffa500","#659065","#0171BB",
       x = "") +
     theme_minimal()+
     theme(legend.position="",legend.title=element_blank()) + 
-    coord_fixed(ratio=270) +  
+    coord_fixed(ratio=100) +  
     #ggtitle("Inflationsraten - excluding energy")+
     theme(text = element_text(size = 15))+
     scale_y_continuous(labels = function(x) paste0(x*1, "%")) +
@@ -259,9 +273,10 @@ scale_color_manual(values = c("#eb4255","#8E44AD","#ffa500","#659065","#0171BB",
     #size=15)#, 
   #  face=1)
   )+ 
+ # ylim(c(0,11)) +
     #facet_wrap(~ LOCATION, nrow = 2) 
     facet_wrap(factor(LOCATION,levels=c("Schweiz","Deutschland","Frankreich","Italien","Österreich",
-                                        "EU-27","USA")) ~ .)+#,nrow=3) +
+                                        "EU-27","USA","Grossbritannien")) ~ .)+#,nrow=3) +
     geom_text_repel(
     aes(x=Time,y = ObsValue,label=text), data = data_ends,
     fontface ="plain", color = "black", size = 3
@@ -272,13 +287,6 @@ dev.off()
 
 ```
 
-# In Kürze ...
-
-* Hallo 
-
-** Hallo 2
-
-\thispagestyle{empty}
 
 ## Kurzfristige Entwicklungen
 
@@ -291,7 +299,8 @@ dev.off()
 **Österreich** | `r paste(paste0(month(sel_M$Time[sel_M$LOCATION=="Österreich"][length(sel_M$Time[sel_M$LOCATION=="Österreich"])],label=TRUE),":"), round(sel_M$ObsValue[sel_M$LOCATION=="Österreich"][length(sel_M$ObsValue[sel_M$LOCATION=="Österreich"])],1))` | `r if (round(sel_M$ObsValue[sel_M$LOCATION=="Österreich"][length(sel_M$ObsValue[sel_M$LOCATION=="Österreich"])]-sel_M$ObsValue[sel_M$LOCATION=="Österreich"][length(sel_M$ObsValue[sel_M$LOCATION=="Österreich"])-1],1)>=0){paste0("+", round(sel_M$ObsValue[sel_M$LOCATION=="Österreich"][length(sel_M$ObsValue[sel_M$LOCATION=="Österreich"])]-sel_M$ObsValue[sel_M$LOCATION=="Österreich"][length(sel_M$ObsValue[sel_M$LOCATION=="Österreich"])-1],1))} else {round(sel_M$ObsValue[sel_M$LOCATION=="Österreich"][length(sel_M$ObsValue[sel_M$LOCATION=="Österreich"])]-sel_M$ObsValue[sel_M$LOCATION=="Österreich"][length(sel_M$ObsValue[sel_M$LOCATION=="Österreich"])-1],1)}` | `r if (round(sel_M$ObsValue[sel_M$LOCATION=="Österreich"][length(sel_M$ObsValue[sel_M$LOCATION=="Österreich"])]-sel_M$ObsValue[sel_M$LOCATION=="Österreich"][length(sel_M$ObsValue[sel_M$LOCATION=="Österreich"])-1],1)>=0) {"$\\uparrow$"} else {"$\\downarrow$"}`
 **EU-27** | `r paste(paste0(month(sel_M$Time[sel_M$LOCATION=="EU-27"][length(sel_M$Time[sel_M$LOCATION=="EU-27"])],label=TRUE),":"), round(sel_M$ObsValue[sel_M$LOCATION=="EU-27"][length(sel_M$ObsValue[sel_M$LOCATION=="EU-27"])],1))` |  `r if (round(sel_M$ObsValue[sel_M$LOCATION=="EU-27"][length(sel_M$ObsValue[sel_M$LOCATION=="EU-27"])]-sel_M$ObsValue[sel_M$LOCATION=="EU-27"][length(sel_M$ObsValue[sel_M$LOCATION=="EU-27"])-1],1)>=0){paste0("+", round(sel_M$ObsValue[sel_M$LOCATION=="EU-27"][length(sel_M$ObsValue[sel_M$LOCATION=="EU-27"])]-sel_M$ObsValue[sel_M$LOCATION=="EU-27"][length(sel_M$ObsValue[sel_M$LOCATION=="EU-27"])-1],1))} else {round(sel_M$ObsValue[sel_M$LOCATION=="EU-27"][length(sel_M$ObsValue[sel_M$LOCATION=="EU-27"])]-sel_M$ObsValue[sel_M$LOCATION=="EU-27"][length(sel_M$ObsValue[sel_M$LOCATION=="EU-27"])-1],1)}` | `r if (round(sel_M$ObsValue[sel_M$LOCATION=="EU-27"][length(sel_M$ObsValue[sel_M$LOCATION=="EU-27"])]-sel_M$ObsValue[sel_M$LOCATION=="EU-27"][length(sel_M$ObsValue[sel_M$LOCATION=="EU-27"])-1],1)>=0) {"$\\uparrow$"} else {"$\\downarrow$"}`
 **USA** | `r paste(paste0(month(sel_M$Time[sel_M$LOCATION=="USA"][length(sel_M$Time[sel_M$LOCATION=="USA"])],label=TRUE),":"), round(sel_M$ObsValue[sel_M$LOCATION=="USA"][length(sel_M$ObsValue[sel_M$LOCATION=="USA"])],1))` | `r if (round(sel_M$ObsValue[sel_M$LOCATION=="USA"][length(sel_M$ObsValue[sel_M$LOCATION=="USA"])]-sel_M$ObsValue[sel_M$LOCATION=="USA"][length(sel_M$ObsValue[sel_M$LOCATION=="USA"])-1],1)>=0){paste0("+", round(sel_M$ObsValue[sel_M$LOCATION=="USA"][length(sel_M$ObsValue[sel_M$LOCATION=="USA"])]-sel_M$ObsValue[sel_M$LOCATION=="USA"][length(sel_M$ObsValue[sel_M$LOCATION=="USA"])-1],1))} else {round(sel_M$ObsValue[sel_M$LOCATION=="USA"][length(sel_M$ObsValue[sel_M$LOCATION=="USA"])]-sel_M$ObsValue[sel_M$LOCATION=="USA"][length(sel_M$ObsValue[sel_M$LOCATION=="USA"])-1],1)}` | `r if (round(sel_M$ObsValue[sel_M$LOCATION=="USA"][length(sel_M$ObsValue[sel_M$LOCATION=="USA"])]-sel_M$ObsValue[sel_M$LOCATION=="USA"][length(sel_M$ObsValue[sel_M$LOCATION=="USA"])-1],1)>=0) {"$\\uparrow$"} else {"$\\downarrow$"}`
-Table: Inflationsraten der Nachbarländer und der beiden Wirtschaftsräume EU-27 und USA. Quelle: OECD
+**Grossbritannien** | `r paste(paste0(month(sel_M$Time[sel_M$LOCATION=="Grossbritannien"][length(sel_M$Time[sel_M$LOCATION=="Grossbritannien"])],label=TRUE),":"), round(sel_M$ObsValue[sel_M$LOCATION=="Grossbritannien"][length(sel_M$ObsValue[sel_M$LOCATION=="Grossbritannien"])],1))` | `r if (round(sel_M$ObsValue[sel_M$LOCATION=="Grossbritannien"][length(sel_M$ObsValue[sel_M$LOCATION=="Grossbritannien"])]-sel_M$ObsValue[sel_M$LOCATION=="Grossbritannien"][length(sel_M$ObsValue[sel_M$LOCATION=="Grossbritannien"])-1],1)>=0){paste0("+", round(sel_M$ObsValue[sel_M$LOCATION=="Grossbritannien"][length(sel_M$ObsValue[sel_M$LOCATION=="Grossbritannien"])]-sel_M$ObsValue[sel_M$LOCATION=="Grossbritannien"][length(sel_M$ObsValue[sel_M$LOCATION=="Grossbritannien"])-1],1))} else {round(sel_M$ObsValue[sel_M$LOCATION=="Grossbritannien"][length(sel_M$ObsValue[sel_M$LOCATION=="Grossbritannien"])]-sel_M$ObsValue[sel_M$LOCATION=="Grossbritannien"][length(sel_M$ObsValue[sel_M$LOCATION=="Grossbritannien"])-1],1)}` | `r if (round(sel_M$ObsValue[sel_M$LOCATION=="Grossbritannien"][length(sel_M$ObsValue[sel_M$LOCATION=="Grossbritannien"])]-sel_M$ObsValue[sel_M$LOCATION=="Grossbritannien"][length(sel_M$ObsValue[sel_M$LOCATION=="Grossbritannien"])-1],1)>=0) {"$\\uparrow$"} else {"$\\downarrow$"}`
+Table: Die Inflationsraten der Schweiz und ausgewählten Ländern der EU. Zudem die beiden Raten der EU-27 und der USA (vgl. Abbildung \ref{Inf_C}). Quelle: OECD
 
 ```{r, echo=FALSE, results='asis'}
 cat("\\twocolumn")
@@ -301,33 +310,30 @@ cat("\\twocolumn")
 
 # Einschätzung
 
-Zu hohe Teuerungsraten sind ökonomisch schädlich und können zu sozialen und politischen Verwerfungen führen. Im Mai 2022 lagen raten in den USA bei 8.6 Prozent, in Deutschland bei 7.9 Prozent und in der EU-27 bei 8.8 Prozent. Dagegen war rate in der Schweiz mit 2.9 Prozent (vgl. Abbildung \ref{Inf_M}) vergleichsweise moderat. Sie lag jedoch auch hierzulande über dem oberen Rand des Zielbandes der Schweizerischen Nationalbank (SNB). Am 16. Juni intervenierte die SNB mit einem überraschend hohen Zinsschritt von 0.5 Punkten zur Bekämpfung der Teuerung.   
+Die Inflationsraten weltweit erreichen zurzeit teils historische Höchstwerte (vgl. Abbildung \ref{Inf_C}). Grundlage dafür legte die in den letzten Jahren die oftmals sehr expansive Geldpolitik mit den negativen Zinsen der Notenbanken.Mit dem wirtschaftlichen Aufschwung im Nachgang zur Entschärfung der Corona-Pandemie und dem Beginn des Ukrainekriegs kamen weitere Treiber der Inflation dazu. 
+
+Inzwischen strafften insbesondere die Notenbanken der Schweiz, Grossbritanniens, der EU und der USA die Leitzinsen. Dies hat unter anderem in der Schweiz, in Frankreich und den USA zu einer Eindämmung der Inflation geführt. Von einer Trendwende zu sprechen wäre jedoch  verfrüht, denn es gibt nach wie vor grosse Risiken, dass sich die Inflation zukünftig wieder nach oben bewegen könnte.
+
+Frankreich steht insbesondere mit Blick auf die Energiepreise besser da als die übrigen europäischen Länder. So geht die letzte Erhöhung der Gas- und Stromrechnung auf den letzten Herbst zurück. Dannzumal verordnete die französische Regierung eine Deckelung des Preises. Dadurch bemerken die französischen Konsumenten von der Preisexplosion im Energiemarkt noch so gut wie gar nichts. Für Januar hat die Regierung eine leichte Lockerung der Kostenbremse beschlossen,n jedoch wird sie maximal eine Preiserhöhung von 15 Prozent bis Ende 2023 zulassen. beschlossen 
 
 \begin{figure}[H] \centering
-\includegraphics[trim={0 1cm 0 1cm},clip]{~/Repos/Inflation/graphics/infl_country_M.pdf}
-\caption{Verlauf der Inflationsraten in der Schweiz, in Deutschland, im Durchschnitt der EU-27-Länder und in den USA auf monatlicher Basis von 2010 bis 2022. Quelle: OECD }
-\label{Inf_M}
-\end{figure}
-
-\begin{figure}[H] \centering
-\includegraphics[trim={0 0cm 0 3.5cm },clip]{~/Repos/Inflation/graphics/MAP_Inflation_EU_202204.pdf}
+\includegraphics[trim={0 0cm 0 2.5cm },clip]{~/Repos/Inflation/graphics/MAP_Inflation_EU_202204.pdf}
 \caption{Erwerbslosenquoten von Personen im Alter von 15 und mehr Jahren}
-\label{EL_15+}
+\label{MAP_EU}
 \end{figure}
 
-Im September wurde die Trendwende der Inflation in der Schweiz ist fürs Erste erreicht. Dies im Unterschied zu vielen anderen europäischen Ländern. So lag die die Inflation im September etwa in Deutschland bei 10 Prozent, ein Wert so hoch wie seit 70 Jahren nicht mehr. \textcolor{red}{askfj}
+In der EU-27 stieg die Inflation auch im September weiter an, dies obwohl auch die Europäische Zentralbank an der Zinsschraube gedreht hat (vgl. Abbildung \ref{MAP_EU}). Inzwischen zeichnet sich eine empfindliche Abschwächung der wirtschaftlichen Entwicklung in vielen Ländern ab. Zu diesen Ländern gehört auch die Schweiz. Zukünftige Erhöhungen des Leitzinses werden diese Abschwächung zusätzlich beschleuigen, weshalb sie kontroverser diskutiert werden dürften als die bisherigen. 
 
-Zur rückläufigen #Inflation trug die SNB mit ihrer strafferen #Geldpolitik einen wesentlichen Teil bei. Noch ist es jedoch zu früh, um Entwarnung zu geben. Nach wie vor besteht die Gefahr, dass die #Inflation in den kommenden Monaten wieder ansteigt. Unabhängig davon zeigt sich, dass die vergleichsweise tiefe #Inflation für die Schweiz ein zentraler #Standortvorteil ist.
 
 ```{r, echo=FALSE, results='asis'}
 cat("\\onecolumn")
 ```
 
 \begin{figure}[H] \centering
-\includegraphics[trim={3.0cm 0cm 0 0cm},clip,width=3.8\textwidth]{~/Repos/Inflation/graphics/infl_country_M_wrap.pdf}
+\includegraphics[trim={3cm 0 0 0},clip,width=3.8\textwidth]{~/Repos/Inflation/graphics/infl_country_M_wrap.pdf}
 \caption{Die aktuellsten verfügbaren Datenpunkte sind aus dem Monat `r format(max(data_ends$Time),"%B")`. Quelle: OECD }
-\label{Inf_M_W}
+\label{Inf_C}
 \end{figure}
 
-# Literatur
+
 
