@@ -1,29 +1,33 @@
 ---
-title: "Findet die Inflation auf ein normales Niveau zurück?"
+title: "Inflation: Weiterer Anstieg vorerst gestoppt!"
 author:
   - Dr. Simon Wey^[Schweizerischer Arbeitgeberverband, Hegibachstrasse 47, 8032 Zürich; [wey@arbeitgeber.ch](mailto:wey@arbeitgeber.ch)]
-date: "`r format(Sys.time(), '%d. %B %Y')`"
+date: "`r format(Sys.time(), '%B %Y')`"
 output: 
   pdf_document: 
     includes:
       in_header: header.tex
+      sansfont: Calibri Light
     pandoc_args:
       - '--lua-filter=scholarly-metadata.lua'
       - '--lua-filter=author-info-blocks.lua'
     
 ---
+\fontsize{12pt}{14pt}
+\selectfont
 
+\vspace{-0.5cm}
 # In Kürze ...
 
-* Im September ging die Inflation in der Schweiz um 0.2 Prozentpunkte im Vergleich zum Vormonat zurück. Sie lag damit bei 3.3 Prozent. Dieser Rückgang ist der erste seit Ende 2021. In vielen Dies im Unterschied zu vielen anderen europäischen Ländern. 
+* Im September ging die Inflation in der Schweiz um 0.2 Prozentpunkte im Vergleich zum Vormonat zurück. Sie lag damit bei 3.3 Prozent. Dieser Rückgang ist der erste seit Ende 2021. 
 
-* Deutschland und Österreich hatten im September zweistellige Inflationsraten. In Deutschland mit 10 Prozent erreichte sie einen Wert, der so hoch seit den 70iger-Jahren nicht mehr war. 
+* In vielen EU-Ländern stieg die Teuerung an. Deutschland und Österreich hatten im September zweistellige Inflationsraten.  
 
-* Der Vergleich mit den Nachbarländern der Schweiz zeigt, dass die Inflationsrate im September einzig noch in Frankreich um knapp einen halben Prozentpunkt zurückging. In Österreich und Italien stieg sei weiter an, in Österreich mit 
+* Der Vergleich mit den Nachbarländern der Schweiz zeigt, dass die Inflationsrate im September einzig noch in Frankreich um knapp einen halben Prozentpunkt zurückging. In Österreich und Italien stieg sei weiter an. 
 
-* Die Inflation von 5.6 Prozent war in Frankreich im September im EU-Vergleich noch verhältnismässig moderat. Sie entwickelte sich seit August bereits zum zweiten Mal rückläufig. 
+* Die Inflation von 5.6 Prozent war in Frankreich im September im EU-Vergleich verhältnismässig moderat. Sie entwickelte sich seit August bereits zum zweiten Mal rückläufig.  
 
-* Die Inflation des Durchschnitts der EU-27-Länder stieg im September erneut um 0.8 Prozentpunkte an. Sie liegt zwischenzeitlich bei fast 11 Prozent. Anders in den USA, wo die Inflation im September erneut auf 8.2 Prozent sank, ein um 0.1 Prozentpunkte tieferer Wert als im Vormonat.  
+* Die Inflation des Durchschnitts der EU-27-Länder stieg im September erneut an. Sie liegt zwischenzeitlich bei fast 11 Prozent. Anders in den USA, wo die Inflation im September erneut auf 8.2 Prozent sank.  
 
 \thispagestyle{empty}
 
@@ -54,7 +58,6 @@ library(kableExtra)
 library(lubridate)
 library(kableExtra)
 library(gt)
-
 
 ```
 
@@ -185,7 +188,7 @@ dev.off()
 
 ```{r plot9, echo=FALSE,  include=FALSE, message=FALSE,warning=FALSE}
 
-ct <- c("AT","BE","BG","CH","CY","CZ","DE","DK","EE","EL","ES","FI","FR","HR","HU","IE","IS","IT","LI","LU","LT","LV","MT","NL","NO","PL","PT","RO","SE","SI","SK","UK")
+ct <- c("AT","BE","BG","CH","CY","CZ","DE","DK","EE","EL","ES","FI","FR","HR","HU","IE","IS","IT","LI","LU","LT","LV","MT","NL","NO","PL","PT","RO","SE","SI","SK","UK","TR")
 ct2 <- c("AU","BE","BG","CH","CY","CZ","DE","DK","EE","EL","ES","FI","FR","HR","HU","IE","IT","LI","LT","LV","NL","NO","PL","PT","RO","SE","SI","SK","UK")
 
 dat <- get_eurostat(id="prc_hicp_manr")
@@ -200,8 +203,8 @@ mapdata <- get_eurostat_geospatial(nuts_level=0) %>%
 classIntervals(mapdata$values, n = 5, style = "quantile") #can use "jenks" but is very slow
 #breaks <- c(0,10,20,30,40,50,60,70) #approximate quantiles
 #labels = c('[0 - 10%]', '[10% - 20%]', '[20% - 30%]', '[30% - 40%]', '[40% - 50%]','[50% - 60%]', '[60% - 70%]')#, '[70% - 80%]')
-breaks <- c(0,3,6,9,12,15,18,21,24,27) #approximate quantiles
-labels = c('[0 - 3%]', '[3% - 6%]', '[6% - 9%]', '[9% - 12%]','[12% - 15%]', '[15% - 18%]','[18% - 21%]', '[21% - 24%]','[24% - 27%]')#, '[70% - 80%]')
+breaks <- c(0,3,6,9,12,15,18,21,24,27,100) #approximate quantiles
+labels = c('[0 - 3%]', '[3% - 6%]', '[6% - 9%]', '[9% - 12%]','[12% - 15%]', '[15% - 18%]','[18% - 21%]', '[21% - 24%]','[24% - 27%]','[>28%]')#, 
 
 mapdata$int <- cut(mapdata$values, breaks=breaks, labels=labels)
 
@@ -265,7 +268,7 @@ scale_color_manual(values = c("#eb4255","#8E44AD","#ffa500","#659065","#0171BB",
       x = "") +
     theme_minimal()+
     theme(legend.position="",legend.title=element_blank()) + 
-    coord_fixed(ratio=100) +  
+    coord_fixed(ratio=50) +  
     #ggtitle("Inflationsraten - excluding energy")+
     theme(text = element_text(size = 15))+
     scale_y_continuous(labels = function(x) paste0(x*1, "%")) +
@@ -304,6 +307,8 @@ inflation_tabelle <- sel_M %>%
 
 ## Kurzfristige Entwicklungen
 
+\vspace{-0.5cm}
+
 ```{r}
 # Tabellen Darstellung mit gt Package
 # The HTML decimal references for the black
@@ -313,10 +318,12 @@ up_arrow <- "<span style=\"color:red\">&#9650;</span>"
 down_arrow <- "<span style=\"color:green\">&#9660;</span>"
 # Referenz für Pfeile: 
 # https://gt.rstudio.com/articles/gt-datasets.html#an-sp500-example
+inflation_tabelle$time <- as_date(inflation_tabelle$time)
+
 inflation_tabelle %>% 
-  gt() %>%
-  tab_header(title = "Titel hier hinzufügen",
-             subtitle = md("Subtitle")) %>% 
+  gt(caption = "") %>%
+  tab_header(title = md("Inflationsraten ausgewählter Länder. *Quelle:* OECD"),
+             subtitle = "") %>% 
   fmt_date(
     columns = time,
     date_style = "month"
@@ -361,28 +368,29 @@ cat("\\twocolumn")
 
 # Einschätzung
 
-Die Inflationsraten weltweit erreichen zurzeit teils historische Höchstwerte (vgl. Abbildung \ref{Inf_C}). Grundlage dafür legte die in den letzten Jahren die oftmals sehr expansive Geldpolitik mit den negativen Zinsen der Notenbanken.Mit dem wirtschaftlichen Aufschwung im Nachgang zur Entschärfung der Corona-Pandemie und dem Beginn des Ukrainekriegs kamen weitere Treiber der Inflation dazu. 
+Die Inflationsraten weltweit erreichen teils historische Höchstwerte (vgl. Abbildung \ref{Inf_C}). Grundlage dafür legte die in den letzten Jahren oftmals expansive Geldpolitik der Notenbanken. Mit dem wirtschaftlichen Aufschwung im Nachgang zur Entschärfung der Corona-Pandemie und dem Beginn des Ukrainekriegs kamen weitere Treiber der Inflation dazu. Dabei sind insbesondere die stark gestiegenen Energiepreise sehr relevant.
 
-Inzwischen strafften insbesondere die Notenbanken der Schweiz, Grossbritanniens, der EU und der USA die Leitzinsen. Dies hat unter anderem in der Schweiz, in Frankreich und den USA zu einer Eindämmung der Inflation geführt. Von einer Trendwende zu sprechen wäre jedoch  verfrüht, denn es gibt nach wie vor grosse Risiken, dass sich die Inflation zukünftig wieder nach oben bewegen könnte.
+Inzwischen strafften insbesondere die Notenbanken der Schweiz, Grossbritanniens, der EU und der USA die Leitzinsen. Dies hat unter anderem in der Schweiz den USA zu einer Eindämmung der Inflation geführt. Von einer Trendwende zu sprechen wäre jedoch  verfrüht, denn nach wie vor bestehen grosse Risiken einer steigenden Inflation. Die inzwischen wieder positiven und gestiegenen Leitzinse tragen auch dazu bei, dass sich die wirtschaftliche Situation in der Schweiz und vielen europäischen Ländern eingetrübt hat. 
 
-Frankreich steht insbesondere mit Blick auf die Energiepreise besser da als die übrigen europäischen Länder. So geht die letzte Erhöhung der Gas- und Stromrechnung auf den letzten Herbst zurück. Dannzumal verordnete die französische Regierung eine Deckelung des Preises. Dadurch bemerken die französischen Konsumenten von der Preisexplosion im Energiemarkt noch so gut wie gar nichts. Für Januar hat die Regierung eine leichte Lockerung der Kostenbremse beschlossen,n jedoch wird sie maximal eine Preiserhöhung von 15 Prozent bis Ende 2023 zulassen. beschlossen 
+Die Inflation ist in Deutschland mit 10 Prozent so hoch wie seit 70 Jahren nicht mehr. Ebenfalls sticht die rückläufige Inflationsrate in Frankreich heraus, das mit Blick auf die Energiepreise besser dasteht als die übrigen europäischen Länder. So geht die letzte Erhöhung der Gas- und Strompreise auf den letzten Herbst zurück. Dannzumal verordnete die französische Regierung eine Deckelung des Preises. Dadurch bemerken die französischen Konsumenten von der Preisexplosion im Energiemarkt noch so gut wie nichts. Für Januar hat die Regierung eine leichte Lockerung der Kostenbremse beschlossen, jedoch wird sie bei 15 Prozent bis Ende 2023 gedeckelt. 
+
+In der EU-27 stieg die Inflation auch im September weiter an (vgl. Abbildung \ref{MAP_EU}), dies obwohl auch die Europäische Zentralbank an der Zinsschraube gedreht hat. Die höchste Inflationsrate hatte dabei die Türkei mit über 83 Prozent, gefolgt von den Ländern Estland, Litauen und Lettland mit Inflationsraten um die 20 Prozent.
+
+Inzwischen zeichnet sich eine empfindliche Abschwächung der wirtschaftlichen Entwicklung in vielen Ländern ab. Zukünftige Erhöhungen des Leitzinses werden diese Abschwächung zusätzlich beschleuigen, weshalb diese vermehrt für Gesprächsstoff sorgen dürften. 
 
 \begin{figure}[H] \centering
 \includegraphics[trim={0 0cm 0 2.5cm },clip]{~/Repos/Inflation/graphics/MAP_Inflation_EU_202204.pdf}
-\caption{Erwerbslosenquoten von Personen im Alter von 15 und mehr Jahren}
+\caption{Inflationsraten von Ländern in Europa.}
 \label{MAP_EU}
 \end{figure}
-
-In der EU-27 stieg die Inflation auch im September weiter an, dies obwohl auch die Europäische Zentralbank an der Zinsschraube gedreht hat (vgl. Abbildung \ref{MAP_EU}). Inzwischen zeichnet sich eine empfindliche Abschwächung der wirtschaftlichen Entwicklung in vielen Ländern ab. Zu diesen Ländern gehört auch die Schweiz. Zukünftige Erhöhungen des Leitzinses werden diese Abschwächung zusätzlich beschleuigen, weshalb sie kontroverser diskutiert werden dürften als die bisherigen. 
-
 
 ```{r, echo=FALSE, results='asis'}
 cat("\\onecolumn")
 ```
 
 \begin{figure}[H] \centering
-\includegraphics[trim={3cm 0 0 0},clip,width=3.8\textwidth]{~/Repos/Inflation/graphics/infl_country_M_wrap.pdf}
-\caption{Die aktuellsten verfügbaren Datenpunkte sind aus dem Monat `r format(max(data_ends$Time),"%B")`. Quelle: OECD }
+\includegraphics[trim={0 0 0 0},clip,width=1.0\textwidth]{~/Repos/Inflation/graphics/infl_country_M_wrap.pdf}
+\caption{Die aktuellsten verfügbaren Datenpunkte der abgebildeten Länder sind aus dem Monat `r format(max(data_ends$Time),"%B")`. Quelle: OECD }
 \label{Inf_C}
 \end{figure}
 

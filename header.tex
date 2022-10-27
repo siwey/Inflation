@@ -7,6 +7,8 @@
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \usepackage[geometry]{ifsym}
+\setlength{\footskip}{50pt}
+
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 % center of header
@@ -16,9 +18,13 @@
 
 % center of footer
 
-\fancyfoot[LO,RE]{\includegraphics[width=4cm]{SAV.png}{}}
+\fancyfoot[LO]{\includegraphics[width=4cm]{SAV.png}} %{\includegraphics[width=1.5cm,height=1.5cm,keepaspectratio]{logo.eps}}
+\fancyfoot[RE]{\includegraphics[width=4cm]{SAV.png}}
+
+
+%\fancyfoot[LO,RE]{\includegraphics[width=4cm]{SAV.png}{}}
 % page number on the left of even pages and right of odd pages
 
-\fancyfoot[R]{\thepage}
+\fancyfoot[C]{\thepage}
 %\fancypagestyle{plain}{\pagestyle{fancy}}
 %\fancyhead[C]{\ifnum\value{page}>1 center text \else \fi}
