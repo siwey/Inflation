@@ -83,7 +83,7 @@ break.vec <- c(seq(from = min(sel_M$Time), to = max(sel_M$Time),
 
 p1 <- ggplot(sel_M, aes(x=Time, y=ObsValue, color = LOCATION, label=LOCATION)) +
   geom_line(data = sel_M, aes(x = Time, y = ObsValue),size=.6)+
-  scale_color_manual(values = c("#eb4255","#8E44AD","#ffa500","#659065")) +
+  scale_color_manual(values = c("#eb4255","#8E44AD","#ffa500","#659065","green","red","blue")) +
   #  geom_text(data=dat %>% group_by(geo)%>% filter(time==max(time)),size=2.6) + 
   # theme(legend.position="left")+
   #  scale_color_manual(values = c("#8E44AD", "#F1C40F","#34495E","#138D75","#E74C3C","#F8C471"))+
@@ -170,7 +170,7 @@ data_ends <- sel_M %>%
 #sel_M$Time <- as.Date(sel_M$Time)
 #typeof(sel_M$Time)
 break.vec <- c(seq(from = min(sel_M$Time), to = max(sel_M$Time),
-                   by = "22 month"),max(sel_M$Time))
+                   by = "26 month"),max(sel_M$Time))
 
 
 #data_ends <- sel_M %>% 
@@ -181,10 +181,9 @@ break.vec <- c(seq(from = min(sel_M$Time), to = max(sel_M$Time),
 
 p1 <- ggplot(data = sel_M) + 
     geom_line(mapping = aes(x = Time, y = ObsValue, color=LOCATION),size=.6) + 
-    scale_color_manual(values = c("#eb4255","#8E44AD","#ffa500","#659065")) +
-    #  geom_text(data=dat %>% group_by(geo)%>% filter(time==max(time)),size=2.6) + 
+scale_color_manual(values = c("#eb4255","#8E44AD","#ffa500","#659065","#0171BB","#CCA01D","#A67B5B")) + #,"#34495E","#138D75","#E74C3C","#F8C471"))+ group_by(geo)%>% filter(time==max(time)),size=2.6) + 
     # theme(legend.position="left")+
-    #  scale_color_manual(values = c("#8E44AD", "#F1C40F","#34495E","#138D75","#E74C3C","#F8C471"))+
+    #  scale_color_manual(values = c("#8E44AD", "#F1C40F","#34495E","#138D75","#E74C3C","#FD6B6B"))+
     labs(#title = "Erwerbslosenrate",
       #subtitle = "Quelle: Eurostat",
       y = "",
@@ -204,12 +203,13 @@ p1 <- ggplot(data = sel_M) +
   #  face=1)
   )+ 
     #facet_wrap(~ LOCATION, nrow = 2) 
-    facet_wrap(factor(LOCATION,levels=c("Schweiz","Deutschland","EU-27","USA")) ~ .,nrow=2) +
+    facet_wrap(factor(LOCATION,levels=c("Schweiz","Deutschland","Frankreich","Italien","Österreich",
+                                        "EU-27","USA")) ~ .,nrow=3) +
     geom_text_repel(
     aes(x=Time,y = ObsValue,label=text), data = data_ends,
     fontface ="plain", color = "black", size = 3
   ) 
-pdf('~/Repos/Inflation/graphics/infl_country_M_wrap.pdf')
+pdf('~/Repos/Inflation/graphics/infl_country_M_wrap.pdf',width=9)
 print(p1)
 dev.off()
 
@@ -226,12 +226,12 @@ Zu hohe Teuerungsraten sind ökonomisch schädlich und können zu sozialen und p
 \end{figure}
 In Europa hatten die baltischen Staaten Litauen (18.5 Prozent), Estland (20.1 Prozent) und Lettland (16.8 Prozent) sowie Tschechien (15.2 Prozent) neben der Türkei (61.1 Prozent) die höchsten Inflationsraten (vgl. Abbildung \ref{Inf_MAP}). Stark getrieben ist der Anstieg von den Energie- und etwas weniger stark von den Nahrungsmittelpreisen (vgl. Abbildung \ref{Inf_NRG}). Werden diese aus der Inflationsrate hinaus gerechnet, so ist die Teuerung (Kerninflation) tiefer. In der Schweiz lag sie im Mai bei 1.5 Prozent (vgl. Abbildung \ref{Inf_core}). Der politische Druck auf die SNB stieg in den letzten Monaten stark an, so dass sie im Juni den Leitzins um 0.5 Punkte anhob.
 
-**Land** | **Infl.rate** **`r format(sel_M$Time[length(sel_M$Time)-1],"%B")`** | **Infl.rate** **`r format(sel_M$Time[length(sel_M$Time)],"%B")`**
+**Land** | **Inflationsrate**
 ------------- | -------------|-------------
-**Schweiz** | `r round(sel_M$ObsValue[sel_M$LOCATION=="Schweiz"][length(sel_M$ObsValue[sel_M$LOCATION=="Schweiz"])-1],1)` | `r round(sel_M$ObsValue[sel_M$LOCATION=="Schweiz"][length(sel_M$ObsValue[sel_M$LOCATION=="Schweiz"])],1)`
-**Deutschland** | `r round(sel_M$ObsValue[sel_M$LOCATION=="Deutschland"][length(sel_M$ObsValue[sel_M$LOCATION=="Deutschland"])-1],1)` | `r round(sel_M$ObsValue[sel_M$LOCATION=="Deutschland"][length(sel_M$ObsValue[sel_M$LOCATION=="Deutschland"])],1)`
-**EU-27** | `r round(sel_M$ObsValue[sel_M$LOCATION=="EU-27"][length(sel_M$ObsValue[sel_M$LOCATION=="EU-27"])-1],1)` | `r round(sel_M$ObsValue[sel_M$LOCATION=="EU-27"][length(sel_M$ObsValue[sel_M$LOCATION=="EU-27"])],1)`
-**USA** | `r round(sel_M$ObsValue[sel_M$LOCATION=="USA"][length(sel_M$ObsValue[sel_M$LOCATION=="USA"])-1],1)` | `r round(sel_M$ObsValue[sel_M$LOCATION=="USA"][length(sel_M$ObsValue[sel_M$LOCATION=="USA"])],1)`
+**Schweiz** | `r paste(paste0(month(sel_M$Time[sel_M$LOCATION=="Schweiz"][length(sel_M$Time[sel_M$LOCATION=="Schweiz"])-1],label=TRUE),":"), round(sel_M$ObsValue[sel_M$LOCATION=="Schweiz"][length(sel_M$ObsValue[sel_M$LOCATION=="Schweiz"])-1],1))` | `r paste(paste0(month(sel_M$Time[sel_M$LOCATION=="Schweiz"][length(sel_M$Time[sel_M$LOCATION=="Schweiz"])],label=TRUE),":"),round(sel_M$ObsValue[sel_M$LOCATION=="Schweiz"][length(sel_M$ObsValue[sel_M$LOCATION=="Schweiz"])],1))`
+**Deutschland** | `r paste(paste0(month(sel_M$Time[sel_M$LOCATION=="Deutschland"][length(sel_M$Time[sel_M$LOCATION=="Deutschland"])-1],label=TRUE),":"), round(sel_M$ObsValue[sel_M$LOCATION=="Deutschland"][length(sel_M$ObsValue[sel_M$LOCATION=="Deutschland"])-1],1))` | `r paste(paste0(month(sel_M$Time[sel_M$LOCATION=="Deutschland"][length(sel_M$Time[sel_M$LOCATION=="Deutschland"])],label=TRUE),":"),round(sel_M$ObsValue[sel_M$LOCATION=="Deutschland"][length(sel_M$ObsValue[sel_M$LOCATION=="Deutschland"])],1))`
+**EU-27** | `r paste(paste0(month(sel_M$Time[sel_M$LOCATION=="EU-27"][length(sel_M$Time[sel_M$LOCATION=="EU-27"])-1],label=TRUE),":"), round(sel_M$ObsValue[sel_M$LOCATION=="EU-27"][length(sel_M$ObsValue[sel_M$LOCATION=="EU-27"])-1],1))` | `r paste(paste0(month(sel_M$Time[sel_M$LOCATION=="EU-27"][length(sel_M$Time[sel_M$LOCATION=="EU-27"])],label=TRUE),":"),round(sel_M$ObsValue[sel_M$LOCATION=="EU-27"][length(sel_M$ObsValue[sel_M$LOCATION=="EU-27"])],1))`
+**USA** | `r paste(paste0(month(sel_M$Time[sel_M$LOCATION=="USA"][length(sel_M$Time[sel_M$LOCATION=="USA"])-1],label=TRUE),":"), round(sel_M$ObsValue[sel_M$LOCATION=="USA"][length(sel_M$ObsValue[sel_M$LOCATION=="USA"])-1],1))` | `r paste(paste0(month(sel_M$Time[sel_M$LOCATION=="USA"][length(sel_M$Time[sel_M$LOCATION=="USA"])],label=TRUE),":"),round(sel_M$ObsValue[sel_M$LOCATION=="USA"][length(sel_M$ObsValue[sel_M$LOCATION=="USA"])],1))`
 Table: Inflationsraten der in Abbildung \ref{Inf_M_W} gezeigten Länder und Wirtschaftsräumen. Quelle: OECD
 \begin{figure}[ht] \centering
 \includegraphics[trim={0 5cm 0 3cm },clip,width=\textwidth]{~/Repos/Inflation/graphics/infl_country_M.pdf}
@@ -563,6 +563,7 @@ Die hohen Inflationsraten sowie die steigenden Krankenkassenprämien treiben auc
 library("eurostat")
 library(dplyr) 
 library(ggplot2)
+library(ggrepel)
 
 
 ct <- c("AU","AT","BE","BG","CH","CY","CZ","DE","DK","EE","EL","ES","FI","FR","HR","HU","IE","IS","IT","LI","LU","LT","LV","MT","NL","NO","PL","PT","RO","SE","SI","SK","UK")
@@ -588,6 +589,9 @@ p <- ggplot(mapdata,aes(fill=cat)) +
 #  guides(size=guide_legend("NA", override.aes=list(shape=15, size = 10)))+
   xlim(c(-20,35)) + ylim(c(35,70)) +
   theme_minimal()+
+#  geom_text_repel( data =as.character(mapdata$values),
+#    fontface ="plain", color = "black", size = 3
+#  )+
   labs(title = "",
        subtitle="",
        fill = "%") 
