@@ -1,0 +1,148 @@
+---
+title: "Untitled"
+author: "Simon Wey"
+date: "11/2/2022"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+opts_chunk$set(echo = FALSE, message=FALSE)
+library(kofdata)
+library(tstools)
+library(lubridate)
+library("eurostat")
+library(dplyr) 
+library(ggplot2)
+library(xtable)
+library(tidyr)
+library(zoo)
+options(xtable.comment=FALSE)
+library(stringr)
+library(tidyverse)
+library(ggrepel)
+library(classInt)
+library(cowplot)
+library(OECD)
+library(tidyverse)
+library(cowplot)
+library(lubridate)
+library(kableExtra)
+library(cowplot)
+library(gt)
+library(fmsb)
+```
+
+
+
+
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+rm(list=ls())
+
+cat <- c("AT","DE","EA19","FR","IT")
+ty <- c("BS-ESI-I","BS-ICI-BAL","BS-SCI-BAL")  #  ,"BS-ESI-I",
+dat_s_indic <- get_eurostat(id="ei_bssi_m_r2") 
+d <- filter(dat_s_indic, geo %in% cat, s_adj =="SA") 
+
+#er_mean <- d %>%
+#  arrange(indic,geo) %>% 
+#  select(indic,geo,time,values) %>% 
+#  group_by(indic,geo) %>% 
+#  summarise(mean = mean(values,na.rm=TRUE))
+
+tre <- select(filter(d,indic=="BS-ESI-I",geo=="AT"),geo,time,values)
+mean(tre$values[tre$geo=="AT"],na.rmn=TRUE)
+sd(tre$values[tre$geo=="AT"])
+
+d_norm <- d %>%
+  select(indic,geo,time,values) %>% 
+#  arrange(indic,geo) %>% 
+  group_by(indic,geo) %>% 
+  mutate(ad=100+(values-mean(values))*10/sd(values))
+
+d_quart <- d_norm %>%
+  group_by(geo,indic,time = paste(lubridate::year(time),quarters(time))) %>%
+  summarise(values = mean(ad)) %>% 
+  ungroup()
+
+d_q_norm <- d_quart %>%
+  select(indic,geo,time,values) %>% 
+#  arrange(indic,geo) %>% 
+  group_by(indic,geo) %>% 
+  mutate(ad=100+(values-mean(values))*10/sd(values))
+
+tre <- select(filter(d_q_norm,indic=="BS-CCI-BAL",geo=="AT"),geo,time,values,ad)
+mean(tre$ad[tre$geo=="AT"],na.rmn=TRUE)
+sd(tre$ad[tre$geo=="AT"])
+
+d_new <- d_q_norm %>% 
+  filter(geo=="AT") %>% 
+  select(indic,time,ad) %>% 
+  group_by(indic) %>%
+  #  mutate(ad=values/max(values)) %>% 
+  pivot_wider(names_from=indic, values_from=ad) %>% 
+  filter(time>="2022 Q1")
+
+er <- d_q_norm %>% 
+  group_by(indic,geo) %>% 
+  summarise(values = mean(ad)) %>% 
+  filter(geo=="AT") %>% 
+  pivot_wider(names_from=indic, values_from= values)
+
+er_n <- select(er,-geo)
+row.names(er_n) <- "Mean"
+
+d_n <- select(d_new,-geo)
+d_n <- select(d_n,-time)
+row.names(d_n) <- d_new$time
+
+d_n <- rbind(rep(max(d_n),ncol(d_n)-1) , rep(min(d_n),ncol(d_n)-1) , d_n)
+
+
+AT_def <- rbind(d_n,er_n)
+                  
+
+# plot with default options:
+radarchart(d_n)
+pdf('/Users/simonwey/Repos/Foreign_economics/Graphics/spider.pdf')
+print(p)
+dev.off()
+
+
+colors_border=c( rgb(0.2,0.5,0.5,0.9), rgb(0.8,0.2,0.5,0.9) , rgb(0.7,0.5,0.1,0.9) )
+colors_in=c( rgb(0.2,0.5,0.5,0.4), rgb(0.8,0.2,0.5,0.4) , rgb(0.7,0.5,0.1,0.4) )
+
+# plot with default options:
+library(RColorBrewer)
+coul <- brewer.pal(3, "Spectral")
+colors_border <- coul
+library(scales)
+colors_in <- alpha(coul,0.5)
+
+# If you remove the 2 first lines, the function compute the max and min of each variable with the available data:
+radarchart( d_n , axistype=1 , maxmin=T,
+    #custom polygon
+    pcol=colors_border , pfcol=colors_in , plwd=4 , plty=1,
+    #custom the grid
+    cglcol="grey", cglty=1, cglwd=1.8, 
+    #custom labels
+    vlcex=0.8 
+    )
+
+
+
+# Add a legend
+legend(x=1.5, y=1, legend = rownames(slice(d_n,3:nrow(d_n))), bty = "n", pch=max(d_n) , col=colors_in , text.col = "grey", cex=1.2, pt.cex=3)
+
+
+
+```
